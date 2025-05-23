@@ -4,15 +4,15 @@ const testRoutes = require('./routes/test');
 
 const app = express();
 
+// Controllers
+const authRoutes = require('./routes/auth');
+
 // Middleware
 app.use(express.json());
 
 // Routes
 app.use('/api/test', testRoutes);
-
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from Express API!' });
-});
+app.use('/api/auth', authRoutes);
 
 // Health check
 app.get('/', (req, res) => {

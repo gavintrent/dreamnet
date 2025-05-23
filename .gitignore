@@ -1,0 +1,28 @@
+# === Node.js Backend (server/) ===
+server/node_modules/
+server/.env
+server/logs/
+server/*.log
+server/pids/
+server/*.pid
+server/coverage/
+server/.DS_Store
+server/.vscode/
+server/.idea/
+
+# === React Frontend (client/) ===
+client/node_modules/
+client/.env
+client/.DS_Store
+client/build/
+client/.vscode/
+client/.idea/
+
+# === OS/Editor Junk ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# === Global Logs ===
+*.log

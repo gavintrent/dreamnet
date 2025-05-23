@@ -4,23 +4,21 @@ const cors = require('cors');
 
 const testRoutes = require('./routes/test');
 const authRoutes = require('./routes/auth');
+const dreamRoutes = require('./routes/dreams');
 
 const app = express();
-
 
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true
 }));
 
-// app.options('*', cors())
-// app.use(cors());
-
 app.use(express.json());
 
 // Routes
 app.use('/api/test', testRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/dreams', dreamRoutes);
 
 // Health check
 app.get('/', (req, res) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
 
 export default function Dashboard() {
@@ -25,9 +25,14 @@ export default function Dashboard() {
   }, [navigate]);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Welcome back, {username} 🌌</h2>
-      <p>Here's your dream journal dashboard. You can view or add new dreams.</p>
+    <div>
+      <div style={{ padding: '2rem' }}>
+        <h2>Welcome back, {username} 🌌</h2>
+        <p>Here's your dream journal dashboard. You can view or add new dreams.</p>
+      </div>
+      <Link to="/new-dream">
+        <button>Add New Dream</button>
+      </Link>
     </div>
   );
 }

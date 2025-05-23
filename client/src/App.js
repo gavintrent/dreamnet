@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import NewDream from './pages/NewDream';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -48,6 +49,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
           <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/new-dream" element={<NewDream />} />
         </Routes>
     </>
   );

@@ -1,13 +1,21 @@
 // server/app.js
 const express = require('express');
+const cors = require('cors');
+
 const testRoutes = require('./routes/test');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
-// Controllers
-const authRoutes = require('./routes/auth');
 
-// Middleware
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
+
+// app.options('*', cors())
+// app.use(cors());
+
 app.use(express.json());
 
 // Routes

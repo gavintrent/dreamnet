@@ -98,6 +98,7 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
               data={(query, callback) => {
                 const filtered = users
                   .filter(u => u.id.toLowerCase().startsWith(query.toLowerCase()))
+                  .slice(0, 5)
                   .map(u => ({ id: u.id, display: u.display }));
                 callback(filtered);
               }}

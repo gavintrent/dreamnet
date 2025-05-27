@@ -133,9 +133,11 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
               __html: linkifyMentions(dream.content)
             }}
           />
-          <p style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>
-            {dream.is_public ? '🌐 Public' : '🔒 Private'} — {new Date(dream.created_at).toLocaleString()}
-          </p>
+          {editable && (
+            <p style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>
+              {dream.is_public ? '🌐 Public' : '🔒 Private'} — {new Date(dream.created_at).toLocaleString()}
+            </p>
+          )}
         </>
       )}
     </div>

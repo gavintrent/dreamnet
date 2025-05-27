@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { MentionsInput, Mention } from 'react-mentions';
-import { cleanMentions } from '../utils/cleanMentions';
+import { cleanMentions } from '../utils/formatMentions';
 
 export default function NewDream() {
   const [form, setForm] = useState({

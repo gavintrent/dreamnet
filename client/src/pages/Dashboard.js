@@ -1,42 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import { useNavigate, Link } from 'react-router-dom';
-// import api from '../api';
-
-// export default function Dashboard() {
-//   const navigate = useNavigate();
-//   const [username, setUsername] = useState('');
-
-//   useEffect(() => {
-//     const token = localStorage.getItem('token');
-//     if (!token) {
-//       navigate('/login');
-//       return;
-//     }
-
-//     // Example protected route to fetch user info
-//     api.get('/auth/me', {
-//       headers: { Authorization: `Bearer ${token}` }
-//     })
-//     .then(res => setUsername(res.data.username))
-//     .catch(() => {
-//       localStorage.removeItem('token');
-//       navigate('/login');
-//     });
-//   }, [navigate]);
-
-//   return (
-//     <div>
-//       <div style={{ padding: '2rem' }}>
-//         <h2>Welcome back, {username} 🌌</h2>
-//         <p>Here's your dream journal dashboard. You can view or add new dreams.</p>
-//       </div>
-//       <Link to="/new-dream">
-//         <button>Add New Dream</button>
-//       </Link>
-//     </div>
-//   );
-// }
-
 import React, { useEffect, useState } from 'react';
 import api from '../api';
 import DreamEntry from '../components/DreamEntry';
@@ -45,6 +6,7 @@ import { Link } from 'react-router-dom';
 export default function Dashboard() {
   const [dreams, setDreams] = useState([]);
   const [username, setUsername] = useState('');
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -60,6 +22,10 @@ export default function Dashboard() {
           headers: { Authorization: `Bearer ${token}` }
         });
         setDreams(dreamRes.data);
+
+        const usersRes = await api.get('/users/usernames');
+        setUsers(usersRes.data.map(u => ({ id: u, display: u })));
+
       } catch (err) {
         console.error('Error loading dashboard:', err);
       }
@@ -72,7 +38,6 @@ export default function Dashboard() {
     <div style={{ padding: '2rem' }}>
       <h2>{username}'s Dream Journal 🌙</h2>
 
-      {/* ✅ Add New Dream Button */}
       <div style={{ marginBottom: '1rem' }}>
         <Link to="/new-dream">
           <button>Add New Dream</button>
@@ -81,7 +46,19 @@ export default function Dashboard() {
 
       {/* List of dreams */}
       {dreams.map((dream) => (
-        <DreamEntry key={dream.id} dream={dream} />
+        <DreamEntry
+          key={dream.id}
+          dream={dream}
+          users={users} // ✅ pass it down
+          onUpdate={(updated) => {
+            setDreams((prev) =>
+              prev.map((d) => (d.id === updated.id ? updated : d))
+            );
+          }}
+          onDelete={(id) => {
+            setDreams((prev) => prev.filter((d) => d.id !== id));
+          }}
+        />
       ))}
     </div>
 

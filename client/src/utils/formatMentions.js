@@ -10,3 +10,7 @@ export function linkifyMentions(text) {
     return `<a href="/users/${username}" class="mention-link">@${username}</a>`;
   });
 }
+
+export function cleanMentions(text) {
+  return text.replace(/@\\\[(.+?)\\\]\((.+?)\)/g, '@$1');
+}

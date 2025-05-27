@@ -57,4 +57,32 @@ router.get('/', requireAuth, async (req, res) => {
   }
 });
 
+router.patch('/:id', requireAuth, async (req, res) => {
+  const { id } = req.params;
+  const { title, content, is_public } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const result = await db.query(
+      'UPDATE dreams SET title = $1, content = $2, is_public = $3 WHERE id = $4 AND user_id = $5 RETURNING *',
+      [title, content, is_public, id, userId]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update dream' });
+  }
+});
+
+router.delete('/:id', requireAuth, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+
+  try {
+    await db.query('DELETE FROM dreams WHERE id = $1 AND user_id = $2', [id, userId]);
+    res.sendStatus(204);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete dream' });
+  }
+});
+
 module.exports = router;

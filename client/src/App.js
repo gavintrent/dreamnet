@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import PublicProfile from './pages/PublicProfile';
 import NewDream from './pages/NewDream';
+import SearchBar from './components/SearchBar';
 import api from './api';
 
 function App() {
@@ -52,16 +53,19 @@ function AppInner({ loggedIn, setLoggedIn }) {
 
   return (
     <>
-        <nav>
-          <Link to="/">Home</Link> {' '}
-          {!loggedIn && <Link to="/login">Login</Link>} {' '}
-          {!loggedIn && <Link to="/register">Register</Link>} {' '}
-          {loggedIn && <Link to="/dashboard">Dashboard</Link>} {' '}
-          {loggedIn && <button onClick={handleLogout}>Logout</button>}
+        <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <Link to="/">Home</Link>{' '}
+            {!loggedIn && <Link to="/login">Login</Link>}{' '}
+            {!loggedIn && <Link to="/register">Register</Link>}{' '}
+            {loggedIn && <Link to="/dashboard">Dashboard</Link>}{' '}
+            {loggedIn && <button onClick={handleLogout}>Logout</button>}
+          </div>
+          <SearchBar />
         </nav>
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home loggedIn={loggedIn} />} />
           <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />

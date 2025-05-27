@@ -85,4 +85,29 @@ router.delete('/:id', requireAuth, async (req, res) => {
   }
 });
 
+router.get('/discover', requireAuth, async (req, res) => {
+  const userId = req.user.id;
+
+  const query = `
+    SELECT d.id, d.title, d.content, d.created_at, d.is_public, d.user_id, u.username
+    FROM dreams d
+    JOIN users u ON d.user_id = u.id
+    WHERE d.is_public = true
+      AND d.user_id != $1
+      AND d.user_id NOT IN (
+        SELECT followee_id FROM follows WHERE follower_id = $1
+      )
+    ORDER BY d.created_at DESC
+    LIMIT 20
+  `;
+
+  try {
+    const result = await db.query(query, [userId]);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Discover feed error:', err);
+    res.status(500).json({ error: 'Failed to load discover feed' });
+  }
+});
+
 module.exports = router;

@@ -37,4 +37,21 @@ router.get('/:username/dreams', async (req, res) => {
   }
 });
 
+// Search for users, as in search bar
+router.get('/search', async (req, res) => {
+  const { q } = req.query;
+  if (!q) return res.json([]);
+
+  try {
+    const result = await db.query(
+      'SELECT username FROM users WHERE username ILIKE $1 LIMIT 10',
+      [`${q}%`]
+    );
+    res.json(result.rows.map(r => r.username));
+  } catch (err) {
+    console.error('Search error:', err);
+    res.status(500).json({ error: 'Failed to search users' });
+  }
+});
+
 module.exports = router;

@@ -4,7 +4,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import NewDream from './pages/NewDream';
+import PublicProfile from './pages/PublicProfile';
+import NewDream from './pages/NewDream'; 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -37,10 +38,10 @@ function AppInner({ loggedIn, setLoggedIn }) {
   return (
     <>
         <nav>
-          <Link to="/">Home</Link> |{' '}
-          {!loggedIn && <Link to="/login">Login</Link>} |{' '}
-          {!loggedIn && <Link to="/register">Register</Link>} |{' '}
-          {loggedIn && <Link to="/dashboard">Dashboard</Link>} |{' '}
+          <Link to="/">Home</Link> {' '}
+          {!loggedIn && <Link to="/login">Login</Link>} {' '}
+          {!loggedIn && <Link to="/register">Register</Link>} {' '}
+          {loggedIn && <Link to="/dashboard">Dashboard</Link>} {' '}
           {loggedIn && <button onClick={handleLogout}>Logout</button>}
         </nav>
 
@@ -50,6 +51,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/new-dream" element={<NewDream />} />
+          <Route path="/users/:username" element={<PublicProfile />} />
         </Routes>
     </>
   );

@@ -12,6 +12,8 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
     is_public: dream.is_public
   });
 
+  const editable = !!onUpdate && !!onDelete;
+
   const handleEdit = () => {
     setEditing(true);
     setMenuOpen(false);
@@ -63,7 +65,7 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
     <div className="dream-entry" style={{ marginBottom: '1.5rem', padding: '1rem', border: '1px solid #ddd', borderRadius: '6px', backgroundColor: '#fafafa', position: 'relative' }}>
       
       {/* Menu Button */}
-      {!editing && (
+      {editable && !editing && (
         <div style={{ position: 'absolute', top: 5, right: 10 }}>
           <button onClick={() => setMenuOpen(!menuOpen)}>⋯</button>
           {menuOpen && (

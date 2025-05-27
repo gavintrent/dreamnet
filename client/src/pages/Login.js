@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function Login( { onLogin }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
@@ -16,6 +16,7 @@ export default function Login() {
       const res = await api.post('/auth/login', formData);
       console.log('Logged in:', res.data);
       localStorage.setItem('token', res.data.token);
+      onLogin();
       navigate('/dashboard');
     } catch (err) {
       console.error('Login failed:', err.response?.data || err.message);

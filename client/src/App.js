@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import PublicProfile from './pages/PublicProfile';
 import NewDream from './pages/NewDream';
 import SearchBar from './components/SearchBar';
+import EditProfile from './pages/EditProfile';
 import api from './api';
 
 function App() {
@@ -71,6 +72,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/new-dream" element={<NewDream />} />
           <Route path="/users/:username" element={<PublicProfile loggedIn={loggedIn} currentUser={currentUser} />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
     </>
   );

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/db');
+const requireAuth = require('../middleware/requireAuth');
 
 // List of all usernames
 router.get('/usernames', async (req, res) => {
@@ -69,5 +70,19 @@ router.patch('/me', requireAuth, async (req, res) => {
   }
 });
 
+router.get('/:username/profile', async (req, res) => {
+  const { username } = req.params;
+  try {
+    const result = await db.query(
+      'SELECT username, name, bio FROM users WHERE username = $1',
+      [username]
+    );
+    if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Failed to get profile:', err);
+    res.status(500).json({ error: 'Could not retrieve profile' });
+  }
+});
 
 module.exports = router;

@@ -8,15 +8,16 @@ export default function PublicProfile( { loggedIn, currentUser }) {
   const [dreams, setDreams] = useState([]);
   const [users, setUsers] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
-
-  console.log('currentUser:', currentUser);
-  console.log('profile username from URL:', username);
+  const [profile, setProfile] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await api.get(`/users/${username}/dreams`);
         setDreams(res.data);
+      
+        const profileRes = await api.get(`/users/${username}/profile`);
+        setProfile(profileRes.data);
 
         const userRes = await api.get('/users/usernames');
         setUsers(userRes.data.map((u) => ({ id: u, display: u })));
@@ -58,6 +59,8 @@ export default function PublicProfile( { loggedIn, currentUser }) {
   return (
     <div style={{ padding: '2rem' }}>
       <h2>@{username}'s Dream Journal</h2>
+      {profile?.name && <h3>{profile.name}</h3>}
+      {profile?.bio && <p>{profile.bio}</p>}
       {loggedIn && currentUser?.username !== username && (
         <button onClick={handleFollowToggle}>
           {isFollowing ? 'Unfollow' : 'Follow'}

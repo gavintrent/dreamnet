@@ -12,8 +12,6 @@ router.get('/usernames', async (req, res) => {
   }
 });
 
-// TODO: list of usernames followed by a user
-
 // Public dreams by username
 router.get('/:username/dreams', async (req, res) => {
   const { username } = req.params;
@@ -53,5 +51,23 @@ router.get('/search', async (req, res) => {
     res.status(500).json({ error: 'Failed to search users' });
   }
 });
+
+// Update profile
+router.patch('/me', requireAuth, async (req, res) => {
+  const { name, bio } = req.body;
+  const userId = req.user.id;
+
+  try {
+    await db.query(
+      'UPDATE users SET name = $1, bio = $2 WHERE id = $3',
+      [name, bio, userId]
+    );
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Profile update error:', err);
+    res.status(500).json({ error: 'Failed to update profile' });
+  }
+});
+
 
 module.exports = router;

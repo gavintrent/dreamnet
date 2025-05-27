@@ -87,6 +87,9 @@ router.delete('/:id', requireAuth, async (req, res) => {
 
 router.get('/discover', requireAuth, async (req, res) => {
   const userId = req.user.id;
+  const page = parseInt(req.query.page) || 0;
+  const limit = 20;
+  const offset = page * limit;
 
   const query = `
     SELECT d.id, d.title, d.content, d.created_at, d.is_public, d.user_id, u.username
@@ -98,11 +101,11 @@ router.get('/discover', requireAuth, async (req, res) => {
         SELECT followee_id FROM follows WHERE follower_id = $1
       )
     ORDER BY d.created_at DESC
-    LIMIT 20
+    LIMIT $2 OFFSET $3
   `;
 
   try {
-    const result = await db.query(query, [userId]);
+    const result = await db.query(query, [userId, limit, offset]);
     res.json(result.rows);
   } catch (err) {
     console.error('Discover feed error:', err);

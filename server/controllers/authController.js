@@ -6,14 +6,14 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, name, bio } = req.body;
 
   try {
     const hash = await bcrypt.hash(password, 10);
 
     const result = await db.query(
-      'INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING id, username, email',
-      [username, email, hash]
+      'INSERT INTO users (username, email, password_hash, name, bio) VALUES ($1, $2, $3, $4, $5) RETURNING id, username, email',
+      [username, email, hash, name || null, bio || null]
     );
 
     const user = result.rows[0];

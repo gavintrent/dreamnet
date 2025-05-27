@@ -5,7 +5,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import PublicProfile from './pages/PublicProfile';
-import NewDream from './pages/NewDream'; 
+import NewDream from './pages/NewDream';
+import api from './api';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -18,6 +19,7 @@ function App() {
 }
 
 function AppInner({ loggedIn, setLoggedIn }) {
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,11 +27,24 @@ function AppInner({ loggedIn, setLoggedIn }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     setLoggedIn(!!token); // sets true if token exists
+
+    if (token) {
+      api.get('/auth/me', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(res => setCurrentUser(res.data))
+        .catch(err => {
+          console.error('Failed to fetch current user:', err);
+          localStorage.removeItem('token');
+          setLoggedIn(false);
+        });
+    }
   }, [setLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setLoggedIn(false);
+    setCurrentUser(null);
     if (location.pathname === '/dashboard') {
       navigate('/');
     }
@@ -51,7 +66,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/new-dream" element={<NewDream />} />
-          <Route path="/users/:username" element={<PublicProfile />} />
+          <Route path="/users/:username" element={<PublicProfile loggedIn={loggedIn} currentUser={currentUser} />} />
         </Routes>
     </>
   );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MentionsInput, Mention } from 'react-mentions';
 import api from '../api';
 import { linkifyMentions, cleanMentions } from '../utils/formatMentions';
+import { Link } from 'react-router-dom';
 
 export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
   const [editing, setEditing] = useState(false);
@@ -122,6 +123,11 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
       ) : (
         <>
           <h3>{dream.title}</h3>
+          {dream.username && (
+            <p style={{ marginBottom: '0.3rem' }}>
+              by <Link to={`/users/${dream.username}`}>@{dream.username}</Link>
+            </p>
+          )}
           <p
             dangerouslySetInnerHTML={{
               __html: linkifyMentions(dream.content)

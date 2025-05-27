@@ -5,6 +5,7 @@ const cors = require('cors');
 const testRoutes = require('./routes/test');
 const authRoutes = require('./routes/auth');
 const dreamRoutes = require('./routes/dreams');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use('/api/test', testRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/dreams', dreamRoutes);
+app.use('/api/users', userRoutes);
 
 // Health check
 app.get('/', (req, res) => {

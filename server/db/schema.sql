@@ -19,7 +19,8 @@ CREATE TABLE dreams (
 CREATE TABLE dream_tags (
   id SERIAL PRIMARY KEY,
   dream_id INTEGER REFERENCES dreams(id) ON DELETE CASCADE,
-  tagged_user_id INTEGER REFERENCES users(id)
+  tagged_user_id INTEGER REFERENCES users(id),
+  UNIQUE (dream_id, tagged_user_id)
 );
 
 CREATE TABLE follows (

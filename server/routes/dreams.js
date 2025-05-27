@@ -21,11 +21,12 @@ router.post('/', requireAuth, async (req, res) => {
 
     // Insert tags
     for (const username of tagged_usernames) {
-      const taggedUser = await client.query('SELECT id FROM users WHERE username = $1', [username]);
-      if (taggedUser.rows.length > 0) {
-        await client.query(
-          'INSERT INTO dream_tags (dream_id, tagged_user_id) VALUES ($1, $2)',
-          [dreamId, taggedUser.rows[0].id]
+      const res = await client.query('SELECT id FROM users WHERE username = $1', [username]);
+      if (res.rows.length > 0) {
+        const taggedUserId = res.rows[0].id;
+       await client.query(
+            'INSERT INTO dream_tags (dream_id, tagged_user_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+            [dreamId, taggedUserId]
         );
       }
     }

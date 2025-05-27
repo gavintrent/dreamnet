@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
+import { useNavigate } from 'react-router-dom'
 
 export default function EditProfile() {
   const [form, setForm] = useState({ name: '', bio: '' });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -18,7 +20,7 @@ export default function EditProfile() {
     await api.patch('/users/me', form, {
       headers: { Authorization: `Bearer ${token}` }
     });
-    alert('Profile updated!');
+    navigate('/dashboard')
   };
 
   return (

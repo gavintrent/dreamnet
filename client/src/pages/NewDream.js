@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { MentionsInput, Mention } from 'react-mentions';
+import { cleanMentions } from '../utils/cleanMentions';
 
 export default function NewDream() {
   const [form, setForm] = useState({
@@ -24,12 +25,14 @@ export default function NewDream() {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
+    const plainContent = cleanMentions(form.content);
+
     const mentionedUsers = [...new Set((form.content.match(/@(\w+)/g) || []).map(u => u.slice(1)))];
 
     try {
       await api.post('/dreams', {
         title: form.title,
-        content: form.content,
+        content: plainContent,
         is_public: form.is_public,
         tagged_usernames: mentionedUsers
       }, {

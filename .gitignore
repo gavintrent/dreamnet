@@ -9,6 +9,7 @@ server/coverage/
 server/.DS_Store
 server/.vscode/
 server/.idea/
+server/uploads/
 
 # === React Frontend (client/) ===
 client/node_modules/

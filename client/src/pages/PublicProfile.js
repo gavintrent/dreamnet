@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api';
-import DreamEntry from '../components/DreamEntry';
+import UserProfilePage from '../components/UserProfilePage';
 
-export default function PublicProfile( { loggedIn, currentUser }) {
+export default function PublicProfile({ loggedIn, currentUser }) {
   const { username } = useParams();
   const [dreams, setDreams] = useState([]);
   const [users, setUsers] = useState([]);
@@ -13,13 +13,14 @@ export default function PublicProfile( { loggedIn, currentUser }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get(`/users/${username}/dreams`);
-        setDreams(res.data);
-      
-        const profileRes = await api.get(`/users/${username}/profile`);
-        setProfile(profileRes.data);
+        const [dreamRes, profileRes, userRes] = await Promise.all([
+          api.get(`/users/${username}/dreams`),
+          api.get(`/users/${username}/profile`),
+          api.get('/users/usernames')
+        ]);
 
-        const userRes = await api.get('/users/usernames');
+        setDreams(dreamRes.data);
+        setProfile(profileRes.data);
         setUsers(userRes.data.map((u) => ({ id: u, display: u })));
       } catch (err) {
         console.error('Failed to load public profile:', err);
@@ -39,40 +40,32 @@ export default function PublicProfile( { loggedIn, currentUser }) {
   }, [username, loggedIn]);
 
   const handleFollowToggle = async () => {
-  const token = localStorage.getItem('token');
-  try {
-    if (isFollowing) {
-      await api.delete(`/follows/${username}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-    } else {
-      await api.post(`/follows/${username}`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+    const token = localStorage.getItem('token');
+    try {
+      if (isFollowing) {
+        await api.delete(`/follows/${username}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+      } else {
+        await api.post(`/follows/${username}`, {}, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+      }
+      setIsFollowing(!isFollowing);
+    } catch (err) {
+      console.error('Follow/unfollow failed:', err);
     }
-    setIsFollowing(!isFollowing);
-  } catch (err) {
-    console.error('Follow/unfollow failed:', err);
-  }
-};
+  };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>@{username}'s Dream Journal</h2>
-      {profile?.name && <h3>{profile.name}</h3>}
-      {profile?.bio && <p>{profile.bio}</p>}
-      {loggedIn && currentUser?.username !== username && (
-        <button onClick={handleFollowToggle}>
-          {isFollowing ? 'Unfollow' : 'Follow'}
-        </button>
-      )}
-      {dreams.length === 0 ? (
-        <p>No public dreams yet.</p>
-      ) : (
-        dreams.map((dream) => (
-          <DreamEntry key={dream.id} dream={dream} users={users} />
-        ))
-      )}
-    </div>
+    <UserProfilePage
+      username={username}
+      profile={profile}
+      dreams={dreams}
+      users={users}
+      editable={false}
+      isFollowing={isFollowing}
+      onFollowToggle={loggedIn && currentUser?.username !== username ? handleFollowToggle : undefined}
+    />
   );
 }

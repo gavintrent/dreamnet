@@ -14,8 +14,19 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
   });
   const [likeCount, setLikeCount] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [replyingTo, setReplyingTo] = useState(null);
 
   const editable = !!onUpdate && !!onDelete;
+
+  useEffect(() => {
+    if (!showComments) return;
+    api.get(`/comments/${dream.id}`)
+      .then(res => setComments(res.data))
+      .catch(console.error);
+  }, [showComments, dream.id]);
 
   useEffect(() => {
     api.get(`/likes/${dream.id}`)
@@ -31,6 +42,36 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
         .catch(console.error);
     }
   }, [dream.id]);
+
+  const submitComment = async () => {
+    const token = localStorage.getItem('token');
+    const path = `/comments/${dream.id}`; // Always post to the dreamId route
+
+    try {
+      const userRes = await api.get('/auth/me', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+      const res = await api.post(path, {
+        content: newComment,
+        parent_id: replyingTo || null // Include parent_id if replying
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const commentWithUsername = {
+        ...res.data,
+        username: userRes.data.username
+      };
+
+      setComments(prev => [...prev, commentWithUsername]);
+      setNewComment('');
+      setReplyingTo(null);
+    } catch (err) {
+      console.error('Failed to post comment', err);
+    }
+  };
+
 
   const toggleLike = async () => {
     const token = localStorage.getItem('token');
@@ -169,9 +210,43 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
             {editable && (dream.is_public ? '🌐 Public' : '🔒 Private')}{' '}
             {new Date(dream.created_at).toLocaleString()}
           </p>
-          <button onClick={toggleLike}>
-            {liked ? '💖' : '🤍'} {likeCount}
-          </button>
+          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+            <button onClick={toggleLike}>
+              {liked ? '💖' : '🤍'} {likeCount}
+            </button>
+            <button onClick={() => setShowComments(!showComments)}>
+              {showComments ? 'Hide Comments' : 'Show Comments'}
+            </button>
+          </div>
+
+          {showComments && (
+            <div style={{ marginTop: '1rem' }}>
+              {comments
+                .filter(c => c.parent_id === null)
+                .map(comment => (
+                  <div key={comment.id} style={{ marginBottom: '1rem' }}>
+                    <strong>@{comment.username}</strong>: {comment.content}
+                    <div style={{ marginLeft: '1rem', marginTop: '0.5rem' }}>
+                      {comments
+                        .filter(r => r.parent_id === comment.id)
+                        .map(reply => (
+                          <div key={reply.id}>
+                            ↳ <strong>@{reply.username}</strong>: {reply.content}
+                          </div>
+                        ))}
+                      <button onClick={() => setReplyingTo(comment.id)}>Reply</button>
+                    </div>
+                  </div>
+                ))}
+
+              <textarea
+                value={newComment}
+                onChange={e => setNewComment(e.target.value)}
+                placeholder={replyingTo ? 'Replying...' : 'Add a comment'}
+              />
+              <button onClick={submitComment}>Post</button>
+            </div>
+          )}
         </>
       )}
     </div>

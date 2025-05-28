@@ -53,4 +53,21 @@ router.get('/:dreamId', async (req, res) => {
   }
 });
 
+// Get whether the current user liked a specific dream
+router.get('/:dreamId/user', requireAuth, async (req, res) => {
+  const { dreamId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const result = await db.query(
+      'SELECT 1 FROM likes WHERE dream_id = $1 AND user_id = $2',
+      [dreamId, userId]
+    );
+    res.json({ liked: result.rows.length > 0 });
+  } catch (err) {
+    console.error('Error checking like status:', err);
+    res.status(500).json({ error: 'Failed to check like status' });
+  }
+});
+
 module.exports = router;

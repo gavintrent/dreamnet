@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MentionsInput, Mention } from 'react-mentions';
 import api from '../api';
 import { linkifyMentions, cleanMentions } from '../utils/formatMentions';
@@ -12,8 +12,39 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
     content: dream.content,
     is_public: dream.is_public
   });
+  const [likeCount, setLikeCount] = useState(0);
+  const [liked, setLiked] = useState(false);
 
   const editable = !!onUpdate && !!onDelete;
+
+  useEffect(() => {
+    api.get(`/likes/${dream.id}`)
+      .then(res => setLikeCount(res.data.count))
+      .catch(console.error);
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      api.get(`/likes/${dream.id}/user`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(res => setLiked(res.data.liked))
+        .catch(console.error);
+    }
+  }, [dream.id]);
+
+  const toggleLike = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    if (liked) {
+      await api.delete(`/likes/${dream.id}`, { headers: { Authorization: `Bearer ${token}` } });
+      setLikeCount(c => c - 1);
+    } else {
+      await api.post(`/likes/${dream.id}`, {}, { headers: { Authorization: `Bearer ${token}` } });
+      setLikeCount(c => c + 1);
+    }
+    setLiked(!liked);
+  };
 
   const handleEdit = () => {
     setEditing(true);
@@ -138,6 +169,9 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
             {editable && (dream.is_public ? '🌐 Public' : '🔒 Private')}{' '}
             {new Date(dream.created_at).toLocaleString()}
           </p>
+          <button onClick={toggleLike}>
+            {liked ? '💖' : '🤍'} {likeCount}
+          </button>
         </>
       )}
     </div>

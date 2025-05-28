@@ -9,6 +9,7 @@ const dreamRoutes = require('./routes/dreams');
 const userRoutes = require('./routes/users');
 const followRoutes = require('./routes/follows');
 const feedRoutes = require('./routes/feed');
+const likeRoutes = require('./routes/likes');
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use('/api/dreams', dreamRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/follows', followRoutes);
 app.use('/api/feed', feedRoutes);
+app.use('/api/likes', likeRoutes);
+
 
 // Health check
 app.get('/', (req, res) => {

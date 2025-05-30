@@ -35,7 +35,7 @@ export default function Navbar({ loggedIn, onLogout, currentUser}) {
     : "/avatars/default-avatar-1.jpg";
 
   return (
-    <div className="px-4 sm:px-8 md:px-16 lg:px-24 mt-4">
+    <div className="sticky top-5 z-50 px-4 sm:px-8 md:px-16 lg:px-24 mt-4">
         <div className="navbar bg-[#5e0943] shadow-lg rounded-full">
         <div className="navbar-start">
             <div className="relative" ref={dropdownRef}>

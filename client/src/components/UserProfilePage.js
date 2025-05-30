@@ -20,25 +20,25 @@ export default function UserProfilePage({
       {/* Outer centered container */}
       <div className="mx-auto w-[80vw] relative text-white">
         {/* Avatar + header */}
-        <div className="flex items-center">
+        <div className="flex items-center group">
           {profile?.avatar && (
             <img
               src={profile.avatar}
               alt={`${username}'s avatar`}
-              className="w-16 h-16 rounded-full mr-4 object-cover border border-base-300"
+              className="w-24 h-24 rounded-full mr-4 object-cover border border-base-300"
             />
           )}
           <div className="font-pixelify -translate-y-12">
-            <h2 className="text-lg translate-x-8 m-0">
+            <h2 className="text-lg translate-x-8 m-0 float-username">
               @{username}'s Dream Journal
             </h2>
             {profile?.name && (
-              <h3 className="jersey-10-thin m-0 translate-x-4">
+              <h3 className="jersey-10-thin m-0 translate-x-4 float-name">
                 {profile.name}
               </h3>
             )}
             {profile?.bio && (
-              <p className="jersey-10-thin mt-1 mb-0">{profile.bio}</p>
+              <p className="jersey-10-thin mt-1 mb-0 float-bio">{profile.bio}</p>
             )}
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function UserProfilePage({
               {/* Edit Profile aligned left */}
               <button
                 onClick={() => navigate('/edit-profile')}
-                className="absolute left-0 jersey-10-thin"
+                className="absolute left-4 jersey-10-thin"
               >
                 Edit Profile
               </button>

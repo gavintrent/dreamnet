@@ -59,6 +59,24 @@ code {
   }
 }
 
+@keyframes floatFade2 {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .animate-z1 {
   animation: floatFade 3s ease-in-out infinite;
   animation-delay: 1.2s;
@@ -74,4 +92,29 @@ code {
 .animate-z4 {
   animation: floatFade 3s ease-in-out infinite;
   animation-delay: 0s;
+}
+
+.group:hover .float-username {
+  animation: floatFade2 3s ease-in-out infinite ;
+  animation-delay: 1.2s;
+  animation-fill-mode: both;
+}
+
+.group:hover .float-name {
+  animation: floatFade2 3s ease-in-out infinite ;
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
+}
+
+.group:hover .float-bio {
+  animation: floatFade2 3s ease-in-out infinite ;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+.float-username,
+.float-name,
+.float-bio {
+  opacity: 1;
+  will-change: opacity, transform;
 }

@@ -44,3 +44,34 @@ code {
   font-style: normal;
 }
 
+@keyframes floatFade {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-z1 {
+  animation: floatFade 3s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+.animate-z2 {
+  animation: floatFade 3s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+.animate-z3 {
+  animation: floatFade 3s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+.animate-z4 {
+  animation: floatFade 3s ease-in-out infinite;
+  animation-delay: 0s;
+}

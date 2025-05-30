@@ -97,7 +97,7 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
 
 
   return (
-          <div className="dream-entry bg-base-100 shadow-md rounded-2xl p-6 mb-6 text-white mx-auto mt-4 w-[80vw]">
+          <div className="dream-entry bg-base-100 shadow-sm rounded-2xl p-6 mb-6 text-white mx-auto mt-4 w-[80vw]">
           {editing ? (
             <DreamEditor form={form} setForm={setForm} users={users} onSave={handleSave} onCancel={handleCancel} />
           ) : (

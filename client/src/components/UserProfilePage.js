@@ -33,7 +33,9 @@ export default function UserProfilePage({
               @{username}'s Dream Journal
             </h2>
             {profile?.name && (
-              <h3 className="jersey-10-thin m-0 translate-x-4">{profile.name}</h3>
+              <h3 className="jersey-10-thin m-0 translate-x-4">
+                {profile.name}
+              </h3>
             )}
             {profile?.bio && (
               <p className="jersey-10-thin mt-1 mb-0">{profile.bio}</p>
@@ -42,29 +44,38 @@ export default function UserProfilePage({
         </div>
 
         {/* Button row below the avatar/header */}
-        {editable && (
-          <div className="relative h-10">
-            {/* Edit Profile aligned left */}
+        <div className="relative mt-4 h-10">
+          {editable ? (
+            <>
+              {/* Edit Profile aligned left */}
+              <button
+                onClick={() => navigate('/edit-profile')}
+                className="absolute left-0 jersey-10-thin"
+              >
+                Edit Profile
+              </button>
+              {/* Add New Dream centered */}
+              <Link
+                to="/new-dream"
+                className="absolute left-1/2 transform -translate-x-1/2"
+              >
+                <button className="jersey-10-thin">Add New Dream</button>
+              </Link>
+            </>
+          ) : onFollowToggle ? (
+            /* Follow/Unfollow aligned left when not editable */
             <button
-              onClick={() => navigate('/edit-profile')}
+              onClick={onFollowToggle}
               className="absolute left-0 jersey-10-thin"
             >
-              Edit Profile
+              {isFollowing ? 'Unfollow' : 'Follow'}
             </button>
-
-            {/* Add New Dream centered */}
-            <Link
-              to="/new-dream"
-              className="absolute left-1/2 transform -translate-x-1/2"
-            >
-              <button className="jersey-10-thin">Add New Dream</button>
-            </Link>
-          </div>
-        )}
+          ) : null}
+        </div>
       </div>
 
       {/* Dream entries */}
-      <div className="">
+      <div className="mt-6">
         {dreams.length === 0 ? (
           <p className="text-center">
             {editable ? 'You have no dreams yet.' : 'No public dreams yet.'}
@@ -82,6 +93,4 @@ export default function UserProfilePage({
       </div>
     </div>
   );
-
-
 }

@@ -60,7 +60,7 @@ export default function Navbar({ loggedIn, onLogout, currentUser}) {
                       <li><button 
                             onClick={() => handleDropdownSelect("/dashboard")}
                             className={"font-pixelify w-full text-left px-4 py-2 hover:text-gray-300 text-white rounded"}
-                            >Dashboard
+                            >Profile
                       </button></li>
                       {!loggedIn && <li><button 
                                               onClick={() => handleDropdownSelect("/login")}

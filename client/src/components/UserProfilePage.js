@@ -61,7 +61,9 @@ export default function UserProfilePage({
                 to="/new-dream"
                 className="absolute left-1/2 transform -translate-x-1/2"
               >
-                <button className="jersey-10-thin">Add New Dream</button>
+                <button className="btn btn-circle text-3xl font-pixelify">
+                +
+                </button>
               </Link>
             </>
           ) : onFollowToggle ? (
@@ -77,7 +79,7 @@ export default function UserProfilePage({
       </div>
 
       {/* Dream entries */}
-      <div className="mt-6">
+      <div className="mt-4">
         {dreams.length === 0 ? (
           <p className="text-center">
             {editable ? 'You have no dreams yet.' : 'No public dreams yet.'}

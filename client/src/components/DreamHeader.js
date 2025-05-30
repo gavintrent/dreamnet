@@ -14,9 +14,9 @@ export default function DreamHeader({ dream, editable, onEdit, onDelete }) {
       </div>
 
       {editable && (
-        <div className="absolute top-1 right-2 space-x-2">
-          <button onClick={onEdit}>Edit</button>
-          <button onClick={onDelete}>Delete</button>
+        <div className="jersey-10-regular absolute top-1 right-2 space-x-2">
+          <button onClick={onEdit} className="hover:text-[#d40f95]">Edit</button>
+          <button onClick={onDelete} className="hover:text-[#d40f95]">Delete</button>
         </div>
       )}
     </div>

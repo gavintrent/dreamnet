@@ -118,3 +118,10 @@ code {
   opacity: 1;
   will-change: opacity, transform;
 }
+
+.filter-pink {
+  filter: brightness(0) saturate(100%) invert(29%) sepia(97%) saturate(2562%) hue-rotate(316deg) brightness(93%) contrast(98%);
+}
+.filter-gray {
+  filter: grayscale(100%);
+}

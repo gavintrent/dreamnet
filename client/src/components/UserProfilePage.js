@@ -32,16 +32,16 @@ export default function UserProfilePage({
               />
             )}
           <div className="font-pixelify -translate-y-12">
-            <h2 className={`text-lg translate-x-8 m-0 ${isAvatarHovered ? 'float-username' : ''}`}>
+            <h2 className={`text-xl translate-x-8 m-0 ${isAvatarHovered ? 'float-username' : ''}`}>
               @{username}'s Dream Journal
             </h2>
             {profile?.name && (
-              <h3 className={`jersey-10-thin m-0 translate-x-4 ${isAvatarHovered ? 'float-name' : ''}`}>
+              <h3 className={`text-md jersey-10-thin m-0 translate-x-4 ${isAvatarHovered ? 'float-name' : ''}`}>
                 {profile.name}
               </h3>
             )}
             {profile?.bio && (
-              <p className={`jersey-10-thin mt-1 mb-0 ${isAvatarHovered ? 'float-bio' : ''}`}>{profile.bio}</p>
+              <p className={`text-sm jersey-10-thin mt-1 mb-0 ${isAvatarHovered ? 'float-bio' : ''}`}>{profile.bio}</p>
             )}
           </div>
         </div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as DeleteIcon } from '../assets/icons/trash-svgrepo-com.svg'
+import { ReactComponent as EditIcon } from '../assets/icons/edit-svgrepo-com.svg'
 
 export default function DreamHeader({ dream, editable, onEdit, onDelete }) {
   return (
@@ -14,9 +16,13 @@ export default function DreamHeader({ dream, editable, onEdit, onDelete }) {
       </div>
 
       {editable && (
-        <div className="jersey-10-regular absolute top-1 right-2 space-x-2">
-          <button onClick={onEdit} className="hover:text-[#d40f95]">Edit</button>
-          <button onClick={onDelete} className="hover:text-[#d40f95]">Delete</button>
+        <div className="jersey-10-regular text-gray-500 flex absolute top-1 right-2 space-x-2">
+          <button onClick={onEdit} className="hover:text-[#d40f95]">
+            <EditIcon className="w-5 h-5"/>
+          </button>
+          <button onClick={onDelete} className="hover:text-[#d40f95]">
+            <DeleteIcon className="w-5 h-5"/>
+          </button>
         </div>
       )}
     </div>

@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import PublicProfile from './pages/PublicProfile';
 import NewDream from './pages/NewDream';
-import SearchBar from './components/SearchBar';
 import EditProfile from './pages/EditProfile';
 import api from './api';
+import Navbar from './components/Navbar';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <Router>
-      <AppInner loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-    </Router>
+    <div className="min-h-screen bg-[#93186c] text-black">
+      <Router>
+        <AppInner loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      </Router>
+    </div>
   );
 }
 
@@ -34,7 +36,11 @@ function AppInner({ loggedIn, setLoggedIn }) {
       api.get('/auth/me', {
         headers: { Authorization: `Bearer ${token}` }
       })
-        .then(res => setCurrentUser(res.data))
+        .then(async res => {
+          const userData = res.data;
+          const profileRes = await api.get(`/users/${userData.username}/profile`);
+          setCurrentUser({ ...userData, profile: profileRes.data });
+        })
         .catch(err => {
           console.error('Failed to fetch current user:', err);
           localStorage.removeItem('token');
@@ -54,16 +60,8 @@ function AppInner({ loggedIn, setLoggedIn }) {
 
   return (
     <>
-        <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <Link to="/">Home</Link>{' '}
-            {!loggedIn && <Link to="/login">Login</Link>}{' '}
-            {!loggedIn && <Link to="/register">Register</Link>}{' '}
-            {loggedIn && <Link to="/dashboard">Dashboard</Link>}{' '}
-            {loggedIn && <button onClick={handleLogout}>Logout</button>}
-          </div>
-          <SearchBar />
-        </nav>
+      <div className="pt-4">
+        <Navbar loggedIn={loggedIn} onLogout={handleLogout} currentUser={currentUser} />
 
         <Routes>
           <Route path="/" element={<Home loggedIn={loggedIn} />} />
@@ -74,6 +72,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
           <Route path="/users/:username" element={<PublicProfile loggedIn={loggedIn} currentUser={currentUser} />} />
           <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
+      </div>
     </>
   );
 }

@@ -71,28 +71,31 @@ useEffect(() => {
   window.addEventListener('scroll', handleScroll);
   return () => window.removeEventListener('scroll', handleScroll);
 }, [feedType, hasMore, page]);
-
+  
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>🌙 Welcome to DreamNet</h1>
-      <div style={{ marginBottom: '1rem' }}>
-        <button
-          onClick={() => setFeedType('discover')}
-          style={{ fontWeight: feedType === 'discover' ? 'bold' : 'normal' }}
-        >
-          Discover
-        </button>
-        {' | '}
-        <button
-          onClick={() => setFeedType('following')}
-          style={{ fontWeight: feedType === 'following' ? 'bold' : 'normal' }}
-        >
-          Following
-        </button>
+    <div className="p-8">
+      <div className="flex justify-center mb-4 gap-4">
+
+        <div role="tablist" className="tabs tabs-boxed justify-center mb-6 bg-[#d40f95] rounded-full"> 
+          <button
+            role="tab"
+            className={`tab font-pixelify ${feedType === 'discover' ? 'tab-active' : ''}`}
+            onClick={() => setFeedType('discover')}
+          >
+            Discover
+          </button>
+          <button
+            role="tab"
+            className={`tab font-pixelify ${feedType === 'following' ? 'tab-active' : ''}`}
+            onClick={() => setFeedType('following')}
+          >
+            Following
+          </button>
+        </div>
       </div>
 
       {dreams.length === 0 ? (
-        <p>No dreams to show.</p>
+        <p className="text-center">No dreams to show.</p>
       ) : (
         dreams.map((dream) => (
           <DreamEntry key={dream.id} dream={dream} users={users} />

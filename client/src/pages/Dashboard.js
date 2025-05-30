@@ -22,6 +22,7 @@ export default function Dashboard() {
           api.get(`/users/${userRes.data.username}/profile`),
           api.get('/users/usernames')
         ]);
+        dreamRes.username = userRes.data.username;
 
         setDreams(dreamRes.data);
         setProfile(profileRes.data);

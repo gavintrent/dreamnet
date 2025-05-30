@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixelify+Sans:wght@400..700&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +14,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.font-pixelify-italic {
+  font-family: 'Pixelify Sans', sans-serif;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.font-pixelify {
+  font-family: 'Pixelify Sans', sans-serif;
+  font-weight: 500;
+}
+
+.jersey-10-regular {
+  font-family: "Jersey 10", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.jersey-10-thin {
+  font-family: "Jersey 10", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+

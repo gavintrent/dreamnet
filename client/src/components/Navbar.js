@@ -39,7 +39,7 @@ export default function Navbar({ loggedIn, onLogout, currentUser}) {
   return (
     
       <div className="sticky top-5 z-50 px-4 sm:px-8 md:px-16 lg:px-24 mt-4">
-          <div className="navbar bg-[#5e0943] shadow-lg rounded-full">
+          <div className="navbar bg-[#5e0943] rounded-full">
             <div className="navbar-start">
                 <div className="relative" ref={dropdownRef}>
                   <button
@@ -85,7 +85,7 @@ export default function Navbar({ loggedIn, onLogout, currentUser}) {
             </div>
 
             <div className="relative inline-block">
-                <Link to="/" className="btn btn-ghost rounded-full text-3xl normal-case font-pixelify-italic animate-pulse [animation-duration:3s] ease-in-out [color:#d40f95]">
+                <Link to="/" className="btn btn-ghost rounded-full text-3xl normal-case font-pixelify-italic animate-pulse [animation-duration:4s] ease-in-out [color:#d40f95]">
                   DreamNet
                 </Link>
                 <div className="absolute -top-6 left-[110%] ml-[-1.7rem] flex flex-col items-center space-y-[-0.5rem] pointer-events-none select-none z-10">

@@ -94,19 +94,19 @@ code {
   animation-delay: 0s;
 }
 
-.group:hover .float-username {
+.float-username {
   animation: floatFade2 3s ease-in-out infinite ;
   animation-delay: 1.2s;
   animation-fill-mode: both;
 }
 
-.group:hover .float-name {
+.float-name {
   animation: floatFade2 3s ease-in-out infinite ;
   animation-delay: 0.8s;
   animation-fill-mode: both;
 }
 
-.group:hover .float-bio {
+.float-bio {
   animation: floatFade2 3s ease-in-out infinite ;
   animation-delay: 0.4s;
   animation-fill-mode: both;

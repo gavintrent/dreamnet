@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DreamEntry from '../components/DreamEntry';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -14,35 +14,37 @@ export default function UserProfilePage({
   isFollowing
 }) {
   const navigate = useNavigate();
+  const [isAvatarHovered, setIsAvatarHovered] = useState(false);
 
   return (
     <div className="mt-[4.5rem]">
       {/* Outer centered container */}
       <div className="mx-auto w-[80vw] relative text-white">
         {/* Avatar + header */}
-        <div className="flex items-center group">
-          {profile?.avatar && (
-            <img
-              src={profile.avatar}
-              alt={`${username}'s avatar`}
-              className="w-24 h-24 rounded-full mr-4 object-cover border border-base-300"
-            />
-          )}
+        <div className="flex items-center">
+            {profile?.avatar && (
+              <img
+                src={profile.avatar}
+                alt={`${username}'s avatar`}
+                className="w-24 h-24 rounded-full mr-4 object-cover border border-base-300"
+                onMouseEnter={() => setIsAvatarHovered(true)}
+                onMouseLeave={() => setIsAvatarHovered(false)}
+              />
+            )}
           <div className="font-pixelify -translate-y-12">
-            <h2 className="text-lg translate-x-8 m-0 float-username">
+            <h2 className={`text-lg translate-x-8 m-0 ${isAvatarHovered ? 'float-username' : ''}`}>
               @{username}'s Dream Journal
             </h2>
             {profile?.name && (
-              <h3 className="jersey-10-thin m-0 translate-x-4 float-name">
+              <h3 className={`jersey-10-thin m-0 translate-x-4 ${isAvatarHovered ? 'float-name' : ''}`}>
                 {profile.name}
               </h3>
             )}
             {profile?.bio && (
-              <p className="jersey-10-thin mt-1 mb-0 float-bio">{profile.bio}</p>
+              <p className={`jersey-10-thin mt-1 mb-0 ${isAvatarHovered ? 'float-bio' : ''}`}>{profile.bio}</p>
             )}
           </div>
         </div>
-
         {/* Button row below the avatar/header */}
         <div className="relative mt-4 h-10">
           {editable ? (

@@ -74,23 +74,25 @@ useEffect(() => {
   
   return (
     <div className="p-8">
-      <div className="flex justify-center mb-4 gap-4">
+      <div className="sticky top-[4.25rem] z-30 bg-transparent pt-4">
+        <div className="flex justify-center mb-4 gap-4">
 
-        <div role="tablist" className="tabs tabs-boxed justify-center mb-6 bg-[#d40f95] rounded-full"> 
-          <button
-            role="tab"
-            className={`tab font-pixelify ${feedType === 'discover' ? 'tab-active' : ''}`}
-            onClick={() => setFeedType('discover')}
-          >
-            Discover
-          </button>
-          <button
-            role="tab"
-            className={`tab font-pixelify ${feedType === 'following' ? 'tab-active' : ''}`}
-            onClick={() => setFeedType('following')}
-          >
-            Following
-          </button>
+          <div role="tablist" className="tabs tabs-boxed justify-center mb-6 bg-[#d40f95] rounded-full"> 
+            <button
+              role="tab"
+              className={`tab font-pixelify ${feedType === 'discover' ? 'tab-active' : ''}`}
+              onClick={() => setFeedType('discover')}
+            >
+              Discover
+            </button>
+            <button
+              role="tab"
+              className={`tab font-pixelify ${feedType === 'following' ? 'tab-active' : ''}`}
+              onClick={() => setFeedType('following')}
+            >
+              Following
+            </button>
+          </div>
         </div>
       </div>
 

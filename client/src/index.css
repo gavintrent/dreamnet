@@ -64,13 +64,13 @@ code {
     opacity: 1;
   }
   70% {
-    opacity: 0.8;
+    opacity: 1;
   }
   40% {
-    opacity: 0.0;
+    opacity: 0;
   }
   10% {
-    opacity: 0.8;
+    opacity: 1;
   }
   0% {
     opacity: 1;

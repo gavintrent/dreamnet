@@ -20,11 +20,13 @@ export default function CommentsSection({ comments, replyingTo, setReplyingTo, n
             </div>
           </div>
         ))}
-      <textarea
-        value={newComment}
-        onChange={e => setNewComment(e.target.value)}
-        placeholder={replyingTo ? 'Replying...' : 'Add a comment'}
-      />
+      <div className="flex-flex-col items-center justify-center ">
+        <textarea className="textarea textarea-bordered w-full max-w-xl"
+          value={newComment}
+          onChange={e => setNewComment(e.target.value)}
+          placeholder={replyingTo ? 'Replying...' : 'Add a comment'}
+        />
+      </div>
       <button onClick={submitComment}>Post</button>
     </div>
   );

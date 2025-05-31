@@ -61,20 +61,20 @@ function AppInner({ loggedIn, setLoggedIn }) {
 
   return (
     <>
-      <div className="pt-4">
+      <div className="min-h-screen flex flex-col">
         <Navbar loggedIn={loggedIn} onLogout={handleLogout} currentUser={currentUser} />
-
-        <Routes>
-          <Route path="/" element={<Home loggedIn={loggedIn} />} />
-          <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/new-dream" element={<NewDream />} />
-          <Route path="/users/:username" element={<PublicProfile loggedIn={loggedIn} currentUser={currentUser} />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-        </Routes>
-
-        <PageFooter></PageFooter>
+        <main className="flex-grow pt-4">
+          <Routes>
+            <Route path="/" element={<Home loggedIn={loggedIn} />} />
+            <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/new-dream" element={<NewDream />} />
+            <Route path="/users/:username" element={<PublicProfile loggedIn={loggedIn} currentUser={currentUser} />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
+          </Routes>
+        </main>
+        <PageFooter ></PageFooter>
 
       </div>
     </>

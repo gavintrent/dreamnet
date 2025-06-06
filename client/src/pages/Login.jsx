@@ -17,7 +17,7 @@ export default function Login( { onLogin }) {
       console.log('Logged in:', res.data);
       localStorage.setItem('token', res.data.token);
       onLogin();
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
       console.error('Login failed:', err.response?.data || err.message);
     }

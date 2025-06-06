@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -66,13 +66,33 @@ function AppInner({ loggedIn, setLoggedIn }) {
         <Navbar loggedIn={loggedIn} onLogout={handleLogout} currentUser={currentUser} />
         <main className="flex-grow pt-4">
           <Routes>
-            <Route path="/" element={<Home loggedIn={loggedIn} />} />
+            <Route path="/" 
+              element={ loggedIn 
+                ? <Home loggedIn={loggedIn} />
+                : <Navigate to="/login" replace />
+              } />
             <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/new-dream" element={<NewDream />} />
-            <Route path="/users/:username" element={<PublicProfile loggedIn={loggedIn} currentUser={currentUser} />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/dashboard" 
+              element={ loggedIn
+                ? <Dashboard />
+                : <Navigate to="/login" replace />
+              } />
+            <Route path="/new-dream" 
+              element={ loggedIn
+                ? <NewDream />
+                : <Navigate to="/login" replace />
+              } />
+            <Route path="/users/:username" 
+              element={ loggedIn
+                ? <PublicProfile loggedIn={loggedIn} currentUser={currentUser} />
+                : <Navigate to="/login" replace />
+              } />
+            <Route path="/edit-profile" 
+              element={ loggedIn
+                ? <EditProfile />
+                : <Navigate to="/login" replace />
+              } />
           </Routes>
         </main>
         <PageFooter ></PageFooter>

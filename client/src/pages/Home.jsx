@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
-import DreamEntry from '../components/DreamEntry';
+import DreamGrid from '../components/DreamGrid';
 
 export default function Home({ loggedIn }) {
   const [feedType, setFeedType] = useState('discover'); // 'following' or 'discover'
@@ -122,9 +122,7 @@ useEffect(() => {
       {dreams.length === 0 ? (
         <p className="text-center">No dreams to show.</p>
       ) : (
-        dreams.map((dream) => (
-          <DreamEntry key={dream.id} dream={dream} users={users} />
-        ))
+        <DreamGrid dreams={dreams} users={users} />
       )}
     </div>
   );

@@ -15,7 +15,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#93186c] text-black pb-4">
+    
+    <div className="min-h-screen bg-[#93186c] text-white pb-4">
       <Router>
         <AppInner loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </Router>

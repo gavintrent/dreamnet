@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DreamEntry from '../components/DreamEntry';
+import DreamGrid from './DreamGrid';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function UserProfilePage({
@@ -13,6 +13,7 @@ export default function UserProfilePage({
   onFollowToggle,
   isFollowing
 }) {
+
   const navigate = useNavigate();
   const [isAvatarHovered, setIsAvatarHovered] = useState(false);
 
@@ -45,18 +46,19 @@ export default function UserProfilePage({
             )}
           </div>
         </div>
-        {/* Button row below the avatar/header */}
+
         <div className="relative mt-4 h-10">
           {editable ? (
             <>
-              {/* Edit Profile aligned left */}
+              
               <button
                 onClick={() => navigate('/edit-profile')}
                 className="absolute left-4 jersey-10-thin"
               >
                 Edit Profile
               </button>
-              {/* Add New Dream centered */}
+              
+              
               <Link
                 to="/new-dream"
                 className="absolute left-1/2 transform -translate-x-1/2"
@@ -67,7 +69,7 @@ export default function UserProfilePage({
               </Link>
             </>
           ) : onFollowToggle ? (
-            /* Follow/Unfollow aligned left when not editable */
+            
             <button
               onClick={onFollowToggle}
               className="absolute left-0 jersey-10-thin"
@@ -78,23 +80,13 @@ export default function UserProfilePage({
         </div>
       </div>
 
-      {/* Dream entries */}
-      <div className="mt-4">
-        {dreams.length === 0 ? (
-          <p className="text-center">
-            {editable ? 'You have no dreams yet.' : 'No public dreams yet.'}
-          </p>
-        ) : (
-          dreams.map((dream) => (
-            <DreamEntry
-              key={dream.id}
-              dream={dream}
-              users={users}
-              {...(editable ? { onUpdate, onDelete } : {})}
-            />
-          ))
-        )}
-      </div>
+      {dreams.length === 0 ? (
+        <p className="text-center">
+          {editable ? 'You have no dreams yet.' : 'No public dreams yet.'}
+        </p>
+      ) : (
+        <DreamGrid dreams={dreams} users={users} onUpdate={onUpdate} onDelete={onDelete} />
+      )}
     </div>
   );
 }

@@ -31,27 +31,33 @@ function AppInner({ loggedIn, setLoggedIn }) {
 
   const hideNavbar = ['/login', './register'].includes(location.pathname)
 
-  // Check for token on app load
+  // on mount just set loggedIn from token once
   useEffect(() => {
     const token = localStorage.getItem('token');
-    setLoggedIn(!!token); // sets true if token exists
-
-    if (token) {
-      api.get('/auth/me', {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-        .then(async res => {
-          const userData = res.data;
-          const profileRes = await api.get(`/users/${userData.username}/profile`);
-          setCurrentUser({ ...userData, profile: profileRes.data });
-        })
-        .catch(err => {
-          console.error('Failed to fetch current user:', err);
-          localStorage.removeItem('token');
-          setLoggedIn(false);
-        });
-    }
+    setLoggedIn(!!token);
   }, [setLoggedIn]);
+
+  // whenever loggedIn becomes true, fetch the current user
+  useEffect(() => {
+    if (!loggedIn) {
+      setCurrentUser(null);
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    api
+      .get('/auth/me', { headers: { Authorization: `Bearer ${token}` } })
+      .then(async (res) => {
+        const userData = res.data;
+        const profileRes = await api.get(`/users/${userData.username}/profile`);
+        setCurrentUser({ ...userData, profile: profileRes.data });
+      })
+      .catch((err) => {
+        console.error('Failed to fetch current user:', err);
+        localStorage.removeItem('token');
+        setLoggedIn(false);
+      });
+  }, [loggedIn, setLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');

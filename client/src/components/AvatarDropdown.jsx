@@ -1,29 +1,28 @@
-// components/AvatarDropdown.jsx
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function AvatarDropdown({ loggedIn, onLogout, avatarUrl }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const nav = useNavigate();
+  const location = useLocation();
 
   const items = [
-    { label: 'Home', action: '/' },
-    { label: 'Profile', action: '/dashboard' },
+    location.pathname !== '/' && { label: 'Home', action: '/' },
+    location.pathname !== '/dashboard' && { label: 'Profile', action: '/dashboard' },
     ...(!loggedIn
       ? [
           { label: 'Login', action: '/login' },
           { label: 'Register', action: '/register' },
         ]
       : [{ label: 'Logout', action: onLogout }]),
-  ];
+  ].filter(Boolean); // remove falsy items (like `false` or `null`)
 
   const handleSelect = (act) => {
     setOpen(false);
     typeof act === 'string' ? nav(act) : act();
   };
 
-  // close on outside click
   useEffect(() => {
     const onClick = (e) => ref.current && !ref.current.contains(e.target) && setOpen(false);
     document.addEventListener('mousedown', onClick);

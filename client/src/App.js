@@ -71,8 +71,14 @@ function AppInner({ loggedIn, setLoggedIn }) {
                 ? <Home loggedIn={loggedIn} />
                 : <Navigate to="/login" replace />
               } />
-            <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={ loggedIn
+              ? <Navigate to="/" replace />
+              : <Login onLogin={() => setLoggedIn(true)} />
+            } />
+            <Route path="/register" element={ loggedIn
+              ? <Navigate to="/" replace />
+              : <Register />
+            } />
             <Route path="/dashboard" 
               element={ loggedIn
                 ? <Dashboard />

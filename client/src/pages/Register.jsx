@@ -31,11 +31,11 @@ export default function Register() {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
-      <input name="username" placeholder="Username" onChange={handleChange} required />
-      <input name="email" placeholder="Email" onChange={handleChange} type="email" required />
-      <input name="password" placeholder="Password" onChange={handleChange} type="password" required />
-      <input name="name" placeholder="Full Name (optional)" onChange={handleChange} />
-      <textarea name="bio" placeholder="Short Bio (optional)" onChange={handleChange} />
+      <input name="username" placeholder="Username" onChange={handleChange} maxLength={15} required />
+      <input name="email" placeholder="Email" onChange={handleChange} type="email" maxLength = {254} required />
+      <input name="password" placeholder="Password" onChange={handleChange} type="password" maxLength={100} required />
+      <input name="name" placeholder="Name (optional)" onChange={handleChange} maxLength = {30} />
+      <textarea name="bio" placeholder="Short Bio (optional)" onChange={handleChange} maxLength = {200} />
       <button type="submit">Register</button>
     </form>
   );

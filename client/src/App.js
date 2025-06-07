@@ -29,7 +29,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hideNavbar = ['/login', './register'].includes(location.pathname)
+  const hideNavbar = ['/login', '/register'].includes(location.pathname)
 
   // on mount just set loggedIn from token once
   useEffect(() => {

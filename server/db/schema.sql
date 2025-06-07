@@ -1,7 +1,10 @@
 -- USERS TABLE
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username TEXT UNIQUE NOT NULL,
+  username VARCHAR(15) UNIQUE NOT NULL
+    CHECK (
+      username ~ '^[A-Za-z0-9_]{3,20}$'
+    ),
   email TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
   name TEXT,                     -- Optional display name
@@ -23,7 +26,7 @@ CREATE TABLE dreams (
 -- DREAM TAGS TABLE
 CREATE TABLE dream_tags (
   id SERIAL PRIMARY KEY,
-  dream_id UUID REFERENCES dreams(id) ON DELETE CASCADE,
+  dream_id INTEGER REFERENCES dreams(id) ON DELETE CASCADE,
   tagged_user_id INTEGER REFERENCES users(id),
   UNIQUE (dream_id, tagged_user_id)
 );
@@ -53,4 +56,3 @@ CREATE TABLE comments (
   parent_id INTEGER REFERENCES comments(id) ON DELETE CASCADE, -- null for top-level comments
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-

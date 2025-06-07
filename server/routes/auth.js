@@ -3,8 +3,9 @@ const express = require('express');
 const router = express.Router();
 const { registerUser, loginUser } = require('../controllers/authController');
 const requireAuth = require('../middleware/requireAuth');
+const { registerRules, validate } = require('../validators/auth');
 
-router.post('/register', registerUser);
+router.post('/register', registerRules, validate, registerUser);
 router.post('/login', loginUser);
 
 router.get('/me', requireAuth, (req, res) => {

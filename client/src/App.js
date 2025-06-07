@@ -29,6 +29,8 @@ function AppInner({ loggedIn, setLoggedIn }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const hideNavbar = ['/login', './register'].includes(location.pathname)
+
   // Check for token on app load
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -63,7 +65,9 @@ function AppInner({ loggedIn, setLoggedIn }) {
   return (
     <>
       <div className="min-h-screen flex flex-col">
-        <Navbar loggedIn={loggedIn} onLogout={handleLogout} currentUser={currentUser} />
+        {!hideNavbar && (
+          <Navbar loggedIn={loggedIn} onLogout={handleLogout} currentUser={currentUser} />
+        )}
         <main className="flex-grow pt-4">
           <Routes>
             <Route path="/" 
@@ -101,7 +105,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
               } />
           </Routes>
         </main>
-        <PageFooter ></PageFooter>
+        {!hideNavbar && (<PageFooter ></PageFooter>)}
 
       </div>
     </>

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import api from '../api';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import api from '../api'
+import { useNavigate } from 'react-router-dom'
+import Logo from '../components/Logo'
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -8,35 +9,128 @@ export default function Register() {
     email: '',
     password: '',
     name: '',
-    bio: ''
-  });
-
-  const navigate = useNavigate();
+    bio: '',
+  })
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const res = await api.post('/auth/register', formData);
-      console.log('Registered:', res.data);
-      navigate('/login');
+      await api.post('/auth/register', formData)
+      navigate('/login')
     } catch (err) {
-      console.error('Registration failed:', err.response?.data || err.message);
+      console.error('Registration failed:', err.response?.data || err.message)
     }
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input name="username" placeholder="Username" onChange={handleChange} maxLength={15} required />
-      <input name="email" placeholder="Email" onChange={handleChange} type="email" maxLength = {254} required />
-      <input name="password" placeholder="Password" onChange={handleChange} type="password" maxLength={100} required />
-      <input name="name" placeholder="Name (optional)" onChange={handleChange} maxLength = {30} />
-      <textarea name="bio" placeholder="Short Bio (optional)" onChange={handleChange} maxLength = {200} />
-      <button type="submit">Register</button>
-    </form>
-  );
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#93186c] px-4">
+      <div className="mb-8 scale-150">
+        <Logo />
+      </div>
+      <div className="w-full max-w-md bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-lg">
+        <h2 className="text-4xl text-center jersey-10-regular text-white mb-6">
+          Register
+        </h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block mb-1 text-white jersey-10-regular">
+              Username
+            </label>
+            <input
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              maxLength={15}
+              required
+              className="w-full input input-bordered bg-white text-black"
+              placeholder="Username"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-white jersey-10-regular">
+              Email
+            </label>
+            <input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              type="email"
+              maxLength={254}
+              required
+              className="w-full input input-bordered bg-white text-black"
+              placeholder="Email"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-white jersey-10-regular">
+              Password
+            </label>
+            <input
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              type="password"
+              maxLength={100}
+              required
+              className="w-full input input-bordered bg-white text-black"
+              placeholder="Password"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-white jersey-10-regular">
+              Name (optional)
+            </label>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              maxLength={30}
+              className="w-full input input-bordered bg-white text-black"
+              placeholder="Your display name"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-white jersey-10-regular">
+              Short Bio (optional)
+            </label>
+            <textarea
+              name="bio"
+              value={formData.bio}
+              onChange={handleChange}
+              maxLength={200}
+              className="w-full textarea textarea-bordered bg-white text-black resize-none h-24"
+              placeholder="Tell us a bit about yourself"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full btn bg-[#d40f95] hover:bg-[#b80c7e] text-white font-pixelify"
+          >
+            Register
+          </button>
+        </form>
+
+        <p className="mt-4 text-center text-sm text-white jersey-10-regular">
+          Already have an account?{' '}
+          <button
+            type="button"
+            onClick={() => navigate('/login')}
+            className="underline text-[#d40f95]"
+          >
+            Login
+          </button>
+        </p>
+      </div>
+    </div>
+  )
 }

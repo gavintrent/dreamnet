@@ -7,7 +7,7 @@ export default function Logo() {
     <div className="relative inline-block">
       <Link
         to="/"
-        className="btn btn-ghost rounded-full text-3xl normal-case font-pixelify-italic animate-pulse [animation-duration:4s] ease-in-out [color:#d40f95]"
+        className="btn bg-transparent shadow-none border-none rounded-full text-3xl normal-case font-pixelify-italic animate-pulse [animation-duration:4s] ease-in-out [color:#d40f95]"
       >
         DreamNet
       </Link>

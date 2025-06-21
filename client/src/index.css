@@ -37,6 +37,12 @@ code {
   font-style: normal;
 }
 
+@layer utilities {
+  .jersey-10-regular {
+    font-family: "Jersey 10", sans-serif;
+  }
+}
+
 
 .jersey-10-thin {
   font-family: "Jersey 10", sans-serif;

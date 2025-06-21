@@ -24,7 +24,7 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#93186c] px-4 pb-8 mt-4">
+    <div className="relative min-h-screen bg-[#471692] px-4 pb-8 mt-8">
       <div className="absolute top-4 left-1/2 -translate-x-1/2 scale-150">
         <Logo />
       </div>
@@ -35,31 +35,25 @@ export default function Login({ onLogin }) {
           </h2>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block mb-1 text-white jersey-10-regular">
-                Email
-              </label>
               <input
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 type="email"
                 required
-                className="w-full input input-bordered bg-white text-black"
+                className="w-full input input-bordered bg-white text-black jersey-10-regular text-lg"
                 placeholder="Email"
               />
             </div>
 
             <div>
-              <label className="block mb-1 text-white jersey-10-regular">
-                Password
-              </label>
               <input
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 type="password"
                 required
-                className="w-full input input-bordered bg-white text-black"
+                className="w-full input input-bordered bg-white text-black jersey-10-regular text-lg"
                 placeholder="Password"
               />
             </div>

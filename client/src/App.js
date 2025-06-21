@@ -14,9 +14,10 @@ import PageFooter from './components/PageFooter';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // 93186c
   return (
     
-    <div className="min-h-screen bg-[#93186c] text-white pb-4">
+    <div className="min-h-screen bg-[#471692] text-white pb-4">
       <Router>
         <AppInner loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </Router>

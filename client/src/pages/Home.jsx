@@ -4,74 +4,116 @@ import DreamGrid from '../components/DreamGrid';
 
 export default function Home({ loggedIn }) {
   const [feedType, setFeedType] = useState('discover'); // 'following' or 'discover'
-  const [dreams, setDreams] = useState([]);
   const [users, setUsers] = useState([]);
-  const [page, setPage] = useState(0); // page = number of batches loaded
-  const [hasMore, setHasMore] = useState(true);
 
-  const fetchDreams = async (pageToFetch = 0, reset = false) => {
+  // Two-state cache for each feed
+  const [discoverState, setDiscoverState] = useState({
+    dreams: [],
+    page: 0,
+    hasMore: true,
+    scrollY: 0,
+  });
+  const [followingState, setFollowingState] = useState({
+    dreams: [],
+    scrollY: 0,
+  });
+
+  // Pick the current state based on active feed
+  const currentState = feedType === 'discover' ? discoverState : followingState;
+  const { dreams, page, hasMore } = currentState;
+
+  // Helper to switch feeds and save scroll position
+  const switchFeed = async (newFeed) => {
+  if (newFeed === 'discover' && discoverState.dreams.length === 0) {
+    // Preload discover dreams before switching tab
+    await fetchDiscover(0, true);
+  }
+
+  // Save current scroll position
+  if (feedType === 'discover') {
+    setDiscoverState(prev => ({ ...prev, scrollY: window.scrollY }));
+  } else {
+    setFollowingState(prev => ({ ...prev, scrollY: window.scrollY }));
+  }
+
+  setFeedType(newFeed);
+};
+
+  // Fetch a page of discover dreams
+  const fetchDiscover = async (pageToFetch = 0, reset = false) => {
     try {
       const res = await api.get(`/dreams/discover?page=${pageToFetch}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
-
       const newDreams = res.data;
 
-      if (reset) {
-        setDreams(newDreams);
-        setPage(1);
-      } else {
-        setDreams(prev => [...prev, ...newDreams]);
-        setPage(prev => prev + 1);
-      }
-
-      setHasMore(newDreams.length === 20);
+      setDiscoverState(prev => {
+        const combined = reset ? newDreams : [...prev.dreams, ...newDreams];
+        return {
+          ...prev,
+          dreams: combined,
+          page: reset ? 1 : prev.page + 1,
+          hasMore: newDreams.length === 20,
+          scrollY: reset ? 0 : prev.scrollY,
+        };
+      });
     } catch (err) {
       console.error('Failed to fetch discover dreams:', err);
     }
   };
 
-
+  // Effect: on feedType or login change, restore or fetch data
   useEffect(() => {
   if (!loggedIn) return;
 
-  const fetchInitialData = async () => {
-    try {
-      const userRes = await api.get('/users/usernames');
+  // Fetch usernames once
+  api.get('/users/usernames')
+    .then(userRes => {
       setUsers(userRes.data.map(u => ({ id: u, display: u })));
+    })
+    .catch(err => console.error('Failed to fetch users:', err));
 
-      if (feedType === 'following') {
-        const res = await api.get('/feed', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        });
-        setDreams(res.data);
-      } else {
-        fetchDreams(0, true);
+  const cache = currentState;
+
+  if (cache.dreams.length) {
+    setTimeout(() => window.scrollTo(0, cache.scrollY), 0);
+  } else {
+    window.scrollTo(0, 0);
+    if (feedType === 'discover') {
+      fetchDiscover(0, true);
+    }
+
+    // preload the following feed *without switching to it*
+    api.get('/feed', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }).then(res => {
+      setFollowingState(prev => ({
+        ...prev,
+        dreams: res.data,
+        scrollY: 0,
+      }));
+    }).catch(err => console.error('Failed to preload following feed:', err));
+  }
+}, [feedType, loggedIn, currentState]);
+
+
+  // Infinite scroll for discover feed
+  useEffect(() => {
+    if (feedType !== 'discover' || !hasMore) return;
+
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 100
+      ) {
+        fetchDiscover(page);
       }
-    } catch (err) {
-      console.error('Failed to fetch dreams:', err);
-    }
-  };
+    };
 
-  fetchInitialData();
-}, [feedType, loggedIn]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [feedType, hasMore, page]);
 
-useEffect(() => {
-  if (feedType !== 'discover' || !hasMore) return;
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop
-      >= document.documentElement.offsetHeight - 100
-    ) {
-      fetchDreams(page);
-    }
-  };
-
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
-}, [feedType, hasMore, page]);
-  
   return (
     <div className="p-8">
       <div className="sticky top-[4.25rem] z-30 bg-transparent pt-4">
@@ -84,7 +126,9 @@ useEffect(() => {
             <div
               className={`absolute left-[2px] top-[2px] bottom-[2px] w-[calc(50%-4px)] rounded-full border-4 border-[#5e0943] transition-transform duration-300 z-10 pointer-events-none`}
               style={{
-                transform: feedType === 'following' ? 'translateX(calc(100% + 4px))' : 'translateX(0%)',
+                transform: feedType === 'following'
+                  ? 'translateX(calc(100% + 4px))'
+                  : 'translateX(0%)',
               }}
             />
 
@@ -96,7 +140,7 @@ useEffect(() => {
                     ? 'text-white'
                     : 'text-white text-opacity-50'
                 }`}
-                onClick={() => setFeedType('discover')}
+                onClick={() => switchFeed('discover')}
               >
                 Discover
               </button>
@@ -107,7 +151,7 @@ useEffect(() => {
                     ? 'text-white'
                     : 'text-white text-opacity-50'
                 }`}
-                onClick={() => setFeedType('following')}
+                onClick={() => switchFeed('following')}
               >
                 Following
               </button>
@@ -119,7 +163,9 @@ useEffect(() => {
       {dreams.length === 0 ? (
         <p className="text-center">No dreams to show.</p>
       ) : (
-        <DreamGrid dreams={dreams} users={users} />
+        <div key={feedType} className={`retro-fade-in`}>
+          <DreamGrid dreams={dreams} users={users} />
+        </div>
       )}
     </div>
   );

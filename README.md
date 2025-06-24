@@ -12,6 +12,13 @@ DreamNet is a ongoing project: a full-stack social journaling platform for recor
 * **Real-Time Search:** Search bar with debounced username suggestions.
 * **Authentication & Authorization:** Secure session-based access using JWT tokens.
 
+## In Development: Future Features
+- Deployment to web via cloud services
+- Overhaul to site look and feel
+1. Revamp dream entries to resemble pages in a real journal
+2. Allow users to sort dream entries into volumes/journals
+- Integrate useful / fun information like interesting facts about dreams / sleep health
+
 ## Tech Stack
 
 ### Frontend

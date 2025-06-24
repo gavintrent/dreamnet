@@ -11,6 +11,7 @@ const followRoutes = require('./routes/follows');
 const feedRoutes = require('./routes/feed');
 const likeRoutes = require('./routes/likes');
 const commentRoutes = require('./routes/comments');
+const notificationRoutes = require('./routes/notifications');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api/follows', followRoutes);
 app.use('/api/feed', feedRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 
 // Health check

@@ -2,7 +2,8 @@
 import React from 'react';
 import AvatarDropdown from './AvatarDropdown';
 import Logo from './Logo';
-import SearchAndNotif from './SearchAndNotif';
+import SearchButton from './SearchButton';
+import NotificationButton from './NotificationButton';
 
 export default function Navbar({ loggedIn, onLogout, currentUser }) {
   const avatarUrl =
@@ -19,8 +20,9 @@ export default function Navbar({ loggedIn, onLogout, currentUser }) {
 
         <Logo />
 
-        <div className="navbar-end mr-2">
-          <SearchAndNotif />
+        <div className="navbar-end mr-2 flex gap-2">
+          <SearchButton />
+          <NotificationButton />
         </div>
       </div>
     </div>

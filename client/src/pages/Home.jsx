@@ -10,7 +10,7 @@ export default function Home({ loggedIn }) {
   const {
     users,
     dreams,
-    discoverState,
+    discoverState, // eslint-disable-next-line
     followingState,
     setDiscoverState,
     setFollowingState,

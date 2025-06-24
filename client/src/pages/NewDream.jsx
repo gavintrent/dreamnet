@@ -27,17 +27,23 @@ export default function NewDream() {
     const token = localStorage.getItem('token')
 
     const plainContent = cleanMentions(form.content)
-    const mentionedUsers = [...new Set((form.content.match(/@(\w+)/g) || []).map((u) => u.slice(1)))]
+    const mentionedUsers = [...new Set(
+      (form.content.match(/@\\\[[^\]]+?\\\]\(([^)]+?)\)/g) || [])
+        .map(m => m.match(/@\\\[[^\]]+?\\\]\(([^)]+?)\)/)?.[1])
+        .filter(Boolean)
+    )];
+    
+    const payload = {
+      title: form.title,
+      content: plainContent,
+      is_public: form.is_public,
+      tagged_usernames: mentionedUsers
+    };
+    console.log("PAYLOAD:", payload)
 
     try {
       await api.post(
-        '/dreams',
-        {
-          title: form.title,
-          content: plainContent,
-          is_public: form.is_public,
-          tagged_usernames: mentionedUsers,
-        },
+        '/dreams', payload,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -31,7 +31,7 @@ export default function AvatarDropdown({ loggedIn, onLogout, avatarUrl }) {
 
   return (
     <div className="relative" ref={ref}>
-      <button className="btn btn-ghost btn-circle avatar" onClick={() => setOpen((o) => !o)}>
+      <button className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none avatar" onClick={() => setOpen((o) => !o)}>
         <div className="w-8 rounded-full">
           <img src={avatarUrl} alt="profile" />
         </div>

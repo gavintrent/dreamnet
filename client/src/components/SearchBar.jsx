@@ -29,29 +29,22 @@ export default function SearchBar() {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="relative w-half rounded-full bg-[#EB5FC1] jersey-10-regular ">
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search users..."
-        style={{ padding: '0.4rem', borderRadius: '4px' }}
+        className="w-full p-2 pl-4 pr-4 rounded-full bg-white text-black border border-gray-300"
       />
       {suggestions.length > 0 && (
-        <ul style={{
-          position: 'absolute',
-          top: '100%',
-          right: 0,
-          background: 'white',
-          listStyle: 'none',
-          padding: '0.5rem',
-          border: '1px solid #ccc',
-          zIndex: 1000
-        }}>
-          {suggestions.map(username => (
+        <ul className="absolute left-0 right-0 mt-2 bg-[#EB5FC1] rounded-full shadow z-50 border border-[#EB5FC1] overflow-hidden">
+          {suggestions.map((username, idx) => (
             <li
               key={username}
-              style={{ cursor: 'pointer', padding: '0.2rem 0' }}
               onClick={() => handleSelect(username)}
+              className={`px-4 py-2 cursor-pointer text-white hover:bg-[#d64daf] ${
+                idx !== suggestions.length - 1 ? 'border-b border-pink-300' : ''
+              }`}
             >
               @{username}
             </li>

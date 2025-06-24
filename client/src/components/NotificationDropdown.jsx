@@ -22,7 +22,7 @@ export default function NotificationDropdown({ notifications, onClose }) {
   };
 
   return (
-    <div className="absolute right-4 top-16 z-50 w-80 max-w-full rounded-box bg-base-100 p-4 shadow-md text-black">
+    <div className="absolute right-24 top-16 z-50 w-60 max-w-full rounded-2xl bg-[#EB5FC1] p-4 shadow-none text-black jersey-10-regular">
       <h3 className="text-lg font-pixelify mb-2">Notifications</h3>
       {notifications.length === 0 ? (
         <p className="text-sm text-gray-500">No mentions yet.</p>
@@ -35,9 +35,9 @@ export default function NotificationDropdown({ notifications, onClose }) {
               className="cursor-pointer hover:bg-gray-200 rounded px-2 py-1"
             >
               <div>
-                <span className="font-semibold text-[#d40f95]">@{n.from_username}</span> dreamt of you!
+                <span className="font-semibold text-[#4c2f6f]">@{n.from_username}</span> dreamt of you!
               </div>
-              <div className="text-xs text-gray-500 mt-0.5">{timeAgo(n.created_at)}</div>
+              <div className="text-xs text-gray-600 mt-0.5">{timeAgo(n.created_at)}</div>
             </li>
           ))}
         </ul>

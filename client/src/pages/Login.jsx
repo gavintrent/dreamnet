@@ -24,7 +24,7 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#471692] px-4 pb-8 mt-8">
+    <div className="relative min-h-screen px-4 pb-8 mt-8">
       <div className="absolute top-4 left-1/2 -translate-x-1/2 scale-150">
         <Logo />
       </div>
@@ -60,7 +60,7 @@ export default function Login({ onLogin }) {
 
             <button
               type="submit"
-              className="w-full btn bg-[#d40f95] hover:bg-[#b80c7e] text-white font-pixelify"
+              className="w-full btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
             >
               Login
             </button>
@@ -71,7 +71,7 @@ export default function Login({ onLogin }) {
             <button
               type="button"
               onClick={() => navigate('/register')}
-              className="underline text-[#d40f95]"
+              className="underline text-[#EB5FC1]"
             >
               Register
             </button>

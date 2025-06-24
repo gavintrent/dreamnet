@@ -10,6 +10,7 @@ DreamNet is a ongoing project: a full-stack social journaling platform for recor
 * **Likes & Comments:** Interactive dream entries support likes and nested commenting.
 * **Follow System:** Users can follow or unfollow each other to personalize their feed.
 * **Real-Time Search:** Search bar with debounced username suggestions.
+* **Notification System:** Users receive notifications when they are tagged in dreams.
 * **Authentication & Authorization:** Secure session-based access using JWT tokens.
 
 ## In Development: Future Features

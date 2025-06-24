@@ -120,11 +120,11 @@ export default function Home({ loggedIn }) {
         <div className="flex justify-center mb-4 gap-4">
           <div className="relative flex justify-center mb-6">
             {/* Outer Pill Background */}
-            <div className="absolute inset-0 bg-[#d40f95] rounded-full z-0" />
+            <div className="absolute inset-0 bg-[#EB5FC1] rounded-full z-0" />
 
             {/* Active Tab Outline */}
             <div
-              className={`absolute left-[2px] top-[2px] bottom-[2px] w-[calc(50%-4px)] rounded-full border-4 border-[#5e0943] transition-transform duration-300 z-10 pointer-events-none`}
+              className={`absolute left-[2px] top-[2px] bottom-[2px] w-[calc(50%-4px)] rounded-full border-4 border-[#FFFFF2] transition-transform duration-300 z-10 pointer-events-none`}
               style={{
                 transform: feedType === 'following'
                   ? 'translateX(calc(100% + 4px))'
@@ -137,8 +137,8 @@ export default function Home({ loggedIn }) {
               <button
                 className={`w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 ${
                   feedType === 'discover'
-                    ? 'text-white'
-                    : 'text-white text-opacity-50'
+                    ? 'text-[#4c2f6f]'
+                    : 'text-[#4c2f6f] text-opacity-50'
                 }`}
                 onClick={() => switchFeed('discover')}
               >

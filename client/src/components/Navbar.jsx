@@ -12,7 +12,7 @@ export default function Navbar({ loggedIn, onLogout, currentUser }) {
 
   return (
     <div className="sticky top-5 z-50 px-4 sm:px-8 md:px-16 lg:px-24 mt-4">
-      <div className="navbar bg-[#5e0943] rounded-full">
+      <div className="navbar bg-[#4c2f6f] rounded-full">
         <div className="navbar-start">
           <AvatarDropdown loggedIn={loggedIn} onLogout={onLogout} avatarUrl={avatarUrl} />
         </div>

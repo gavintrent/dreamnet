@@ -55,7 +55,13 @@ code {
     opacity: 0;
   }
   20% {
-    opacity: 1;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1
   }
   80% {
     opacity: 1;
@@ -84,15 +90,15 @@ code {
 }
 
 .animate-z1 {
-  animation: floatFade 3s ease-in-out infinite;
+  animation: floatFade 5s ease-in-out infinite;
   animation-delay: 1.2s;
 }
 .animate-z2 {
-  animation: floatFade 3s ease-in-out infinite;
+  animation: floatFade 5s ease-in-out infinite;
   animation-delay: 0.8s;
 }
 .animate-z3 {
-  animation: floatFade 3s ease-in-out infinite;
+  animation: floatFade 5s ease-in-out infinite;
   animation-delay: 0.4s;
 }
 .animate-z4 {

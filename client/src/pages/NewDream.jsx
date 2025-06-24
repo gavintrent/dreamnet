@@ -92,7 +92,7 @@ export default function NewDream() {
   }
 
   return (
-      <div className="fixed inset-0 bg-[#93186c] flex items-center justify-center overflow-hidden">
+      <div className="fixed inset-0 flex items-center justify-center overflow-hidden">
         <div className="w-full max-w-xl bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-lg mt-16">
           <h2 className="text-3xl text-center jersey-10-regular text-white mb-6">
             New Dream Entry
@@ -150,7 +150,7 @@ export default function NewDream() {
 
             <button
               type="submit"
-              className="w-full btn bg-[#d40f95] hover:bg-[#b80c7e] text-white font-pixelify"
+              className="w-full btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
             >
               Submit Dream
             </button>

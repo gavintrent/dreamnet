@@ -1,7 +1,7 @@
 import React from 'react';
 import DreamEntry from './DreamEntry';
-import { dreamFacts } from '../assets/info/dreamFacts';
-import { sleepHealthTips } from '../assets/info/sleepHealth';
+import { dreamFacts } from '../assets/facts/dreamFacts';
+import { sleepHealthTips } from '../assets/facts/sleepHealth';
 
 export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
   const editable = !!onUpdate && !!onDelete;

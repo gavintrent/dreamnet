@@ -16,8 +16,6 @@ export default function useDreamFeed(loggedIn, feedType) {
     scrollY: 0,
   });
 
-  const currentState = feedType === 'discover' ? discoverState : followingState;
-
   const fetchDiscover = useCallback(async (pageToFetch = 0, reset = false) => {
     try {
       const res = await api.get(`/dreams/discover?page=${pageToFetch}`, {
@@ -40,6 +38,7 @@ export default function useDreamFeed(loggedIn, feedType) {
     }
   }, []);
 
+  // Fetch users list on login
   useEffect(() => {
     if (!loggedIn) return;
 
@@ -48,21 +47,39 @@ export default function useDreamFeed(loggedIn, feedType) {
         setUsers(userRes.data.map(u => ({ id: u, display: u })));
       })
       .catch(err => console.error('Failed to fetch users:', err));
+  }, [loggedIn]);
 
-    if (currentState.dreams.length) {
-      setTimeout(() => window.scrollTo(0, currentState.scrollY), 0);
-    } else {
+  // Load DISCOVER feed
+  useEffect(() => {
+    if (!loggedIn || feedType !== 'discover') return;
+
+    if (discoverState.dreams.length === 0) {
       window.scrollTo(0, 0);
-      if (feedType === 'discover') fetchDiscover(0, true);
+      fetchDiscover(0, true);
+    } else {
+      setTimeout(() => window.scrollTo(0, discoverState.scrollY), 0);
+    }
+  }, [loggedIn, feedType, discoverState.dreams.length, discoverState.scrollY, fetchDiscover]);
 
+  // Load FOLLOWING feed
+  useEffect(() => {
+    if (!loggedIn || feedType !== 'following') return;
+
+    if (followingState.dreams.length === 0) {
+      window.scrollTo(0, 0);
       api.get('/feed', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      }).then(res => {
+      })
+      .then(res => {
         setFollowingState({ dreams: res.data, scrollY: 0 });
-      }).catch(err => console.error('Failed to preload following feed:', err));
+      })
+      .catch(err => console.error('Failed to fetch following feed:', err));
+    } else {
+      setTimeout(() => window.scrollTo(0, followingState.scrollY), 0);
     }
-  }, [loggedIn, feedType, currentState, fetchDiscover]);
+  }, [loggedIn, feedType, followingState.dreams.length, followingState.scrollY]);
 
+  // Infinite scroll handling (only for discover feed)
   const handleScroll = useCallback(() => {
     if (
       feedType === 'discover' &&
@@ -78,6 +95,8 @@ export default function useDreamFeed(loggedIn, feedType) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  const currentState = feedType === 'discover' ? discoverState : followingState;
 
   return {
     users,

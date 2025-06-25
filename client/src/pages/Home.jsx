@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import DreamGrid from '../components/DreamGrid';
 import FeedTabs from '../components/FeedTabs';
 import useDreamFeed from '../hooks/useDreamFeed';
+import UserSuggestions from '../components/UserSuggestions';
 
 export default function Home({ loggedIn }) {
   const [feedType, setFeedType] = useState('discover');
@@ -37,12 +38,16 @@ export default function Home({ loggedIn }) {
       <FeedTabs feedType={feedType} switchFeed={switchFeed} />
 
       {dreams.length === 0 ? (
-        <p className="text-center font-pixelify">Follow some users!</p>
+        <>
+          <p className="text-center font-pixelify">Follow some users!</p>
+  
+        </>
       ) : (
         <div key={feedType} className="retro-fade-in">
           <DreamGrid dreams={dreams} users={users} />
         </div>
       )}
+      {/* <UserSuggestions></UserSuggestions> */}
     </div>
   );
 }

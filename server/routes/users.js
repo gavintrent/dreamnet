@@ -129,4 +129,56 @@ router.get('/:username/profile', async (req, res) => {
   }
 });
 
+router.get('/suggestions', requireAuth, async (req, res) => {
+  const userId = req.user.id;
+
+  const query = `
+    WITH recent_dreamers AS (
+      SELECT u.id, u.username, u.name, u.avatar, MAX(d.created_at) AS last_dream
+      FROM users u
+      JOIN dreams d ON u.id = d.user_id
+      WHERE d.created_at >= NOW() - INTERVAL '1 hour' AND u.id != $1
+      GROUP BY u.id
+      ORDER BY last_dream DESC
+      LIMIT 30
+    ),
+    top_followed AS (
+      SELECT u.id, u.username, u.name, u.avatar, COUNT(f.follower_id) AS follower_count
+      FROM users u
+      LEFT JOIN follows f ON u.id = f.followee_id
+      WHERE u.id != $1
+      GROUP BY u.id
+      ORDER BY follower_count DESC
+      LIMIT 5
+    ),
+    newest_users AS (
+      SELECT u.id, u.username, u.name, u.avatar, u.created_at
+      FROM users u
+      WHERE u.id != $1 AND u.id NOT IN (
+        SELECT id FROM recent_dreamers
+        UNION
+        SELECT id FROM top_followed
+      )
+      ORDER BY u.created_at DESC
+      LIMIT 30
+    )
+    SELECT * FROM (
+      SELECT * FROM recent_dreamers
+      UNION
+      SELECT * FROM top_followed
+      UNION
+      SELECT * FROM newest_users
+    ) AS combined
+    LIMIT 30;
+  `;
+
+  try {
+    const result = await db.query(query, [userId]);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching user suggestions:', err);
+    res.status(500).json({ error: 'Failed to fetch suggestions' });
+  }
+});
+
 module.exports = router;

@@ -1,11 +1,10 @@
-// NotebookPageStack.jsx
-import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import NotebookPage from './NotebookPage';
 
 export default function NotebookPageStack({ pages, currentPage, setCurrentPage, title, username, timestamp }) {
   return (
     <div className="relative w-[38vw] h-[660px] mt-6 mb-2 font-['Jersey_10']">
-      {/* Stacked background pages */}
+      {/* Stacked corners */}
       {pages.length > 1 && (
         <>
           {Array(Math.min(pages.length - currentPage - 1, 4))
@@ -23,15 +22,26 @@ export default function NotebookPageStack({ pages, currentPage, setCurrentPage, 
         </>
       )}
 
-      <NotebookPage
-        htmlContent={pages[currentPage]}
-        currentPage={currentPage}
-        totalPages={pages.length}
-        setCurrentPage={setCurrentPage}
-        title={title}
-        username={username}
-        timestamp={timestamp}
-      />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentPage}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0"
+        >
+          <NotebookPage
+            htmlContent={pages[currentPage]}
+            currentPage={currentPage}
+            totalPages={pages.length}
+            setCurrentPage={setCurrentPage}
+            title={title}
+            username={username}
+            timestamp={timestamp}
+          />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

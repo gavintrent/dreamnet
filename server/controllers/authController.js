@@ -20,7 +20,7 @@ exports.registerUser = async (req, res) => {
     res.status(201).json({ user });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Registration failed' });
+    res.status(500).json({ error: err});
   }
 };
 

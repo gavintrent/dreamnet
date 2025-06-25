@@ -37,7 +37,7 @@ export default function Home({ loggedIn }) {
       <FeedTabs feedType={feedType} switchFeed={switchFeed} />
 
       {dreams.length === 0 ? (
-        <p className="text-center">No dreams to show.</p>
+        <p className="text-center font-pixelify">Follow some users!</p>
       ) : (
         <div key={feedType} className="retro-fade-in">
           <DreamGrid dreams={dreams} users={users} />

@@ -7,7 +7,7 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
   const editable = !!onUpdate && !!onDelete;
   const allFacts = [...dreamFacts, ...sleepHealthTips]
 
-  // Helper: interleave info boxes every 50 entries
+  // Helper: interleave info boxes
   const interleaved = dreams.flatMap((dream, idx) => {
     const items = [
       <DreamEntry
@@ -18,7 +18,7 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
       />
     ];
 
-    if ((idx + 1) % 12 === 0) {
+    if ((idx + 1) % 8 === 0) {
       const randomFact = allFacts[Math.floor(Math.random() * allFacts.length)];
       items.push(
         <div
@@ -32,6 +32,17 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
 
     return items;
   });
+
+  // Add one at the top
+  const introFact = allFacts[Math.floor(Math.random() * allFacts.length)];
+  interleaved.unshift(
+    <div
+      key="info-intro"
+      className="col-span-full w-full bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-md p-3 text-center font-pixelify"
+    >
+      {introFact}
+    </div>
+  );
 
   return (
     <div className="w-full flex justify-center">

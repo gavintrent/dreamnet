@@ -3,7 +3,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(15) UNIQUE NOT NULL
     CHECK (
-      username ~ '^[A-Za-z0-9_]{3,20}$'
+      username ~ '^[A-Za-z0-9_.]{3,20}$'
     ),
   email TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,

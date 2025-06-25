@@ -39,7 +39,7 @@ export default function Register() {
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block mb-1 text-white jersey-10-regular">
-              Username
+              Username (Letters, numbers, underscores, and dots.)
             </label>
             <input
               name="username"

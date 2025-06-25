@@ -28,7 +28,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#93186c] px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4">
       <div className="mb-8 scale-150">
         <Logo />
       </div>
@@ -47,7 +47,7 @@ export default function Register() {
               onChange={handleChange}
               maxLength={15}
               required
-              className="w-full input input-bordered bg-white text-black"
+              className="w-full input input-bordered bg-white text-black jersey-10-regular"
               placeholder="Username"
             />
           </div>
@@ -63,7 +63,7 @@ export default function Register() {
               type="email"
               maxLength={254}
               required
-              className="w-full input input-bordered bg-white text-black"
+              className="w-full input input-bordered bg-white text-black jersey-10-regular"
               placeholder="Email"
             />
           </div>
@@ -79,7 +79,7 @@ export default function Register() {
               type="password"
               maxLength={100}
               required
-              className="w-full input input-bordered bg-white text-black"
+              className="w-full input input-bordered bg-white text-black jersey-10-regular"
               placeholder="Password"
             />
           </div>
@@ -93,7 +93,7 @@ export default function Register() {
               value={formData.name}
               onChange={handleChange}
               maxLength={30}
-              className="w-full input input-bordered bg-white text-black"
+              className="w-full input input-bordered bg-white text-black jersey-10-regular"
               placeholder="Your display name"
             />
           </div>
@@ -107,14 +107,14 @@ export default function Register() {
               value={formData.bio}
               onChange={handleChange}
               maxLength={200}
-              className="w-full textarea textarea-bordered bg-white text-black resize-none h-24"
+              className="w-full textarea textarea-bordered bg-white text-black jersey-10-regular resize-none h-24"
               placeholder="Tell us a bit about yourself"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full btn bg-[#d40f95] hover:bg-[#b80c7e] text-white font-pixelify"
+            className="w-full btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
           >
             Register
           </button>
@@ -125,7 +125,7 @@ export default function Register() {
           <button
             type="button"
             onClick={() => navigate('/login')}
-            className="underline text-[#d40f95]"
+            className="underline text-[#EB5FC1]"
           >
             Login
           </button>

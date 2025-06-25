@@ -112,7 +112,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
               } />
           </Routes>
         </main>
-        {!hideNavbar && (<PageFooter ></PageFooter>)}
+        {/* {!hideNavbar && (<PageFooter ></PageFooter>)} */}
 
       </div>
     </>

@@ -22,7 +22,7 @@ export default function DreamPageViewer(props) {
   }, [content]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center ">
       <NotebookPageStack
         pages={pages}
         currentPage={currentPage}

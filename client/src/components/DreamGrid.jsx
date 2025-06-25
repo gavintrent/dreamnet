@@ -1,62 +1,43 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import DreamEntry from './DreamEntry';
+import { dreamFacts } from '../assets/info/dreamFacts';
+import { sleepHealthTips } from '../assets/info/sleepHealth';
 
 export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
   const editable = !!onUpdate && !!onDelete;
-  const [columns, setColumns] = useState([[], []]);
-  const refs = useRef([]);
+  const allFacts = [...dreamFacts, ...sleepHealthTips]
 
-  useEffect(() => {
-    refs.current = refs.current.slice(0, dreams.length);
+  // Helper: interleave info boxes every 50 entries
+  const interleaved = dreams.flatMap((dream, idx) => {
+    const items = [
+      <DreamEntry
+        key={dream.id}
+        dream={dream}
+        users={users}
+        {...(editable ? { onUpdate, onDelete } : {})}
+      />
+    ];
 
-    // Wait until all refs are mounted
-    const heights = refs.current.map(ref => ref?.offsetHeight || 0);
+    if ((idx + 1) % 12 === 0) {
+      const randomFact = allFacts[Math.floor(Math.random() * allFacts.length)];
+      items.push(
+        <div
+          key={`info-${idx}`}
+          className="col-span-full w-full bg-yellow-200 border border-yellow-300 text-yellow-900 rounded-md p-3 text-center font-pixelify"
+        >
+          {randomFact}
+        </div>
+      );
+    }
 
-    const left = [];
-    const right = [];
-    let leftHeight = 0;
-    let rightHeight = 0;
-
-    dreams.forEach((dream, i) => {
-      const height = heights[i];
-      if (leftHeight <= rightHeight) {
-        left.push(dream);
-        leftHeight += height;
-      } else {
-        right.push(dream);
-        rightHeight += height;
-      }
-    });
-
-    setColumns([left, right]);
-  }, [dreams]);
+    return items;
+  });
 
   return (
-    <>
-      {/* Hidden render for measuring entries */}
-      <div className="invisible absolute top-0 left-0">
-        {dreams.map((dream, i) => (
-          <div key={dream.id} ref={el => refs.current[i] = el} className="w-[40vw]">
-            <DreamEntry dream={dream} users={users} {...(editable ? { onUpdate, onDelete } : {})} />
-          </div>
-        ))}
+    <div className="w-full flex justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 max-w-6xl px-4">
+        {interleaved}
       </div>
-
-      {/* Actual visible balanced grid */}
-      <div className="flex justify-center gap-6">
-        {columns.map((col, colIdx) => (
-          <div key={colIdx} className="flex flex-col w-[40vw]">
-            {col.map((dream) => (
-              <DreamEntry
-                key={dream.id}
-                dream={dream}
-                users={users}
-                {...(editable ? { onUpdate, onDelete } : {})}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-    </>
+    </div>
   );
 }

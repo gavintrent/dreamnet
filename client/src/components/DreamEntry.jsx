@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import DreamHeader from "./DreamHeader";
-import DreamEditor from "./DreamEditor";
-import DreamFooter from "./DreamFooter";
-import CommentsSection from "./CommentsSection";
 import useDreamLikes from "../hooks/useDreamLikes";
 import api from "../api";
-import { linkifyMentions, cleanMentions } from "../utils/formatMentions";
+import { cleanMentions } from "../utils/formatMentions";
+import DreamPageViewer from "./DreamPageViewer";
 
 export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
+  // eslint-disable-next-line
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({
     title: dream.title,
@@ -57,7 +55,9 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
     setReplyingTo(null);
   };
 
+  // eslint-disable-next-line
   const handleEdit = () => setEditing(true);
+  // eslint-disable-next-line
   const handleCancel = () => {
     setEditing(false);
     setForm({
@@ -66,6 +66,7 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
       is_public: dream.is_public,
     });
   };
+  // eslint-disable-next-line
   const handleSave = async () => {
     const token = localStorage.getItem("token");
     const cleaned = cleanMentions(form.content);
@@ -104,39 +105,26 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
   const topLevelCount = comments.filter((c) => c.parent_id === null).length;
 
   return (
-    <div className="dream-entry bg-gray-200 shadow-sm rounded-2xl p-6 mb-6 text-black mx-auto mt-4 w-[40vw]">
-      {editing ? (
-        <DreamEditor form={form} setForm={setForm} users={users} onSave={handleSave} onCancel={handleCancel} />
-      ) : (
-        <>
-          <DreamHeader dream={dream} editable={editable} onEdit={handleEdit} onDelete={handleDelete} />
-          <p 
-            className="jersey-10-thin px-24 whitespace-pre-line leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: linkifyMentions(dream.content) }} 
-          />
-          <DreamFooter
-            liked={liked}
-            likeCount={likeCount}
-            toggleLike={toggleLike}
-            showComments={showComments}
-            setShowComments={setShowComments}
-            timestamp={dream.created_at}
-            isPublic={dream.is_public}
-            editable={editable}
-            commentCount={topLevelCount}
-          />
-          {showComments && (
-            <CommentsSection
-              comments={comments}
-              replyingTo={replyingTo}
-              setReplyingTo={setReplyingTo}
-              newComment={newComment}
-              setNewComment={setNewComment}
-              submitComment={submitComment}
-            />
-          )}
-        </>
-      )}
-    </div>
+      <DreamPageViewer 
+        content={dream.content} 
+        username={dream.username}
+        title={dream.title}
+        timestamp={dream.created_at}
+        liked = {liked}
+        likeCount = {likeCount}
+        toggleLike = {toggleLike}
+        showComments = {showComments}
+        setShowComments = {setShowComments}
+        isPublic = {dream.is_public}
+        editable = {editable}
+        commentCount = {topLevelCount}
+        comments={comments}
+        replyingTo={replyingTo}
+        setReplyingTo={setReplyingTo}
+        newComment={newComment}
+        setNewComment={setNewComment}
+        submitComment={submitComment}
+        onDelete={handleDelete}
+        />
   );
 }

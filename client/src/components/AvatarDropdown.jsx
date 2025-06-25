@@ -38,11 +38,11 @@ export default function AvatarDropdown({ loggedIn, onLogout, avatarUrl }) {
       </button>
 
       {open && (
-        <ul className="absolute mt-3 z-50 w-52 p-2 shadow bg-base-100 rounded-box">
+        <ul className="absolute min-w-[6rem] top-12 z-50 w-60 max-w-full rounded-2xl bg-[#EB5FC1] p-4 shadow-none text-black jersey-10-regular space-y-2">
           {items.map(({ label, action }) => (
             <li key={label}>
               <button
-                className="font-pixelify w-full text-left px-4 py-2 hover:text-gray-300 text-white rounded"
+                className="w-full text-left px-2 py-1 hover:bg-gray-200 rounded text-[#4c2f6f] font-semibold"
                 onClick={() => handleSelect(action)}
               >
                 {label}

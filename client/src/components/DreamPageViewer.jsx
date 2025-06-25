@@ -17,7 +17,7 @@ export default function DreamPageViewer(props) {
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    const paginated = paginateByLineEstimate(content, 21, 70).map(linkifyMentions);
+    const paginated = paginateByLineEstimate(content, 21, 76).map(linkifyMentions);
     setPages(paginated);
   }, [content]);
 

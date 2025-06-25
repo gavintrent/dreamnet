@@ -7,8 +7,8 @@ const registerRules = [
     .trim()
     .isLength({ min: 3, max: 15 })
     .withMessage('Username must be between 3 and 15 characters')
-    .matches(/^[A-Za-z0-9_]+$/)
-    .withMessage('Letters, numbers, and underscore only'),
+    .matches(/^[A-Za-z0-9_.]+$/)
+    .withMessage('Letters, numbers, underscores, and periods only'),
   check('email')
     .isEmail()
     .withMessage('Must be a valid email address'),

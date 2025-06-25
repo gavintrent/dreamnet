@@ -48,7 +48,13 @@ router.get('/', requireAuth, async (req, res) => {
 
   try {
     const result = await db.query(
-      'SELECT * FROM dreams WHERE user_id = $1 ORDER BY created_at DESC',
+      `
+        SELECT d.*, u.username
+        FROM dreams d
+        JOIN users u ON d.user_id = u.id
+        WHERE d.user_id = $1
+        ORDER BY d.created_at DESC
+      `,
       [userId]
     );
     res.json(result.rows);

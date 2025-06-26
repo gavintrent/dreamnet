@@ -63,7 +63,7 @@ export default function UserSuggestions() {
 
       <div className="mt-8">
         {/* Moon */}
-        <div className="absolute top-24 right-24 z-0 opacity-80 w-10 h-10 animate-pulse-slow text-yellow-200">
+        <div className="absolute top-24 right-36 z-0 opacity-80 w-10 h-10 animate-pulse-slow text-yellow-200">
           <MoonIcon className="w-full h-full fill-current" />
         </div>
 

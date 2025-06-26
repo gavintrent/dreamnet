@@ -44,9 +44,11 @@ export default function Home({ loggedIn }) {
           <DreamGrid dreams={dreams} users={users} />
         </div>
       )}
-      <div className="mt-4">
-        <UserSuggestions></UserSuggestions>
-      </div>
+      {feedType === "following" && (
+        <div className="mt-4">
+          <UserSuggestions></UserSuggestions>
+        </div>
+      )}
     </div>
   );
 }

@@ -95,6 +95,26 @@ code {
 }
 
 
+.float-username {
+  animation: floatFade3 6s ease-in-out infinite ;
+  animation-delay: 1.2s;
+  animation-fill-mode: both;
+}
+
+.float-name {
+  animation: floatFade3 6s ease-in-out infinite ;
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
+}
+
+.float-bio {
+  animation: floatFade3 6s ease-in-out infinite ;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+
+
 .animate-z1 {
   animation: floatFade 5s ease-in-out infinite;
   animation-delay: 1.2s;
@@ -110,31 +130,6 @@ code {
 .animate-z4 {
   animation: floatFade 3s ease-in-out infinite;
   animation-delay: 0s;
-}
-
-.float-username {
-  animation: floatFade2 3s ease-in-out infinite ;
-  animation-delay: 1.2s;
-  animation-fill-mode: both;
-}
-
-.float-name {
-  animation: floatFade2 3s ease-in-out infinite ;
-  animation-delay: 0.8s;
-  animation-fill-mode: both;
-}
-
-.float-bio {
-  animation: floatFade2 3s ease-in-out infinite ;
-  animation-delay: 0.4s;
-  animation-fill-mode: both;
-}
-
-.float-username,
-.float-name,
-.float-bio {
-  opacity: 1;
-  will-change: opacity, transform;
 }
 
 .filter-pink {

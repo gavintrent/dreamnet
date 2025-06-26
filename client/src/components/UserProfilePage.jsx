@@ -90,7 +90,7 @@ export default function UserProfilePage({
           <div className="flex flex-col jersey-10-thin mt-2">
             <h2 className="float-username text-3xl m-0">@{username}'s Dream Journal</h2>
             {profile?.name && (
-              <h3 className="text-md jersey-10-thin m-0 mt-1 float-name">{profile.name}</h3>
+              <h3 className="text-lg jersey-10-thin m-0 mt-1 float-name">{profile.name}</h3>
             )}
             {profile?.bio && (
               <p className="text-sm jersey-10-thin mt-2 max-w-[60ch] float-bio">{profile.bio}</p>
@@ -99,29 +99,26 @@ export default function UserProfilePage({
         </div>
 
         {/* Buttons */}
-        <div className="relative mt-6 h-10 z-10">
+        <div className="flex justify-center gap-4 mt-6 z-10 mb-4">
           {editable ? (
             <>
               <button
                 onClick={() => navigate('/edit-profile')}
-                className="absolute left-4 jersey-10-thin"
+                className="px-4 py-1 bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-full font-pixelify text-sm hover:bg-yellow-300 hover:scale-105 transition-transform shadow-md"
               >
                 Edit Profile
               </button>
 
-              <Link
-                to="/new-dream"
-                className="absolute left-1/2 transform -translate-x-1/2"
-              >
-                <button className="btn btn-circle text-3xl font-pixelify">
-                  +
+              <Link to="/new-dream">
+                <button className="px-4 py-1 bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-full font-pixelify text-sm hover:bg-yellow-300 hover:scale-105 transition-transform shadow-md">
+                  + New Journal Entry
                 </button>
               </Link>
             </>
           ) : onFollowToggle ? (
             <button
               onClick={onFollowToggle}
-              className="absolute left-1/2 -translate-x-1/2 px-4 py-1 bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-full font-pixelify text-sm hover:bg-yellow-300 hover:scale-105 transition-transform shadow-md"
+              className="mb-4 px-4 py-1 bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-full font-pixelify text-sm hover:bg-yellow-300 hover:scale-105 transition-transform shadow-md"
             >
               {isFollowing ? 'Unfollow' : 'Follow'}
             </button>
@@ -131,7 +128,7 @@ export default function UserProfilePage({
 
       {/* Dreams */}
       {dreams.length === 0 ? (
-        <p className="text-center">
+        <p className="text-center font-pixelify mt-4">
           {editable ? 'You have no dreams yet.' : 'No public dreams yet.'}
         </p>
       ) : (

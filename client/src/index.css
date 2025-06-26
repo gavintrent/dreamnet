@@ -89,6 +89,12 @@ code {
   }
 }
 
+@keyframes floatFade3 {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-6px); opacity: 0.95; }
+}
+
+
 .animate-z1 {
   animation: floatFade 5s ease-in-out infinite;
   animation-delay: 1.2s;
@@ -158,4 +164,28 @@ code {
 
 .mention-link:hover {
   text-decoration: underline;
+}
+
+@keyframes slowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.animate-pulse-slow {
+  animation: slowPulse 6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
 }

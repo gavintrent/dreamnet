@@ -5,6 +5,8 @@ const requireAuth = require('../middleware/requireAuth');
 const multer = require('multer')
 const path = require('path')
 
+const BASE_URL = process.env.BASE_URL || 'http://localhost:4000';
+
 const upload = multer({
   dest: 'uploads/',
   limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
@@ -102,8 +104,6 @@ router.patch('/me', requireAuth, upload.single('avatar'), async (req, res) => {
   res.json({ success: true });
 });
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:4000';
-
 router.get('/:username/profile', async (req, res) => {
   const { username } = req.params;
   try {
@@ -134,33 +134,68 @@ router.get('/suggestions', requireAuth, async (req, res) => {
 
   const query = `
     WITH recent_dreamers AS (
-      SELECT u.id, u.username, u.name, u.avatar, MAX(d.created_at) AS last_dream
+      SELECT 
+        u.id, 
+        u.username, 
+        u.name, 
+        u.avatar, 
+        MAX(d.created_at) AS last_dream,
+        NULL::bigint AS follower_count,
+        NULL::timestamp AS joined_at
       FROM users u
       JOIN dreams d ON u.id = d.user_id
-      WHERE d.created_at >= NOW() - INTERVAL '1 hour' AND u.id != $1
+      WHERE 
+        d.created_at >= NOW() - INTERVAL '1 hour'
+        AND u.id != $1
+        AND u.id NOT IN (
+          SELECT followee_id FROM follows WHERE follower_id = $1
+        )
       GROUP BY u.id
       ORDER BY last_dream DESC
-      LIMIT 30
+      LIMIT 15
     ),
     top_followed AS (
-      SELECT u.id, u.username, u.name, u.avatar, COUNT(f.follower_id) AS follower_count
+      SELECT 
+        u.id, 
+        u.username, 
+        u.name, 
+        u.avatar, 
+        NULL::timestamp AS last_dream,
+        COUNT(f.follower_id)::bigint AS follower_count,
+        NULL::timestamp AS joined_at
       FROM users u
       LEFT JOIN follows f ON u.id = f.followee_id
-      WHERE u.id != $1
+      WHERE 
+        u.id != $1
+        AND u.id NOT IN (
+          SELECT followee_id FROM follows WHERE follower_id = $1
+        )
       GROUP BY u.id
       ORDER BY follower_count DESC
-      LIMIT 5
+      LIMIT 10
     ),
     newest_users AS (
-      SELECT u.id, u.username, u.name, u.avatar, u.created_at
+      SELECT 
+        u.id, 
+        u.username, 
+        u.name, 
+        u.avatar, 
+        NULL::timestamp AS last_dream,
+        NULL::bigint AS follower_count,
+        u.created_at AS joined_at
       FROM users u
-      WHERE u.id != $1 AND u.id NOT IN (
-        SELECT id FROM recent_dreamers
-        UNION
-        SELECT id FROM top_followed
-      )
+      WHERE 
+        u.id != $1
+        AND u.id NOT IN (
+          SELECT id FROM recent_dreamers
+          UNION
+          SELECT id FROM top_followed
+        )
+        AND u.id NOT IN (
+          SELECT followee_id FROM follows WHERE follower_id = $1
+        )
       ORDER BY u.created_at DESC
-      LIMIT 30
+      LIMIT 20
     )
     SELECT * FROM (
       SELECT * FROM recent_dreamers
@@ -169,12 +204,20 @@ router.get('/suggestions', requireAuth, async (req, res) => {
       UNION
       SELECT * FROM newest_users
     ) AS combined
-    LIMIT 30;
+    LIMIT 20;
   `;
 
   try {
     const result = await db.query(query, [userId]);
-    res.json(result.rows);
+
+    const suggestions = result.rows.map((user) => ({
+      ...user,
+      avatar: user.avatar && !user.avatar.startsWith('http')
+        ? `${BASE_URL}${user.avatar}`
+        : user.avatar,
+    }));
+
+    res.json(suggestions);
   } catch (err) {
     console.error('Error fetching user suggestions:', err);
     res.status(500).json({ error: 'Failed to fetch suggestions' });

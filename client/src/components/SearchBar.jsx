@@ -37,7 +37,7 @@ export default function SearchBar() {
         className="w-full p-2 pl-4 pr-4 rounded-full bg-white text-black border border-gray-300"
       />
       {suggestions.length > 0 && (
-        <ul className="absolute left-0 right-0 mt-2 bg-[#EB5FC1] rounded-full shadow z-50 border border-[#EB5FC1] overflow-hidden">
+        <ul className="absolute left-0 right-0 mt-2 bg-[#EB5FC1] rounded-2xl shadow z-50 border border-[#EB5FC1] overflow-hidden">
           {suggestions.map((username, idx) => (
             <li
               key={username}

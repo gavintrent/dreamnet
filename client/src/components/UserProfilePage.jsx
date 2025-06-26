@@ -25,7 +25,7 @@ export default function UserProfilePage({
         <div className="flex items-center">
             {profile?.avatar && (
               <img
-                src={profile.avatar}
+                src={profile.avatar?.trim() ? profile.avatar : '/avatars/default-avatar-1.jpg'}
                 alt={`${username}'s avatar`}
                 className="w-24 h-24 rounded-full mr-4 object-cover border border-base-300"
                 onMouseEnter={() => setIsAvatarHovered(true)}

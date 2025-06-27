@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import useDreamLikes from "../hooks/useDreamLikes";
 import api from "../api";
-import { cleanMentions } from "../utils/formatMentions";
-import DreamPageViewer from "./DreamPageViewer";
+import { cleanMentions, linkifyMentions } from "../utils/formatMentions";
+import { paginateByLineEstimate } from "../utils/paginateContent";
+import NotebookPageStack from "./NotebookPageStack";
+import DreamControls from "./DreamControls";
+import CommentsSection from "./CommentsSection";
 
 export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
   // eslint-disable-next-line
@@ -18,6 +21,9 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [replyingTo, setReplyingTo] = useState(null);
+
+  const [pages, setPages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const editable = !!onUpdate && !!onDelete;
   const { likeCount, liked, toggleLike } = useDreamLikes(dream.id);
@@ -103,28 +109,31 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
   };
 
   const topLevelCount = comments.filter((c) => c.parent_id === null).length;
+  const isPublic = dream.is_public
+
+  useEffect(() => {
+    const paginated = paginateByLineEstimate(dream.content, 21, 76).map(linkifyMentions);
+    setPages(paginated);
+  }, [dream.content]);
 
   return (
-      <DreamPageViewer 
-        content={dream.content} 
-        username={dream.username}
+    <div className="flex flex-col items-center ">
+      <NotebookPageStack
+        pages={pages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         title={dream.title}
+        username={dream.username}
         timestamp={dream.created_at}
-        liked = {liked}
-        likeCount = {likeCount}
-        toggleLike = {toggleLike}
-        showComments = {showComments}
-        setShowComments = {setShowComments}
-        isPublic = {dream.is_public}
-        editable = {editable}
-        commentCount = {topLevelCount}
-        comments={comments}
-        replyingTo={replyingTo}
-        setReplyingTo={setReplyingTo}
-        newComment={newComment}
-        setNewComment={setNewComment}
-        submitComment={submitComment}
-        onDelete={handleDelete}
+      />
+      <DreamControls
+        {...{ liked, likeCount, toggleLike, showComments, setShowComments, isPublic, editable, topLevelCount, handleDelete }}
+      />
+      {showComments && (
+        <CommentsSection
+          {...{ comments, replyingTo, setReplyingTo, newComment, setNewComment, submitComment }}
         />
+      )}
+    </div>
   );
 }

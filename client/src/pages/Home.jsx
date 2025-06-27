@@ -11,18 +11,11 @@ export default function Home({ loggedIn }) {
   const {
     users,
     dreams,
-    discoverState, // eslint-disable-next-line
-    followingState,
     setDiscoverState,
     setFollowingState,
-    fetchDiscover,
   } = useDreamFeed(loggedIn, feedType);
 
   const switchFeed = async (newFeed) => {
-    if (newFeed === 'discover' && discoverState.dreams.length === 0) {
-      await fetchDiscover(0, true);
-    }
-
     // Save current scroll position
     if (feedType === 'discover') {
       setDiscoverState(prev => ({ ...prev, scrollY: window.scrollY }));

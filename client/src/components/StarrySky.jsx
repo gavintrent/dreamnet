@@ -1,18 +1,13 @@
-// src/components/StarrySky.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { ReactComponent as MoonIcon } from '../assets/icons/moon-svgrepo-com.svg';
 import { ReactComponent as Star1 } from '../assets/icons/ungroup-svgrepo-com.svg';
 import { ReactComponent as Star2 } from '../assets/icons/loader-svgrepo-com.svg';
 
-const STAR_COUNT = 40;
-
-export default function StarrySky({ starCount = STAR_COUNT }) {
-  const [stars, setStars] = useState([]);
-
-  useEffect(() => {
+export default function StarrySky({ starCount = 40, yRange = [5, 55] }) {
+  const stars = useMemo(() => {
     const MIN_DISTANCE = 8;
     const MAX_ATTEMPTS = 100;
-    const generatedStars = [];
+    const generated = [];
     const placed = [];
 
     for (let i = 0; i < starCount; i++) {
@@ -21,25 +16,25 @@ export default function StarrySky({ starCount = STAR_COUNT }) {
       let tooClose;
 
       do {
-        x = Math.random() * 85 + 5;
-        y = Math.random() * 50 + 5;
+        x = Math.random() * 90 + 5;
+        y = Math.random() * (yRange[1] - yRange[0]) + yRange[0]; // eslint-disable-next-line
         tooClose = placed.some(p => Math.hypot(p.x - x, p.y - y) < MIN_DISTANCE);
         attempts++;
       } while (tooClose && attempts < MAX_ATTEMPTS);
 
       if (attempts < MAX_ATTEMPTS) {
         placed.push({ x, y });
-        generatedStars.push({
+        generated.push({
           x,
           y,
-          delay: Math.random() * 3,
+          delay: Math.random() * 4,
           variant: Math.random() < 0.5 ? 'star1' : 'star2',
         });
       }
     }
 
-    setStars(generatedStars);
-  }, [starCount]);
+    return generated;
+  }, [starCount, yRange]);
 
   return (
     <>
@@ -60,7 +55,7 @@ export default function StarrySky({ starCount = STAR_COUNT }) {
               left: `${star.x}%`,
               width: '18px',
               height: '18px',
-              animationDelay: `${star.delay}s`
+              animationDelay: `${star.delay}s`,
             }}
           >
             <StarComp className="w-full h-full fill-current opacity-80" />

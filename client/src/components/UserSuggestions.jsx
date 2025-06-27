@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
-import { ReactComponent as MoonIcon } from '../assets/icons/moon-svgrepo-com.svg';
-import { ReactComponent as Star1 } from '../assets/icons/ungroup-svgrepo-com.svg';
-import { ReactComponent as Star2 } from '../assets/icons/loader-svgrepo-com.svg';
+import StarrySky from './StarrySky';
 
 const MIN_DISTANCE = 12;
-const STAR_COUNT = 50;
+const yRange = [10, 90];
 
 export default function UserSuggestions() {
   const [users, setUsers] = useState([]);
   const [positions, setPositions] = useState([]);
-  const [starPositions, setStarPositions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,15 +38,6 @@ export default function UserSuggestions() {
         });
 
         setPositions(newPositions);
-
-        // Random stars
-        const stars = Array.from({ length: STAR_COUNT }, () => ({
-          x: Math.random() * 95,
-          y: Math.random() * 80 + 10,
-          delay: Math.random() * 4,
-          variant: Math.random() < 0.5 ? 'star1' : 'star2',
-        }));
-        setStarPositions(stars);
       })
       .catch(err => console.error('Failed to load suggestions', err));
   }, []);
@@ -61,31 +49,12 @@ export default function UserSuggestions() {
         Find other dreamers...
       </div>
 
-      <div className="mt-8">
-        {/* Moon */}
-        <div className="absolute top-24 right-36 z-0 opacity-80 w-10 h-10 animate-pulse-slow text-yellow-200">
-          <MoonIcon className="w-full h-full fill-current" />
-        </div>
-
-        {/* Stars */}
-        {starPositions.map((star, idx) => {
-          const StarComponent = star.variant === 'star1' ? Star1 : Star2;
-          return (
-            <div
-              key={idx}
-              className="absolute z-0 opacity-60 animate-twinkle text-yellow-200"
-              style={{
-                top: `${star.y}%`,
-                left: `${star.x}%`,
-                width: '20px',
-                height: '20px',
-                animationDelay: `${star.delay}s`
-              }}
-            >
-              <StarComponent className="w-full h-full fill-current" />
-            </div>
-          );
-        })}
+      <div className="mt-8 relative">
+        
+        <StarrySky
+          starCount={60}
+          yRange={yRange}
+        />
 
         {/* Avatars */}
         <div className="relative z-10 w-full h-[80vh] mt-4">

@@ -41,7 +41,11 @@ router.get('/:username/dreams', async (req, res) => {
 
     const userId = userRes.rows[0].id;
     const dreamsRes = await db.query(
-      'SELECT * FROM dreams WHERE user_id = $1 AND is_public = TRUE ORDER BY created_at DESC',
+      `SELECT d.*, u.username
+      FROM dreams d
+      JOIN users u ON d.user_id = u.id
+      WHERE d.user_id = $1 AND d.is_public = TRUE
+      ORDER BY d.created_at DESC`,
       [userId]
     );
 

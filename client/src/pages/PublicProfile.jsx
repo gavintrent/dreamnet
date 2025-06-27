@@ -19,6 +19,8 @@ export default function PublicProfile({ loggedIn, currentUser }) {
           api.get('/users/usernames')
         ]);
 
+        console.log('Dream usernames:', dreamRes.data.map(d => d.username));
+
         setDreams(dreamRes.data);
         setProfile(profileRes.data);
         setUsers(userRes.data.map((u) => ({ id: u, display: u })));
@@ -56,6 +58,7 @@ export default function PublicProfile({ loggedIn, currentUser }) {
       console.error('Follow/unfollow failed:', err);
     }
   };
+
 
   return (
     <UserProfilePage

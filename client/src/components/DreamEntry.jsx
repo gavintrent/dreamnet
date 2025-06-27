@@ -114,8 +114,6 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
 
   useEffect(() => {
     const paginated = paginateByLineEstimate(dream.content, 21, 76).map(linkifyMentions);
-    console.log("dream name:", dream.title);
-    console.log("paginated.length:", paginated.length);
     setPages(paginated);
   }, [dream.content]);
 

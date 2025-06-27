@@ -28,6 +28,8 @@ export default function Home({ loggedIn }) {
 
   return (
     <div className="p-8">
+      {/* {feedType === "discover" && (
+      )} */}
       <FeedTabs feedType={feedType} switchFeed={switchFeed} />
 
       {dreams.length === 0 ? (

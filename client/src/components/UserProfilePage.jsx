@@ -3,6 +3,7 @@ import DreamGrid from './DreamGrid';
 import StarrySky from './StarrySky';
 import ProfileHeader from './ProfileHeader';
 import ProfileActions from './ProfileActions';
+import { useEffect } from 'react';
 
 export default function UserProfilePage({
   username,
@@ -15,6 +16,10 @@ export default function UserProfilePage({
   onFollowToggle,
   isFollowing
 }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="mt-[2rem] z-10">
       <div className="mx-auto w-[80vw] relative text-white">

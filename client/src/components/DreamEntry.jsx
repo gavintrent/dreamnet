@@ -113,7 +113,7 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
   const isPublic = dream.is_public
 
   useEffect(() => {
-    const paginated = paginateByLineEstimate(dream.content, 21, 76).map(linkifyMentions);
+    const paginated = paginateByLineEstimate(dream.content, 21, 72).map(linkifyMentions);
     setPages(paginated);
   }, [dream.content]);
 

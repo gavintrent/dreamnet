@@ -9,12 +9,11 @@ import NewDream from './pages/NewDream';
 import EditProfile from './pages/EditProfile';
 import api from './api';
 import Navbar from './components/Navbar';
-import PageFooter from './components/PageFooter';
+//import PageFooter from './components/PageFooter';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // 93186c
   return (
     
     <div className="min-h-screen bg-[#52489f] text-white pb-4">
@@ -101,10 +100,8 @@ function AppInner({ loggedIn, setLoggedIn }) {
                 : <Navigate to="/login" replace />
               } />
             <Route path="/users/:username" 
-              element={ loggedIn
-                ? <PublicProfile loggedIn={loggedIn} currentUser={currentUser} />
-                : <Navigate to="/login" replace />
-              } />
+              element= {<PublicProfile loggedIn={loggedIn} currentUser={currentUser} />}
+                />
             <Route path="/edit-profile" 
               element={ loggedIn
                 ? <EditProfile />

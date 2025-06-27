@@ -7,7 +7,7 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
   const editable = !!onUpdate && !!onDelete;
   const allFacts = [...dreamFacts, ...sleepHealthTips];
 
-  // 💡 Memoize the facts per dream list
+  // Memoize the facts per dream list
   const factBlocks = useMemo(() => {
     const intro = allFacts[Math.floor(Math.random() * allFacts.length)];
     const blocks = [
@@ -43,6 +43,7 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
     });
 
     return blocks;
+    // eslint-disable-next-line
   }, [dreams, users, onUpdate, onDelete]); // rerun only when relevant data changes
 
   return (

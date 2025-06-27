@@ -32,7 +32,7 @@ export default function UserSuggestions() {
             x = Math.random() * 90;
             y = Math.random() * 80;
             attempts++;
-          } while (
+          } while ( // eslint-disable-next-line
             placed.some(p => Math.hypot(p.x - x, p.y - y) < MIN_DISTANCE) &&
             attempts < 100
           );

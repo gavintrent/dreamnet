@@ -34,7 +34,7 @@ export default function UserProfilePage({
 
       do {
         x = Math.random() * 85 + 5;
-        y = Math.random() * 50 + 5;
+        y = Math.random() * 50 + 5; // eslint-disable-next-line
         tooClose = placed.some(p => Math.hypot(p.x - x, p.y - y) < MIN_DISTANCE);
         attempts++;
       } while (tooClose && attempts < MAX_ATTEMPTS);
@@ -80,7 +80,7 @@ export default function UserProfilePage({
           );
         })}
 
-        {/* 👤 Avatar + Floaty Info */}
+        {/* Avatar + Floaty Info */}
         <div className="relative z-10 flex items-start">
           <img
             src={profile?.avatar?.trim() ? profile.avatar : '/avatars/default-avatar-1.jpg'}

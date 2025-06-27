@@ -1,52 +1,62 @@
-import React, { useState, useEffect } from 'react'
+// src/pages/NewDream.jsx
+import React, { useState, useEffect, useRef } from 'react'
 import api from '../api'
 import { useNavigate } from 'react-router-dom'
 import { MentionsInput, Mention } from 'react-mentions'
 import { cleanMentions } from '../utils/formatMentions'
+import PageNavigation from '../components/PageNavigation'
 
 export default function NewDream() {
-  const [form, setForm] = useState({
-    title: '',
-    content: '',
-    is_public: false,
-  })
   const navigate = useNavigate()
-  const [users, setUsers] = useState([])
+  const [title, setTitle]     = useState('')
+  const [pages, setPages]     = useState([''])
+  const [currentPage]         = useState(0)
+  const [isPublic, setIsPublic] = useState(false)
+  const [users, setUsers]     = useState([])
+  
+  // pageHeight drives h-[…px] and line count; starts at 660px
+  const [pageHeight, setPageHeight] = useState(660)
+  const textareaRef = useRef(null)
+  const LINE_HEIGHT = 30
 
+  // fetch mentionable users
   useEffect(() => {
-    api
-      .get('/users/usernames')
-      .then((res) => {
-        setUsers(res.data.map((username) => ({ id: username, display: username })))
-      })
-      .catch((err) => console.error('Failed to fetch usernames', err))
+    const token = localStorage.getItem('token')
+    api.get('/users/usernames', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then(res => setUsers(res.data.map(u => ({ id: u, display: u }))))
+    .catch(err => console.error('Failed to fetch usernames', err))
   }, [])
 
+  // on text change: just update page content,
+  // then if scrollHeight > current height, grow by one line
+  const handlePageTextChange = (val) => {
+    setPages(prev => {
+      const next = [...prev]; next[currentPage] = val
+      return next
+    })
+    const el = textareaRef.current
+    if (el && el.scrollHeight > pageHeight) {
+      setPageHeight(h => h + LINE_HEIGHT)
+    }
+  }
+
+  // submit: join pages, clean mentions, extract tagged_usernames
   const handleSubmit = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token')
-
-    const plainContent = cleanMentions(form.content)
-    const mentionedUsers = [...new Set(
-      (form.content.match(/@\\\[[^\]]+?\\\]\(([^)]+?)\)/g) || [])
-        .map(m => m.match(/@\\\[[^\]]+?\\\]\(([^)]+?)\)/)?.[1])
-        .filter(Boolean)
-    )];
-    
-    const payload = {
-      title: form.title,
-      content: plainContent,
-      is_public: form.is_public,
-      tagged_usernames: mentionedUsers
-    };
-    console.log("PAYLOAD:", payload)
-
+    const full = pages.join('')
+    const plain = cleanMentions(full)
+    const tagged = Array.from(new Set(
+      (full.match(/@\[[^\]]+\]\(([^)]+)\)/g) || [])
+        .map(m => m.match(/@\[[^\]]+\]\(([^)]+)\)/)[1])
+    ))
     try {
       await api.post(
-        '/dreams', payload,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        '/dreams',
+        { title, content: plain, is_public: isPublic, tagged_usernames: tagged },
+        { headers: { Authorization: `Bearer ${token}` }}
       )
       navigate('/dashboard')
     } catch (err) {
@@ -54,29 +64,29 @@ export default function NewDream() {
     }
   }
 
+  // transparent control + input; suggestions unchanged
   const mentionsStyle = {
     control: {
-      backgroundColor: '#ffffff',
-      border: '1px solid #ccc',
+      backgroundColor: 'transparent',
+      border: '0px',
       borderRadius: '6px',
       fontSize: 18,
       fontFamily: '"Jersey 10", sans-serif',
       minHeight: '15px',
     },
     input: {
-      color: '#000000',
-      minHeight: '150px',
+      backgroundColor: 'transparent',
+      color: '#000',
       fontFamily: '"Jersey 10", sans-serif',
-      padding: '0px 10px',
+      padding: '0 10px',
     },
     highlighter: {
       overflow: 'hidden',
-      padding: '0px 10px',
-      minHeight: '150px',
+      padding: '0 10px',
     },
     suggestions: {
       list: {
-        backgroundColor: '#1e1b2e',        // dark dreamy background
+        backgroundColor: '#1e1b2e',
         border: '1px solid #d40f95',
         borderRadius: '0.5rem',
         fontSize: 16,
@@ -98,70 +108,108 @@ export default function NewDream() {
   }
 
   return (
-      <div className="fixed inset-0 flex items-center justify-center overflow-hidden">
-        <div className="w-full max-w-xl bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-lg mt-16">
-          <h2 className="text-3xl text-center jersey-10-regular text-white mb-6">
-            New Dream Entry
-          </h2>
+    <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-6">
+      {/* Notebook‐style page (single, extending) */}
+      <div
+        className="relative w-[38vw] mt-6 mb-2 font-['Jersey_10']"
+        style={{ height: `${pageHeight}px` }}
+      >
+        {/* stacked corners if you ever add pages */}
+        {pages.length > 1 && Array(Math.min(pages.length - currentPage - 1, 4))
+          .fill(0).map((_, i) => (
+            <div
+              key={i}
+              className="absolute top-0 left-0 w-full h-full bg-[#eee7d7] border border-gray-300 rounded-xl"
+              style={{
+                zIndex: -1 * (i + 1),
+                transform: `translate(${(i + 1) * 4}px, ${(i + 1) * 4}px)`
+              }}
+            />
+        ))}
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label className="block mb-1 text-white jersey-10-regular">
-                Title
-              </label>
-              <input
-                name="title"
-                value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
-                required
-                placeholder="Dream title"
-                className="w-full input input-bordered bg-white text-black jersey-10-regular text-xl"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-1 text-white jersey-10-regular">
-                Describe your Dream...
-              </label>
-              <MentionsInput
-                style={mentionsStyle}
-                value={form.content}
-                onChange={(e) => setForm({ ...form, content: e.target.value })}
-                placeholder="Describe your dream and tag users with @"
-              >
-                <Mention
-                  trigger="@"
-                  data={(query, callback) => {
-                    const results = users
-                      .filter((u) => u.id.toLowerCase().startsWith(query.toLowerCase()))
-                      .map((u) => ({ id: u.id, display: u.display }))
-                    callback(results)
-                  }}
-                  markup="@\[__display__\](__id__)"
-                  displayTransform={(id) => `@${id}`}
+        {/* the page itself */}
+        <div className="absolute inset-0 bg-[#eee7d7] border border-gray-400 rounded-xl shadow-md overflow-hidden">
+          {/* Lined background (dynamic line count) */}
+          <div className="absolute inset-0 z-0 pointer-events-none rounded-xl overflow-hidden">
+            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              {[...Array(Math.ceil(pageHeight / LINE_HEIGHT))].map((_, i) => (
+                <line
+                  key={i}
+                  x1="8%"
+                  x2="92%"
+                  y1={LINE_HEIGHT * (i + 1)}
+                  y2={LINE_HEIGHT * (i + 1)}
+                  stroke="#bbb"
+                  strokeWidth="1"
                 />
-              </MentionsInput>
-            </div>
+              ))}
+            </svg>
+          </div>
 
-            <div className="flex items-center gap-2 text-white jersey-10-regular">
+          {/* Title on page 0 */}
+          {currentPage === 0 && (
+            <div className="flex items-center pt-[5px] text-black leading-[30px] px-[8%]">
               <input
-                type="checkbox"
-                name="is_public"
-                checked={form.is_public}
-                onChange={(e) => setForm({ ...form, is_public: e.target.checked })}
-                className="checkbox"
+                type="text"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+                placeholder="Dream Title"
+                maxLength={26}
+                className="w-full bg-transparent border-none text-xl focus:outline-none"
+                required
               />
-              <label>Make public</label>
             </div>
+          )}
 
-            <button
-              type="submit"
-              className="w-full btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
+          {/* Content entry */}
+          <div className="relative z-10 px-[8%] pt-[6px] leading-[30px] text-black whitespace-pre-wrap font-['Jersey_10'] h-[calc(100%-60px)]">
+            <MentionsInput
+              inputRef={textareaRef}
+              style={{ ...mentionsStyle, input: { ...mentionsStyle.input, minHeight: `${pageHeight - 60}px` } }}
+              value={pages[currentPage]}
+              onChange={e => handlePageTextChange(e.target.value)}
+              placeholder="Describe your dream and tag users with @"
             >
-              Submit Dream
-            </button>
-          </form>
+              <Mention
+                trigger="@"
+                data={(q, cb) =>
+                  cb(users.filter(u => u.id.toLowerCase().startsWith(q.toLowerCase())))
+                }
+                markup="@\\[__display__\\](__id__)"
+                displayTransform={id => `@${id}`}
+              />
+            </MentionsInput>
+          </div>
+
+          {/* Page nav (won’t show when pages.length===1) */}
+          {pages.length > 1 && (
+            <PageNavigation
+              currentPage={currentPage}
+              totalPages={pages.length}
+              setCurrentPage={() => {}}
+            />
+          )}
         </div>
       </div>
+
+      {/* public checkbox */}
+      <div className="flex items-center gap-2 text-white jersey-10-regular">
+        <input
+          type="checkbox"
+          checked={isPublic}
+          onChange={e => setIsPublic(e.target.checked)}
+          className="checkbox"
+        />
+        <label>Make public</label>
+      </div>
+
+      {/* submit */}
+      <button
+        type="submit"
+        className="w-full max-w-xs btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
+      >
+        Submit Dream
+      </button>
+    </form>
   )
 }

@@ -53,7 +53,7 @@ export default function UserProfilePage({
   }, []);
 
   return (
-    <div className="mt-[2rem]">
+    <div className="mt-[2rem] z-10">
       <div className="mx-auto w-[80vw] relative text-white">
         {/* Moon */}
         <div className="absolute top-4 right-16 w-12 h-12 text-yellow-200 animate-pulse-slow z-0">

@@ -3,7 +3,7 @@ import NotebookPage from './NotebookPage';
 
 export default function NotebookPageStack({ pages, currentPage, setCurrentPage, title, username, timestamp }) {
   return (
-    <div className="relative w-[38vw] h-[660px] mt-6 mb-2 font-['Jersey_10']">
+    <div className="relative w-[38vw] h-[660px] mt-6 mb-2 font-['Jersey_10'] z-10">
       {/* Stacked corners */}
       {pages.length > 1 && (
         <>

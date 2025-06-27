@@ -24,7 +24,7 @@ export default function Dashboard() {
         ]);
         dreamRes.username = userRes.data.username;
 
-        setDreams(dreamRes.data);
+        setDreams(dreamRes.data.map(d => ({ ...d, username: userRes.data.username })));
         setProfile(profileRes.data);
         setUsers(usersRes.data.map(u => ({ id: u, display: u })));
       } catch (err) {

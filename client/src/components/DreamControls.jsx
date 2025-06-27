@@ -1,3 +1,4 @@
+// DreamControls.jsx
 import { ReactComponent as HeartIcon } from '../assets/icons/heart-svgrepo-com.svg';
 import { ReactComponent as CommentIcon } from '../assets/icons/message-text-svgrepo-com.svg';
 import { ReactComponent as PublicIcon } from '../assets/icons/sun-svgrepo-com.svg';

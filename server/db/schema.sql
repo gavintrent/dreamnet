@@ -42,7 +42,7 @@ CREATE TABLE follows (
 CREATE TABLE likes (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
-  dream_id INTEGER REFERENCES dreams(id),
+  dream_id INTEGER REFERENCES dreams(id) ON DELETE CASCADE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE (user_id, dream_id)
 );

@@ -102,6 +102,7 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
       await api.delete(`/dreams/${dream.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("Deleted dream:", dream.id);
       onDelete(dream.id);
     } catch (err) {
       console.error("Failed to delete dream:", err);
@@ -127,7 +128,15 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
         timestamp={dream.created_at}
       />
       <DreamControls
-        {...{ liked, likeCount, toggleLike, showComments, setShowComments, isPublic, editable, topLevelCount, handleDelete }}
+        liked={liked}
+        likeCount={likeCount}
+        toggleLike={toggleLike}
+        showComments={showComments}
+        setShowComments={setShowComments}
+        isPublic={isPublic}
+        editable={editable}
+        topLevelCount={topLevelCount}
+        onDelete={handleDelete}
       />
       {showComments && (
         <CommentsSection

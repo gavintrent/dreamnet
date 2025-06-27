@@ -43,7 +43,7 @@ export default function Dashboard() {
       users={users}
       editable={true}
       onUpdate={(updated) => setDreams((prev) => prev.map(d => d.id === updated.id ? updated : d))}
-      onDelete={(id) => setDreams((prev) => prev.filter(d => d.id !== id))}
+      onDelete={(id) => setDreams((prev) => prev.filter(d => d.id !== Number(id)))}
     />
   );
 }

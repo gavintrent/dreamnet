@@ -88,6 +88,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
     await db.query('DELETE FROM dreams WHERE id = $1 AND user_id = $2', [id, userId]);
     res.sendStatus(204);
   } catch (err) {
+    console.error('Delete dream error:', err);
     res.status(500).json({ error: 'Failed to delete dream' });
   }
 });

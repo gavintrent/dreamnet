@@ -1,5 +1,5 @@
 // pages/Home.jsx
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import DreamGrid from '../components/DreamGrid';
 import FeedTabs from '../components/FeedTabs';
 import useDreamFeed from '../hooks/useDreamFeed';
@@ -16,6 +16,11 @@ export default function Home({ loggedIn }) {
     setFollowingState,
   } = useDreamFeed(loggedIn, feedType);
 
+  // Memoize StarrySky to prevent re-renders
+  const memoizedStarrySky = useMemo(() => (
+    <StarrySky starCount={100} yRange={[12, 24]} xRange={[12, 88]} includeMoon={true} />
+  ), []);
+
   const switchFeed = async (newFeed) => {
     // Save current scroll position
     if (feedType === 'discover') {
@@ -29,7 +34,7 @@ export default function Home({ loggedIn }) {
 
   return (
     <div>
-      <StarrySky starCount={60} yRange={[10, 30]} />
+      {memoizedStarrySky}
       {/* {feedType === "discover" && (
       )} */}
       <div className="sticky top-[0.5rem] z-[70] flex justify-center pointer-events-none">

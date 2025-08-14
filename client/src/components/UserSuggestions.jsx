@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import StarrySky from './StarrySky';
@@ -10,6 +10,14 @@ export default function UserSuggestions() {
   const [users, setUsers] = useState([]);
   const [positions, setPositions] = useState([]);
   const navigate = useNavigate();
+
+  // Memoize StarrySky to prevent re-renders
+  const memoizedStarrySky = useMemo(() => (
+    <StarrySky
+      starCount={60}
+      yRange={yRange}
+    />
+  ), []);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -51,10 +59,7 @@ export default function UserSuggestions() {
 
       <div className="mt-8 relative">
         
-        <StarrySky
-          starCount={60}
-          yRange={yRange}
-        />
+        {memoizedStarrySky}
 
         {/* Avatars */}
         <div className="relative z-10 w-full h-[80vh] mt-4">

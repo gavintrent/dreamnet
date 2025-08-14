@@ -9,15 +9,7 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
 
   // Memoize the facts per dream list
   const factBlocks = useMemo(() => {
-    const intro = allFacts[Math.floor(Math.random() * allFacts.length)];
-    const blocks = [
-      <div
-        key="info-intro"
-        className="col-span-full w-full bg-[#f5b841] text-yellow-900 rounded-md p-3 text-center font-pixelify"
-      >
-        {intro}
-      </div>
-    ];
+    const blocks = [];
 
     dreams.forEach((dream, idx) => {
       blocks.push(
@@ -29,7 +21,9 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
         />
       );
 
-      if ((idx + 1) % 8 === 0) {
+      // Add fact block after the first row (every 2 dreams in md:grid-cols-2)
+      // and then every 8 rows (every 16 dreams)
+      if ((idx + 1) % 2 === 0 && ((idx + 1) / 2 === 1 || (idx + 1) % 8 === 0)) {
         const fact = allFacts[Math.floor(Math.random() * allFacts.length)];
         blocks.push(
           <div

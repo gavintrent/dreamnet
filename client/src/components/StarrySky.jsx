@@ -3,7 +3,12 @@ import { ReactComponent as MoonIcon } from '../assets/icons/moon-svgrepo-com.svg
 import { ReactComponent as Star1 } from '../assets/icons/ungroup-svgrepo-com.svg';
 import { ReactComponent as Star2 } from '../assets/icons/loader-svgrepo-com.svg';
 
-export default function StarrySky({ starCount = 40, yRange = [5, 55] }) {
+export default function StarrySky({ 
+  starCount = 40, 
+  yRange = [5, 55], 
+  xRange = [5, 95], 
+  includeMoon = true 
+}) {
   const stars = useMemo(() => {
     const MIN_DISTANCE = 8;
     const MAX_ATTEMPTS = 100;
@@ -16,7 +21,7 @@ export default function StarrySky({ starCount = 40, yRange = [5, 55] }) {
       let tooClose;
 
       do {
-        x = Math.random() * 90 + 5;
+        x = Math.random() * (xRange[1] - xRange[0]) + xRange[0];
         y = Math.random() * (yRange[1] - yRange[0]) + yRange[0]; // eslint-disable-next-line
         tooClose = placed.some(p => Math.hypot(p.x - x, p.y - y) < MIN_DISTANCE);
         attempts++;
@@ -34,14 +39,22 @@ export default function StarrySky({ starCount = 40, yRange = [5, 55] }) {
     }
 
     return generated;
-  }, [starCount, yRange]);
+  }, [starCount, yRange, xRange]);
 
   return (
     <>
-      {/* Moon */}
-      <div className="absolute top-4 right-16 w-12 h-12 text-yellow-200 animate-pulse-slow z-0">
-        <MoonIcon className="w-full h-full fill-current" />
-      </div>
+      {/* Moon - conditionally rendered */}
+      {includeMoon && (
+        <div 
+          className="absolute w-12 h-12 text-yellow-200 animate-pulse-slow z-0"
+          style={{
+            top: `${yRange[0]}%`,
+            right: `${100 - xRange[1]}%`,
+          }}
+        >
+          <MoonIcon className="w-full h-full fill-current" />
+        </div>
+      )}
 
       {/* Stars */}
       {stars.map((star, idx) => {

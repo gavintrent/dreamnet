@@ -4,6 +4,7 @@ import DreamGrid from '../components/DreamGrid';
 import FeedTabs from '../components/FeedTabs';
 import useDreamFeed from '../hooks/useDreamFeed';
 import UserSuggestions from '../components/UserSuggestions';
+import StarrySky from '../components/StarrySky';
 
 export default function Home({ loggedIn }) {
   const [feedType, setFeedType] = useState('discover');
@@ -28,6 +29,7 @@ export default function Home({ loggedIn }) {
 
   return (
     <div>
+      <StarrySky starCount={60} yRange={[10, 30]} />
       {/* {feedType === "discover" && (
       )} */}
       <div className="sticky top-[0.5rem] z-[70] flex justify-center pointer-events-none">

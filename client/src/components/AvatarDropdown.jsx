@@ -38,7 +38,7 @@ export default function AvatarDropdown({ loggedIn, onLogout, avatarUrl }) {
       </button>
 
       {open && (
-        <ul className="absolute min-w-[6rem] top-12 z-50 w-60 max-w-full rounded-2xl bg-[#EB5FC1] p-4 shadow-none text-black jersey-10-regular space-y-2">
+        <ul className="absolute min-w-[6rem] top-12 z-50 w-60 max-w-full rounded-2xl bg-highlight p-4 shadow-none text-black jersey-10-regular space-y-2">
           {items.map(({ label, action }) => (
             <li key={label}>
               <button

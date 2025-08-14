@@ -16,7 +16,7 @@ function App() {
 
   return (
     
-    <div className="min-h-screen bg-[#332e4e] text-white pb-4">
+    <div className="min-h-screen bg-background text-white pb-4">
       <Router>
         <AppInner loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </Router>

@@ -12,7 +12,7 @@ export default function SearchButton() {
         className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none"
         onClick={() => setShow((s) => !s)}
       >
-        <PixelSearchIcon className="w-6 h-6 text-[#75d2a5]"/>
+        <PixelSearchIcon className="w-6 h-6 text-highlight"/>
       </button>
 
       {show && (

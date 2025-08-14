@@ -60,7 +60,7 @@ export default function Login({ onLogin }) {
 
             <button
               type="submit"
-              className="w-full btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
+              className="w-full btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
             >
               Login
             </button>
@@ -71,7 +71,7 @@ export default function Login({ onLogin }) {
             <button
               type="button"
               onClick={() => navigate('/register')}
-              className="underline text-[#EB5FC1]"
+              className="underline text-highlight"
             >
               Register
             </button>

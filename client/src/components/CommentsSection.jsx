@@ -17,7 +17,7 @@ export default function CommentsSection({
           .map(comment => (
             <div key={comment.id}>
               <p>
-                <strong className="text-[#EB5FC1]">@{comment.username}</strong>: {comment.content}
+                <strong className="text-highlight">@{comment.username}</strong>: {comment.content}
               </p>
               {/* Replies */}
               <div className="ml-6 mt-2 text-sm">
@@ -25,12 +25,12 @@ export default function CommentsSection({
                   .filter(r => r.parent_id === comment.id)
                   .map(reply => (
                     <p key={reply.id}>
-                      ↳ <strong className="text-[#EB5FC1]">@{reply.username}</strong>: {reply.content}
+                      ↳ <strong className="text-highlight">@{reply.username}</strong>: {reply.content}
                     </p>
                   ))}
                 <button
                   onClick={() => setReplyingTo(comment.id)}
-                  className="mt-1 text-xs text-[#EB5FC1] hover:underline"
+                  className="mt-1 text-xs text-highlight hover:underline"
                 >
                   Reply
                 </button>
@@ -42,7 +42,7 @@ export default function CommentsSection({
       {/* Comment box */}
       <div className="mt-6">
         <textarea
-          className="w-full border border-gray-300 rounded px-3 py-1 font-['Jersey_10'] text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#EB5FC1]"
+          className="w-full border border-gray-300 rounded px-3 py-1 font-['Jersey_10'] text-sm resize-none focus:outline-none focus:ring-2 ring-highlight"
           rows={1}
           value={newComment}
           onChange={e => setNewComment(e.target.value)}
@@ -50,7 +50,7 @@ export default function CommentsSection({
         />
         <button
           onClick={submitComment}
-          className="mt-2 bg-[#EB5FC1] text-white text-sm px-4 py-1 rounded hover:bg-[#c54ca6]"
+          className="mt-2 bg-highlight text-white text-sm px-4 py-1 rounded hover:bg-[#c54ca6]"
         >
           Post
         </button>

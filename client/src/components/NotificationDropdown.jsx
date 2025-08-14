@@ -22,7 +22,7 @@ export default function NotificationDropdown({ notifications, onClose }) {
   };
 
   return (
-    <div className="absolute right-24 top-16 z-50 w-60 max-w-full rounded-2xl bg-[#EB5FC1] p-4 shadow-none text-black jersey-10-regular">
+            <div className="absolute right-24 top-16 z-50 w-60 max-w-full rounded-2xl bg-highlight p-4 shadow-none text-black jersey-10-regular">
       <h3 className="text-lg font-pixelify mb-2">Notifications</h3>
       {notifications.length === 0 ? (
         <p className="text-sm text-gray-500">No mentions yet.</p>

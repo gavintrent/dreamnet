@@ -206,7 +206,7 @@ export default function NewDream() {
       {/* submit */}
       <button
         type="submit"
-        className="w-full max-w-xs btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
+                  className="w-full max-w-xs btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
       >
         Submit Dream
       </button>

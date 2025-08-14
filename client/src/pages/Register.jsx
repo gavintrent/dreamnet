@@ -114,7 +114,7 @@ export default function Register() {
 
           <button
             type="submit"
-            className="w-full btn bg-[#EB5FC1] hover:bg-[#b80c7e] text-white font-pixelify"
+            className="w-full btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
           >
             Register
           </button>
@@ -125,7 +125,7 @@ export default function Register() {
           <button
             type="button"
             onClick={() => navigate('/login')}
-            className="underline text-[#EB5FC1]"
+            className="underline text-highlight"
           >
             Login
           </button>

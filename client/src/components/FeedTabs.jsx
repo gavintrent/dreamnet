@@ -9,7 +9,7 @@ export default function FeedTabs({ feedType, switchFeed }) {
           <div className="flex w-full max-w-md relative z-20">
             {/* Animated underline that slides between tabs */}
             <div
-              className="absolute bottom-0 h-1 bg-[#75d2a5] transition-transform duration-300 ease-in-out"
+              className="absolute bottom-0 h-1 bg-highlight transition-transform duration-300 ease-in-out"
               style={{
                 width: '50%',
                 transform: feedType === 'following' ? 'translateX(100%)' : 'translateX(0%)',

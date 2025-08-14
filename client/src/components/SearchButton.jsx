@@ -7,7 +7,7 @@ export default function SearchButton() {
   const [show, setShow] = useState(false);
 
   return (
-    <>
+    <div className="relative">
       <button
         className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none"
         onClick={() => setShow((s) => !s)}
@@ -16,8 +16,10 @@ export default function SearchButton() {
       </button>
 
       {show && (
+        <div className="absolute top-full right-0 mt-2 z-50">
           <SearchBar />
+        </div>
       )}
-    </>
+    </div>
   );
 }

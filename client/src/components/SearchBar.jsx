@@ -29,7 +29,7 @@ export default function SearchBar() {
   };
 
   return (
-            <div className="relative w-half rounded-full bg-highlight jersey-10-regular ">
+    <div className="relative w-80 rounded-full bg-highlight jersey-10-regular">
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}

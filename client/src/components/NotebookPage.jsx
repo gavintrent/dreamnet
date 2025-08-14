@@ -5,7 +5,7 @@ import PageNavigation from './PageNavigation';
 
 export default function NotebookPage({ htmlContent, currentPage, totalPages, setCurrentPage, title, username, timestamp }) {
   return (
-    <div className="absolute inset-0 bg-[#eee7d7] border border-gray-400 rounded-xl shadow-md overflow-hidden">
+    <div className="absolute inset-0 bg-[#f6eee3] border border-gray-400 rounded-xl shadow-md overflow-hidden">
       {/* Lined Background */}
       <div className="absolute inset-0 z-0 pointer-events-none rounded-xl overflow-hidden">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">

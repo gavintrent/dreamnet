@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function FeedTabs({ feedType, switchFeed }) {
   return (
-    <div className="sticky top-[0.5rem] z-[70] bg-transparent pt-4">
+    <div className="bg-transparent pt-4">
       <div className="flex justify-center mb-4 gap-4">
         <div className="relative flex justify-center mb-6">
           <div className="flex w-full max-w-md relative z-20">
@@ -17,14 +17,14 @@ export default function FeedTabs({ feedType, switchFeed }) {
             />
             
             <button
-              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-white relative"
+              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[#f6eee3] relative"
               onClick={() => switchFeed('discover')}
             >
               Discover
             </button>
 
             <button
-              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-white relative"
+              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[#f6eee3] relative"
               onClick={() => switchFeed('following')}
             >
               Following

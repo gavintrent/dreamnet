@@ -17,7 +17,7 @@ export default function DreamControls({
   onDelete,
 }) {
   return (
-    <div className="mt-2 flex gap-6 items-center justify-center text-sm font-pixelify text-[#EB5FC1]">
+    <div className="mt-2 flex gap-6 items-center justify-center text-sm font-pixelify text-[#75d2a5]">
       {editable && (
         <span className="flex items-center">
           {isPublic ? (
@@ -30,12 +30,12 @@ export default function DreamControls({
       )}
 
       <button onClick={toggleLike} className="flex items-center gap-1 hover:text-pink-500">
-        <HeartIcon className={`w-4 h-4 ${liked ? 'text-white' : 'text-[#EB5FC1]'}`} />
+        <HeartIcon className={`w-4 h-4 ${liked ? 'text-white' : 'text-[#75d2a5]'}`} />
         <span>{likeCount}</span>
       </button>
 
       <button onClick={() => setShowComments(!showComments)} className="flex items-center gap-1 hover:text-pink-500">
-        <CommentIcon className="w-4 h-4 text-[#EB5FC1]" />
+        <CommentIcon className="w-4 h-4 text-[#75d2a5]" />
         <span>{showComments ? 'Hide Comments' : commentCount}</span>
       </button>
 

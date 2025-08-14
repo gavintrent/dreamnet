@@ -13,7 +13,7 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
     const blocks = [
       <div
         key="info-intro"
-        className="col-span-full w-full bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-md p-3 text-center font-pixelify"
+        className="col-span-full w-full bg-[#f5b841] text-yellow-900 rounded-md p-3 text-center font-pixelify"
       >
         {intro}
       </div>
@@ -34,7 +34,7 @@ export default function DreamGrid({ dreams, users, onUpdate, onDelete }) {
         blocks.push(
           <div
             key={`info-${idx}`}
-            className="col-span-full w-full bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-md p-3 text-center font-pixelify"
+            className="col-span-full w-full bg-[#f5b841] text-yellow-900 rounded-md p-3 text-center font-pixelify"
           >
             {fact}
           </div>

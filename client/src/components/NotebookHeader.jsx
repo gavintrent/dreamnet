@@ -9,7 +9,7 @@ export default function NotebookHeader({ title, username, timestamp }) {
         <span className="text-xl">{title}</span>{' '}
         <span className="text-sm">
           — dreamt by{' '}
-          <Link to={`/users/${username}`} className="text-[#EB5FC1] hover:underline">
+          <Link to={`/users/${username}`} className="text-[#75d2a5] hover:underline">
             @{username}
           </Link>
         </span>

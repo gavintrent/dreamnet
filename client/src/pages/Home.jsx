@@ -27,10 +27,14 @@ export default function Home({ loggedIn }) {
   };
 
   return (
-    <div className="p-0">
+    <div>
       {/* {feedType === "discover" && (
       )} */}
-      <FeedTabs feedType={feedType} switchFeed={switchFeed} />
+      <div className="sticky top-[0.5rem] z-[70] flex justify-center pointer-events-none">
+        <div className="w-full max-w-md pointer-events-auto">
+          <FeedTabs feedType={feedType} switchFeed={switchFeed} />
+        </div>
+      </div>
 
       {dreams.length === 0 ? (
         <></>

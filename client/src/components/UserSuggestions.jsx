@@ -45,7 +45,7 @@ export default function UserSuggestions() {
   return (
     <div className="relative w-3/4 min-h-[100vh] mx-auto overflow-hidden">
       {/* Title */}
-      <div className="col-span-full w-full bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-md p-3 text-center font-pixelify">
+      <div className="col-span-full w-full bg-[#f5b841] text-yellow-900 rounded-md p-3 text-center font-pixelify">
         Find other dreamers...
       </div>
 

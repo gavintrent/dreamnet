@@ -29,7 +29,7 @@ code {
   src: url('./assets/fonts/pf-pixelscript.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* optional for better performance */
+  font-display: swap;
 }
 
 .font-pixelify-italic {

@@ -23,7 +23,7 @@ export default function UserProfilePage({
   return (
     <div className="mt-[2rem] z-10">
       <div className="mx-auto w-[80vw] relative text-white">
-        <StarrySky />
+        <StarrySky numStars={20} minDistance={10}/>
         <ProfileHeader username={username} profile={profile} />
         <ProfileActions
           editable={editable}

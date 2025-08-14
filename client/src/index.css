@@ -24,6 +24,13 @@ code {
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'PF PixelScript';
+  src: url('./assets/fonts/pf-pixelscript.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* optional for better performance */
+}
 
 .font-pixelify-italic {
   font-family: 'Pixelify Sans', sans-serif;
@@ -42,12 +49,17 @@ code {
   font-style: normal;
 }
 
+.pf-pixelscript {
+  font-family: 'PF PixelScript', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
 @layer utilities {
   .jersey-10-regular {
     font-family: "Jersey 10", sans-serif;
   }
 }
-
 
 .jersey-10-thin {
   font-family: "Jersey 10", sans-serif;

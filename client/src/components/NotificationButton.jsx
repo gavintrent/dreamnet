@@ -52,7 +52,7 @@ export default function NotificationButton() {
         onClick={() => setShowNotif((n) => !n)}
       >
         <div className="indicator">
-          <PixelBellIcon className="w-6 h-6 text-[#EB5FC1]" />
+          <PixelBellIcon className="w-6 h-6 text-[#75d2a5]" />
         </div>
       </button>
 

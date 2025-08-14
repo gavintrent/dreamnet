@@ -27,7 +27,7 @@ export default function Home({ loggedIn }) {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-0">
       {/* {feedType === "discover" && (
       )} */}
       <FeedTabs feedType={feedType} switchFeed={switchFeed} />

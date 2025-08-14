@@ -5,7 +5,12 @@ module.exports = {
     "./public/index.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        highlight: '#75d2a5',
+        background: '#332e4e',
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

@@ -6,28 +6,6 @@
   --background-color: #332e4e;
 }
 
-/* Custom highlight color classes */
-.bg-highlight {
-  background-color: var(--highlight-color);
-}
-
-.text-highlight {
-  color: var(--highlight-color);
-}
-
-.border-highlight {
-  border-color: var(--highlight-color);
-}
-
-.ring-highlight {
-  --tw-ring-color: var(--highlight-color);
-}
-
-/* Custom background color class */
-.bg-background {
-  background-color: var(--background-color);
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

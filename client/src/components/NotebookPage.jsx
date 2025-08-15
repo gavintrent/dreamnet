@@ -29,7 +29,9 @@ export default function NotebookPage({ htmlContent, currentPage, totalPages, set
       )}
 
       {/* Content */}
-      <div className="relative z-10 px-[8%] pt-[0px] leading-[30px] text-black whitespace-pre-wrap font-['Jersey_10']">
+      <div className={`relative z-10 px-[8%] leading-[30px] text-black whitespace-pre-wrap font-['Jersey_10'] ${
+        currentPage === 0 ? 'pt-[0px]' : 'pt-[8px]'
+      }`}>
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </div>
 

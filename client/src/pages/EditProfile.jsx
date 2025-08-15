@@ -53,8 +53,8 @@ export default function EditProfile() {
   };
 
   return (
-    <div className="relative min-h-screen px-4 pb-8 mt-8">
-      <div className="flex items-center justify-center h-full pt-24">
+    <div className="relative min-h-screen px-4">
+      <div className="flex items-center justify-center h-full pt-4">
         <div className="w-full max-w-2xl bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-lg mt-16">
           <h2 className="text-4xl text-center font-pixelify-italic text-[var(--cream-color)] mb-8">
             Edit Profile
@@ -91,7 +91,7 @@ export default function EditProfile() {
                 type="file"
                 accept="image/*"
                 onChange={handleAvatarChange}
-                className="file:input file:input-bordered file:bg-highlight file:text-[var(--cream-color)] hover:file:bg-[#b80c7e]"
+                className="jersey-10-regular file:text-lg file:input file:input-bordered file:bg-highlight file:text-[var(--cream-color)] hover:file:bg-[#b80c7e]"
               />
               {avatar && (
                 <div className="mt-4 p-4 bg-white bg-opacity-20 rounded-lg">

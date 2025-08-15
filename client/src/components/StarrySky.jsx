@@ -16,7 +16,6 @@ export default function StarrySky({
     const placed = [];
 
     // Moon dimensions and position (if enabled)
-    const moonSize = 12; // 12% of container width/height
     const moonOverlapSize = 8; // Smaller size for overlap detection to allow closer star placement
     // Moon is positioned using 'right' CSS property, so calculate its left edge
     const moonLeft = 100 - (100 - xRange[1]) - moonOverlapSize; // Convert right positioning to left edge

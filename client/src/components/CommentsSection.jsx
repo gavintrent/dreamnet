@@ -227,7 +227,7 @@ export default function CommentsSection({
         <div className="relative z-20 mt-8 flex justify-center">
           <div className="w-full max-w-md bg-[var(--cream-color)] border border-gray-400 rounded-lg p-3 shadow-md">
             <textarea
-              className="w-full border border-gray-300 rounded-lg px-2 py-1 font-['Jersey_10'] text-sm resize-none focus:outline-none focus:ring-2 ring-highlight bg-white text-black"
+              className="w-full border border-gray-300 rounded-lg px-2 py-1 font-['Jersey_10'] text-sm resize-none focus:outline-none focus:ring-2 ring-highlight bg-[var(--cream-color)] text-black"
               rows={1}
               value={newComment}
               onChange={e => setNewComment(e.target.value)}

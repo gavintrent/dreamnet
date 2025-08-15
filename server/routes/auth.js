@@ -4,8 +4,22 @@ const router = express.Router();
 const { registerUser, loginUser } = require('../controllers/authController');
 const requireAuth = require('../middleware/requireAuth');
 const { registerRules, validate } = require('../validators/auth');
+const multer = require('multer');
+const path = require('path');
 
-router.post('/register', registerRules, validate, registerUser);
+const upload = multer({
+  dest: 'uploads/',
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (!['.jpg', '.jpeg', '.png'].includes(ext)) {
+      return cb(new Error('Only images allowed'));
+    }
+    cb(null, true);
+  }
+});
+
+router.post('/register', upload.single('avatar'), registerRules, validate, registerUser);
 
 router.post('/login', loginUser);
 

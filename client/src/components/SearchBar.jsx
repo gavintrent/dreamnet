@@ -34,7 +34,7 @@ export default function SearchBar() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search users..."
-        className="w-full p-2 pl-4 pr-4 rounded-full bg-white text-black border border-gray-300"
+        className="w-full p-2 pl-4 pr-4 rounded-full bg-[var(--cream-color)] text-black border border-gray-300"
       />
       {suggestions.length > 0 && (
         <ul className="absolute left-0 right-0 mt-2 bg-highlight rounded-2xl shadow z-50 border border-highlight overflow-hidden">

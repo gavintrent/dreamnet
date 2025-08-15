@@ -45,7 +45,7 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 type="email"
                 required
-                className="w-full input input-bordered bg-white text-black jersey-10-regular text-lg"
+                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg"
                 placeholder="Email"
               />
             </div>
@@ -60,7 +60,7 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 type="password"
                 required
-                className="w-full input input-bordered bg-white text-black jersey-10-regular text-lg"
+                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg"
                 placeholder="Password"
               />
             </div>

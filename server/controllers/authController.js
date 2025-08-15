@@ -7,13 +7,20 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.registerUser = async (req, res) => {
   const { username, email, password, name, bio } = req.body;
+  let avatarPath = null;
 
   try {
+    // Handle avatar upload if present
+    if (req.file) {
+      // Multer already saves the file, we just need the path
+      avatarPath = `/uploads/${req.file.filename}`;
+    }
+
     const hash = await bcrypt.hash(password, 10);
 
     const result = await db.query(
-      'INSERT INTO users (username, email, password_hash, name, bio) VALUES ($1, $2, $3, $4, $5) RETURNING id, username, email',
-      [username, email, hash, name || null, bio || null]
+      'INSERT INTO users (username, email, password_hash, name, bio, avatar) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, username, email',
+      [username, email, hash, name || null, bio || null, avatarPath]
     );
 
     const user = result.rows[0];

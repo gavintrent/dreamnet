@@ -64,10 +64,11 @@ export default function EditProfile() {
             <div>
               <label className="block mb-2 text-[var(--cream-color)] font-pixelify text-lg">Your Name</label>
               <input
-                className="w-full input input-bordered bg-white text-black jersey-10-regular text-lg"
-                placeholder="Your Name"
+                type="text"
                 value={form.name}
-                onChange={e => setForm({ ...form, name: e.target.value })}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg"
+                placeholder="Enter your name"
               />
             </div>
 
@@ -76,12 +77,11 @@ export default function EditProfile() {
                 Short Bio <span className="text-sm text-gray-300">({form.bio.length} / {MAX_BIO})</span>
               </label>
               <textarea
-                className="w-full input input-bordered bg-white text-black jersey-10-regular text-lg resize-none"
-                placeholder="Short Bio"
                 value={form.bio}
-                maxLength={MAX_BIO}
-                rows={4}
-                onChange={e => setForm({ ...form, bio: e.target.value })}
+                onChange={(e) => setForm({ ...form, bio: e.target.value })}
+                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg resize-none"
+                placeholder="Tell us about yourself"
+                rows="3"
               />
             </div>
 

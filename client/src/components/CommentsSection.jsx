@@ -89,8 +89,8 @@ export default function CommentsSection({
         attempts++;
         
         // Generate random position
-        x = Math.random() * 80 + 10; // 10% to 90% (adds 10% margin on each side)
-        y = Math.random() * 80 + 10; // 10% to 90% (adds 10% margin on each side)
+        x = Math.random() * 70 + 5; // 10% to 90% (adds 10% margin on each side)
+        y = Math.random() * 80 + 5; // 10% to 90% (adds 10% margin on each side)
         
         // Check if this position overlaps with any existing comment
         let hasCollision = false;

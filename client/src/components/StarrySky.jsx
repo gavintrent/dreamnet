@@ -64,7 +64,7 @@ export default function StarrySky({
       {/* Moon - conditionally rendered */}
       {includeMoon && (
         <div 
-          className="absolute w-12 h-12 text-[#f5b841] animate-pulse-slow z-0"
+          className="absolute w-12 h-12 text-[var(--accent-yellow)] animate-pulse-slow z-0"
           style={{
             top: `${yRange[0]}%`,
             right: `${100 - xRange[1]}%`,
@@ -80,7 +80,7 @@ export default function StarrySky({
         return (
           <div
             key={idx}
-            className="absolute z-0 text-[#f5b841] animate-twinkle"
+            className="absolute z-0 text-[var(--accent-yellow)] animate-twinkle"
             style={{
               top: `${star.y}%`,
               left: `${star.x}%`,

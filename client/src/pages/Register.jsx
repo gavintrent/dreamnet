@@ -33,13 +33,13 @@ export default function Register() {
         <Logo />
       </div>
       <div className="w-full max-w-md bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-lg">
-        <h2 className="text-4xl text-center jersey-10-regular text-white mb-6">
-          Register
+        <h2 className="text-4xl text-center jersey-10-regular text-[var(--cream-color)] mb-6">
+          Create Account
         </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block mb-1 text-white jersey-10-regular">
-              Username (Letters, numbers, underscores, and dots.)
+            <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular">
+              Username
             </label>
             <input
               name="username"
@@ -53,7 +53,7 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block mb-1 text-white jersey-10-regular">
+            <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular">
               Email
             </label>
             <input
@@ -69,7 +69,7 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block mb-1 text-white jersey-10-regular">
+            <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular">
               Password
             </label>
             <input
@@ -85,7 +85,7 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block mb-1 text-white jersey-10-regular">
+            <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular">
               Name (optional)
             </label>
             <input
@@ -99,7 +99,7 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block mb-1 text-white jersey-10-regular">
+            <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular">
               Short Bio (optional)
             </label>
             <textarea
@@ -114,13 +114,13 @@ export default function Register() {
 
           <button
             type="submit"
-            className="w-full btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
+            className="w-full btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
           >
             Register
           </button>
         </form>
 
-        <p className="mt-4 text-center text-sm text-white jersey-10-regular">
+        <p className="mt-4 text-center text-sm text-[var(--cream-color)] jersey-10-regular">
           Already have an account?{' '}
           <button
             type="button"

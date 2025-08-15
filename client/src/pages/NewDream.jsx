@@ -193,7 +193,7 @@ export default function NewDream() {
       </div>
 
       {/* public checkbox */}
-      <div className="flex items-center gap-2 text-white jersey-10-regular">
+      <div className="flex items-center gap-2 text-[var(--cream-color)] jersey-10-regular">
         <input
           type="checkbox"
           checked={isPublic}
@@ -208,13 +208,13 @@ export default function NewDream() {
         <button
           type="button"
           onClick={() => navigate('/dashboard')}
-          className="flex-1 btn bg-gray-600 hover:bg-gray-700 text-white font-pixelify"
+          className="flex-1 btn bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="flex-1 btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
+          className="flex-1 btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
         >
           Submit Dream
         </button>

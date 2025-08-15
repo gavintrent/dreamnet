@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function PageFooter() {
   return (
-    <footer className="bg-base-100 shadow-sm rounded-2xl p-6 mt-4 mb-4 mt-100 center mx-auto w-[80vw] text-white">
+    <footer className="bg-base-100 shadow-sm rounded-2xl p-6 mt-4 mb-4 mt-100 center mx-auto w-[80vw] text-[var(--cream-color)]">
       <div className="flex flex-col md:flex-row items-center justify-between">
         {/* Left: copyright */}
         <div className="text-sm">

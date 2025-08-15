@@ -12,7 +12,7 @@ export default function NotebookPageStack({ pages, currentPage, setCurrentPage, 
             .map((_, i) => (
               <div
                 key={i}
-                className="absolute top-0 left-0 w-full h-full bg-[#f6eee3] border border-gray-400 rounded-xl"
+                className="absolute top-0 left-0 w-full h-full bg-[var(--cream-color)] border border-gray-500 rounded-xl"
                 style={{
                   zIndex: -1 * (i + 1),
                   transform: `translate(${(i + 1) * 4}px, ${(i + 1) * 4}px)`

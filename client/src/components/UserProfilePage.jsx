@@ -22,7 +22,7 @@ export default function UserProfilePage({
 
   return (
     <div className="mt-[2rem] z-10">
-      <div className="mx-auto w-[80vw] relative text-white">
+      <div className="mx-auto w-[80vw] relative text-[var(--cream-color)]">
         <StarrySky numStars={20} minDistance={10}/>
         <ProfileHeader username={username} profile={profile} />
         <ProfileActions

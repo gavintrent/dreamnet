@@ -30,11 +30,15 @@ export default function Login({ onLogin }) {
       </div>
       <div className="flex items-center justify-center h-full pt-24">
         <div className="w-full max-w-md bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-lg mt-16">
-          <h2 className="text-4xl text-center font-pixelify-italic text-white mb-6">
-            Login
+          <h2 className="text-4xl text-center font-pixelify-italic text-[var(--cream-color)] mb-6">
+            Welcome Back
           </h2>
+
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
+              <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular text-lg">
+                Username or Email
+              </label>
               <input
                 name="email"
                 value={formData.email}
@@ -47,6 +51,9 @@ export default function Login({ onLogin }) {
             </div>
 
             <div>
+              <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular text-lg">
+                Password
+              </label>
               <input
                 name="password"
                 value={formData.password}
@@ -60,13 +67,13 @@ export default function Login({ onLogin }) {
 
             <button
               type="submit"
-              className="w-full btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
+              className="w-full btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
             >
               Login
             </button>
           </form>
 
-          <p className="mt-4 text-center text-sm text-white jersey-10-regular">
+          <p className="mt-4 text-center text-sm text-[var(--cream-color)] jersey-10-regular">
             Don’t have an account?{' '}
             <button
               type="button"

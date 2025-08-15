@@ -38,17 +38,31 @@ export default function EditProfile() {
     navigate('/dashboard');
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!['image/jpeg','image/png'].includes(file.type)) {
+      alert('Only JPG or PNG allowed.');
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      alert('Must be under 2MB.');
+      return;
+    }
+    setAvatar(file);
+  };
+
   return (
     <div className="relative min-h-screen px-4 pb-8 mt-8">
       <div className="flex items-center justify-center h-full pt-24">
         <div className="w-full max-w-2xl bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl shadow-lg mt-16">
-          <h2 className="text-4xl text-center font-pixelify-italic text-white mb-8">
+          <h2 className="text-4xl text-center font-pixelify-italic text-[var(--cream-color)] mb-8">
             Edit Profile
           </h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block mb-2 text-white font-pixelify text-lg">Your Name</label>
+              <label className="block mb-2 text-[var(--cream-color)] font-pixelify text-lg">Your Name</label>
               <input
                 className="w-full input input-bordered bg-white text-black jersey-10-regular text-lg"
                 placeholder="Your Name"
@@ -58,7 +72,7 @@ export default function EditProfile() {
             </div>
 
             <div>
-              <label className="block mb-2 text-white font-pixelify text-lg">
+              <label className="block mb-2 text-[var(--cream-color)] font-pixelify text-lg">
                 Short Bio <span className="text-sm text-gray-300">({form.bio.length} / {MAX_BIO})</span>
               </label>
               <textarea
@@ -72,28 +86,16 @@ export default function EditProfile() {
             </div>
 
             <div>
-              <label className="block mb-2 text-white font-pixelify text-lg">Avatar (JPG/PNG, &lt;2MB)</label>
+              <label className="block mb-2 text-[var(--cream-color)] font-pixelify text-lg">Avatar (JPG/PNG, &lt;2MB)</label>
               <input
                 type="file"
-                accept=".jpg,.jpeg,.png"
-                className="jersey-10-regular file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-highlight file:text-white hover:file:bg-[#b80c7e]"
-                onChange={e => {
-                  const file = e.target.files[0];
-                  if (!file) return;
-                  if (!['image/jpeg','image/png'].includes(file.type)) {
-                    alert('Only JPG or PNG allowed.');
-                    return;
-                  }
-                  if (file.size > 2 * 1024 * 1024) {
-                    alert('Must be under 2MB.');
-                    return;
-                  }
-                  setAvatar(file);
-                }}
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="file:input file:input-bordered file:bg-highlight file:text-[var(--cream-color)] hover:file:bg-[#b80c7e]"
               />
               {avatar && (
                 <div className="mt-4 p-4 bg-white bg-opacity-20 rounded-lg">
-                  <p className="mb-2 text-white font-pixelify">Preview:</p>
+                  <p className="mb-2 text-[var(--cream-color)] font-pixelify">Preview:</p>
                   <img
                     src={URL.createObjectURL(avatar)}
                     alt="Avatar preview"
@@ -107,13 +109,13 @@ export default function EditProfile() {
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
-                className="flex-1 btn bg-gray-600 hover:bg-gray-700 text-white font-pixelify"
+                className="flex-1 btn bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
+                className="flex-1 btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
               >
                 Save Changes
               </button>

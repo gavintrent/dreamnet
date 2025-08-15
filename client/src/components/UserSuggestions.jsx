@@ -55,7 +55,7 @@ export default function UserSuggestions() {
   return (
     <div className="relative w-3/4 min-h-[100vh] mx-auto overflow-hidden">
       {/* Title */}
-      <div className="col-span-full w-full bg-[#f5b841] text-yellow-900 rounded-md p-3 text-center font-pixelify">
+      <div className="col-span-full w-full bg-[var(--accent-yellow)] text-yellow-900 rounded-md p-3 text-center font-pixelify">
         Find other dreamers...
       </div>
 
@@ -91,7 +91,7 @@ export default function UserSuggestions() {
                     className="object-cover w-full h-full"
                   />
                 </div>
-                <div className="mt-1 text-xs text-white text-center font-pixelify truncate max-w-[4.5rem]">
+                <div className="mt-1 text-xs text-[var(--cream-color)] text-center font-pixelify truncate max-w-[4.5rem]">
                   {user.name || `@${user.username}`}
                 </div>
               </div>

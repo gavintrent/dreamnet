@@ -30,7 +30,7 @@ export default function DreamControls({
       )}
 
       <button onClick={toggleLike} className="flex items-center gap-1 hover:text-pink-500">
-                  <HeartIcon className={`w-4 h-4 ${liked ? 'text-white' : 'text-highlight'}`} />
+                  <HeartIcon className={`w-4 h-4 ${liked ? 'text-[var(--cream-color)]' : 'text-highlight'}`} />
         <span>{likeCount}</span>
       </button>
 

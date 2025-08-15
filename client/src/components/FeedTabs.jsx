@@ -17,17 +17,16 @@ export default function FeedTabs({ feedType, switchFeed }) {
             />
             
             <button
-              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[#f6eee3] relative"
-              onClick={() => switchFeed('discover')}
-            >
-              Discover
-            </button>
-
-            <button
-              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[#f6eee3] relative"
               onClick={() => switchFeed('following')}
+              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[var(--cream-color)] relative"
             >
               Following
+            </button>
+            <button
+              onClick={() => switchFeed('discover')}
+              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[var(--cream-color)] relative"
+            >
+              Discover
             </button>
           </div>
         </div>

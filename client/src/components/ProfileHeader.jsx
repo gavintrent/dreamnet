@@ -3,7 +3,7 @@ import { getAvatarUrl } from '../utils/avatarUtils';
 
 export default function ProfileHeader({ username, profile }) {
   return (
-    <div className="relative z-10 flex items-start">
+    <div className="relative z-10 flex items-start text-[var(--cream-color)]">
       <img
         src={getAvatarUrl(profile?.avatar)}
         alt={`${username}'s avatar`}

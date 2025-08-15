@@ -192,9 +192,9 @@ export default function CommentsSection({
                 }}
               >
                 {/* Comment Bubble */}
-                <div className="max-w-[180px] bg-[#f6eee3] rounded-lg p-3 relative mb-3">
+                <div className="max-w-[180px] bg-[var(--cream-color)] rounded-lg p-3 relative mb-3">
                   {/* Speech bubble tail */}
-                  <div className="absolute bottom-0 left-6 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-[#f6eee3] transform translate-y-full"></div>
+                  <div className="absolute bottom-0 left-6 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-[var(--cream-color)] transform translate-y-full"></div>
                   
                   <p className="text-black text-sm font-['Jersey_10'] leading-relaxed">
                     {comment.content}
@@ -214,7 +214,7 @@ export default function CommentsSection({
                     />
                   </div>
                   
-                  <div className="text-sm text-white font-pixelify font-bold">
+                  <div className="text-sm text-[var(--cream-color)] font-pixelify font-bold">
                     @{comment.username}
                   </div>
                 </div>
@@ -225,7 +225,7 @@ export default function CommentsSection({
 
         {/* Comment Input */}
         <div className="relative z-20 mt-8 flex justify-center">
-          <div className="w-full max-w-md bg-[#f6eee3] border border-gray-400 rounded-lg p-3 shadow-md">
+          <div className="w-full max-w-md bg-[var(--cream-color)] border border-gray-400 rounded-lg p-3 shadow-md">
             <textarea
               className="w-full border border-gray-300 rounded-lg px-2 py-1 font-['Jersey_10'] text-sm resize-none focus:outline-none focus:ring-2 ring-highlight bg-white text-black"
               rows={1}
@@ -235,7 +235,7 @@ export default function CommentsSection({
             />
             <button
               onClick={submitComment}
-              className="mt-2 w-full bg-highlight text-white text-xs px-3 py-1 rounded-lg hover:bg-[#c54ca6] font-pixelify transition-colors"
+              className="mt-2 w-full bg-highlight text-[var(--cream-color)] text-xs px-3 py-1 rounded-lg hover:bg-[#c54ca6] font-pixelify transition-colors"
             >
               Post
             </button>

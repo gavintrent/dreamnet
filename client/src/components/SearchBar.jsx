@@ -42,7 +42,7 @@ export default function SearchBar() {
             <li
               key={username}
               onClick={() => handleSelect(username)}
-              className={`px-4 py-2 cursor-pointer text-white hover:bg-[#d64daf] ${
+              className={`px-4 py-2 cursor-pointer text-[var(--cream-color)] hover:bg-[#d64daf] ${
                 idx !== suggestions.length - 1 ? 'border-b border-pink-300' : ''
               }`}
             >

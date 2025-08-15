@@ -7,6 +7,8 @@ import Dashboard from './pages/Dashboard';
 import PublicProfile from './pages/PublicProfile';
 import NewDream from './pages/NewDream';
 import EditProfile from './pages/EditProfile';
+import VerifyEmail from './pages/VerifyEmail';
+import CheckEmail from './pages/CheckEmail';
 import api from './api';
 import Navbar from './components/Navbar';
 //import PageFooter from './components/PageFooter';
@@ -89,6 +91,8 @@ function AppInner({ loggedIn, setLoggedIn }) {
               ? <Navigate to="/" replace />
               : <Register />
             } />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/check-email" element={<CheckEmail />} />
             <Route path="/dashboard" 
               element={ loggedIn
                 ? <Dashboard />

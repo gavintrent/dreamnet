@@ -1,7 +1,7 @@
 // server/routes/auth.js
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser } = require('../controllers/authController');
+const { registerUser, loginUser, verifyEmail } = require('../controllers/authController');
 const requireAuth = require('../middleware/requireAuth');
 const { registerRules, validate } = require('../validators/auth');
 const multer = require('multer');
@@ -22,6 +22,8 @@ const upload = multer({
 router.post('/register', upload.single('avatar'), registerRules, validate, registerUser);
 
 router.post('/login', loginUser);
+
+router.get('/verify/:token', verifyEmail);
 
 router.get('/me', requireAuth, (req, res) => {
   res.json(req.user);

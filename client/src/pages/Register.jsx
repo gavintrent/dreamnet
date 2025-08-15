@@ -12,13 +12,21 @@ export default function Register() {
     bio: '',
   })
   const [avatar, setAvatar] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [message, setMessage] = useState('')
+  const [messageType, setMessageType] = useState('') // 'success' or 'error'
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    if (!isSuccess) {
+      setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
   }
 
   const handleAvatarChange = (e) => {
+    if (isSuccess) return;
+    
     const file = e.target.files[0];
     if (!file) return;
     if (!['image/jpeg','image/png'].includes(file.type)) {
@@ -34,6 +42,11 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (isSuccess || isSubmitting) return;
+    
+    setIsSubmitting(true)
+    setMessage('')
+    
     try {
       const data = new FormData();
       data.append('username', formData.username);
@@ -43,10 +56,40 @@ export default function Register() {
       data.append('bio', formData.bio);
       if (avatar) data.append('avatar', avatar);
 
-      await api.post('/auth/register', data)
-      navigate('/login')
+      const response = await api.post('/auth/register', data)
+      
+      setIsSuccess(true)
+      setMessageType('success')
+      setMessage(response.data.message)
+      
+      // Navigate to check email page after a short delay
+      setTimeout(() => {
+        navigate('/check-email', { 
+          state: { email: formData.email }
+        });
+      }, 1500);
+      
     } catch (err) {
-      console.error('Registration failed:', err.response?.data || err.message)
+      setMessageType('error')
+      // Extract error message safely
+      let errorMessage = 'Registration failed. Please try again.'
+      
+      if (err.response?.data) {
+        if (typeof err.response.data === 'string') {
+          errorMessage = err.response.data
+        } else if (err.response.data.error) {
+          errorMessage = err.response.data.error
+        } else if (err.response.data.message) {
+          errorMessage = err.response.data.message
+        }
+      } else if (err.message) {
+        errorMessage = err.message
+      }
+      
+      setMessage(errorMessage)
+      console.error('Registration error:', err)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -70,7 +113,10 @@ export default function Register() {
               onChange={handleChange}
               maxLength={15}
               required
-              className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular"
+              disabled={isSuccess}
+              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+                isSuccess ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
               placeholder="Username"
             />
           </div>
@@ -86,7 +132,10 @@ export default function Register() {
               type="email"
               maxLength={254}
               required
-              className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular"
+              disabled={isSuccess}
+              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+                isSuccess ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
               placeholder="Email"
             />
           </div>
@@ -102,7 +151,10 @@ export default function Register() {
               type="password"
               maxLength={100}
               required
-              className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular"
+              disabled={isSuccess}
+              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+                isSuccess ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
               placeholder="Password"
             />
           </div>
@@ -116,7 +168,10 @@ export default function Register() {
               value={formData.name}
               onChange={handleChange}
               maxLength={30}
-              className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular"
+              disabled={isSuccess}
+              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+                isSuccess ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
               placeholder="Your display name"
             />
           </div>
@@ -130,7 +185,10 @@ export default function Register() {
               value={formData.bio}
               onChange={handleChange}
               maxLength={200}
-              className="w-full textarea textarea-bordered bg-[var(--cream-color)] text-black jersey-10-regular resize-none h-24"
+              disabled={isSuccess}
+              className={`w-full textarea textarea-bordered bg-[var(--cream-color)] text-black jersey-10-regular resize-none h-24 ${
+                isSuccess ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
               placeholder="Tell us a bit about yourself"
             />
           </div>
@@ -144,9 +202,14 @@ export default function Register() {
                 type="file"
                 accept="image/*"
                 onChange={handleAvatarChange}
+                disabled={isSuccess}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               />
-              <div className="w-full btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify text-center">
+              <div className={`w-full btn text-center font-pixelify ${
+                isSuccess 
+                  ? 'bg-gray-500 cursor-not-allowed opacity-50' 
+                  : 'bg-highlight hover:bg-[#b80c7e]'
+              } text-[var(--cream-color)]`}>
                 Choose Avatar
               </div>
             </div>
@@ -162,12 +225,45 @@ export default function Register() {
             )}
           </div>
 
+          {/* Message Display */}
+          {message && (
+            <div className={`p-3 rounded-lg text-center ${
+              messageType === 'success' 
+                ? 'bg-green-500 bg-opacity-20 text-green-300 border border-green-500' 
+                : 'bg-red-500 bg-opacity-20 text-red-300 border border-red-500'
+            }`}>
+              <p className="jersey-10-regular">{message}</p>
+            </div>
+          )}
+
           <button
             type="submit"
-            className="w-full btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
+            disabled={isSubmitting || isSuccess}
+            className={`w-full btn font-pixelify ${
+              isSuccess 
+                ? 'bg-green-600 cursor-not-allowed' 
+                : isSubmitting 
+                  ? 'bg-gray-500 cursor-not-allowed' 
+                  : 'bg-highlight hover:bg-[#b80c7e]'
+            } text-[var(--cream-color)]`}
           >
-            Register
+            {isSuccess ? 'Registration Successful!' : isSubmitting ? 'Creating Account...' : 'Register'}
           </button>
+
+          {isSuccess && (
+            <div className="text-center">
+              <p className="text-sm text-[var(--cream-color)] opacity-75 mb-2">
+                Redirecting to email verification page...
+              </p>
+              <button
+                type="button"
+                onClick={() => navigate('/check-email', { state: { email: formData.email } })}
+                className="text-highlight hover:underline jersey-10-regular"
+              >
+                Go Now
+              </button>
+            </div>
+          )}
         </form>
 
         <p className="mt-4 text-center text-sm text-[var(--cream-color)] jersey-10-regular">

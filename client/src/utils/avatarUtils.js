@@ -8,7 +8,7 @@
  * @returns {string} - The full avatar URL
  */
 export const getAvatarUrl = (avatarPath) => {
-  if (!avatarPath) return '/avatars/default-avatar-1.jpg';
+  if (!avatarPath) return '/avatars/default-avatar-2.jpg';
   
   // If it's already a full URL, return as is
   if (avatarPath.startsWith('http://') || avatarPath.startsWith('https://')) {
@@ -31,4 +31,4 @@ export const getAvatarUrl = (avatarPath) => {
  * Gets the default avatar URL
  * @returns {string} - The default avatar URL
  */
-export const getDefaultAvatarUrl = () => '/avatars/default-avatar-1.jpg'; 
+export const getDefaultAvatarUrl = () => '/avatars/default-avatar-2.jpg'; 

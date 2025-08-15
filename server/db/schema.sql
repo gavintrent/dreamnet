@@ -10,6 +10,9 @@ CREATE TABLE users (
   name TEXT,                     -- Optional display name
   bio TEXT,                      -- Optional short bio
   avatar TEXT,                   -- Path to uploaded profile image
+  email_verified BOOLEAN DEFAULT FALSE,
+  verification_token TEXT,
+  verification_expires TIMESTAMP,
   created_at TIMESTAMP DEFAULT NOW()
 );
 

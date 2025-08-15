@@ -76,7 +76,7 @@ export default function EditProfile() {
               <input
                 type="file"
                 accept=".jpg,.jpeg,.png"
-                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-highlight file:text-white hover:file:bg-[#b80c7e]"
+                className="jersey-10-regular file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-highlight file:text-white hover:file:bg-[#b80c7e]"
                 onChange={e => {
                   const file = e.target.files[0];
                   if (!file) return;

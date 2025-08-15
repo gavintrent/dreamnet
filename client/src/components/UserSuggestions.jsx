@@ -17,6 +17,7 @@ export default function UserSuggestions() {
     <StarrySky
       starCount={60}
       yRange={yRange}
+      includeMoon={false}
     />
   ), []);
 

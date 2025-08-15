@@ -203,13 +203,22 @@ export default function NewDream() {
         <label>Make public</label>
       </div>
 
-      {/* submit */}
-      <button
-        type="submit"
-                  className="w-full max-w-xs btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
-      >
-        Submit Dream
-      </button>
+      {/* action buttons */}
+      <div className="flex gap-4 w-full max-w-xs">
+        <button
+          type="button"
+          onClick={() => navigate('/dashboard')}
+          className="flex-1 btn bg-gray-600 hover:bg-gray-700 text-white font-pixelify"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="flex-1 btn bg-highlight hover:bg-[#b80c7e] text-white font-pixelify"
+        >
+          Submit Dream
+        </button>
+      </div>
     </form>
   )
 }

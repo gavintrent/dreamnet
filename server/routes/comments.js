@@ -7,7 +7,7 @@ const requireAuth = require('../middleware/requireAuth');
 router.get('/:dreamId', async (req, res) => {
   const { dreamId } = req.params;
   const result = await db.query(
-    `SELECT c.*, u.username FROM comments c
+    `SELECT c.*, u.username, u.avatar FROM comments c
      JOIN users u ON c.user_id = u.id
      WHERE c.dream_id = $1
      ORDER BY c.created_at ASC`,

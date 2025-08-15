@@ -1,9 +1,11 @@
 // components/ProfileHeader.jsx
+import { getAvatarUrl } from '../utils/avatarUtils';
+
 export default function ProfileHeader({ username, profile }) {
   return (
     <div className="relative z-10 flex items-start">
       <img
-        src={profile?.avatar?.trim() ? profile.avatar : '/avatars/default-avatar-1.jpg'}
+        src={getAvatarUrl(profile?.avatar)}
         alt={`${username}'s avatar`}
         className="w-24 h-24 rounded-full object-cover border border-base-300 ml-6 mr-8 animate-[floatFade3_6s_ease-in-out_infinite]"
       />

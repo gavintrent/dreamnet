@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import StarrySky from './StarrySky';
+import { getAvatarUrl } from '../utils/avatarUtils';
 
 const MIN_DISTANCE = 12;
 const yRange = [10, 90];
@@ -64,9 +65,7 @@ export default function UserSuggestions() {
         {/* Avatars */}
         <div className="relative z-10 w-full h-[80vh] mt-4">
           {users.map((user, i) => {
-            const avatarSrc = user.avatar?.trim()
-              ? user.avatar
-              : '/avatars/default-avatar-1.jpg';
+            const avatarSrc = getAvatarUrl(user.avatar);
 
             const { x, y } = positions[i] || { x: 0, y: 0 };
             const floatOffset = i % 2 === 0 ? 'translate-y-1' : '-translate-y-1';

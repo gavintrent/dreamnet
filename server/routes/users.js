@@ -118,13 +118,9 @@ router.get('/:username/profile', async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
-    // res.json(result.rows[0]);
+    
+    // Return the profile with clean avatar paths (no BASE_URL appending)
     const profile = result.rows[0];
-
-    if (profile.avatar && !profile.avatar.startsWith('http')) {
-      profile.avatar = `${BASE_URL}${profile.avatar}`;
-    }
-
     res.json(profile);
     
   } catch (err) {
@@ -214,11 +210,10 @@ router.get('/suggestions', requireAuth, async (req, res) => {
   try {
     const result = await db.query(query, [userId]);
 
+    // Return suggestions with clean avatar paths (no BASE_URL appending)
     const suggestions = result.rows.map((user) => ({
       ...user,
-      avatar: user.avatar && !user.avatar.startsWith('http')
-        ? `${BASE_URL}${user.avatar}`
-        : user.avatar,
+      // Avatar paths are now handled by the frontend utility
     }));
 
     res.json(suggestions);

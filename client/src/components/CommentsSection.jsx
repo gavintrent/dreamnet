@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StarrySky from './StarrySky';
+import { getAvatarUrl } from '../utils/avatarUtils';
 
 const MIN_DISTANCE = 200; // Increased minimum distance between comments
 const MAX_COMMENTS = 20; // Maximum comments to display
@@ -175,9 +176,8 @@ export default function CommentsSection({
         {/* Comment Bubbles */}
         <div className="relative z-10 w-full" style={{ height: `${dynamicHeight - 100}px` }}>
           {topLevelComments.map((comment, i) => {
-            const avatarSrc = comment.user?.avatar?.trim()
-              ? comment.user.avatar
-              : '/avatars/default-avatar-1.jpg';
+            // Avatar is now fetched from the database via JOIN with users table
+            const avatarSrc = getAvatarUrl(comment.avatar);
 
             const { x, y } = memoizedPositions[i] || { x: 0, y: 0 };
             const floatOffset = i % 2 === 0 ? 'translate-y-1' : '-translate-y-1';

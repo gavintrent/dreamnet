@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StarrySky from './StarrySky';
 import { getAvatarUrl } from '../utils/avatarUtils';
@@ -19,7 +19,6 @@ export default function CommentsSection({
   submitComment,
 }) {
   const navigate = useNavigate();
-  const [positions, setPositions] = useState([]);
 
   // Memoize StarrySky to prevent re-renders
   const memoizedStarrySky = useMemo(() => (

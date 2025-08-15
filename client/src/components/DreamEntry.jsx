@@ -138,11 +138,15 @@ export default function DreamEntry({ dream, users, onUpdate, onDelete }) {
         topLevelCount={topLevelCount}
         onDelete={handleDelete}
       />
-      {showComments && (
+      <div className={`w-full max-w-4xl transition-all duration-500 ease-in-out overflow-hidden ${
+        showComments 
+          ? 'max-h-[2000px] opacity-100 scale-100' 
+          : 'max-h-0 opacity-0 scale-95 pointer-events-none'
+      }`}>
         <CommentsSection
           {...{ comments, replyingTo, setReplyingTo, newComment, setNewComment, submitComment }}
         />
-      )}
+      </div>
     </div>
   );
 }

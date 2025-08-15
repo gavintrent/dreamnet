@@ -12,21 +12,21 @@ export default function FeedTabs({ feedType, switchFeed }) {
               className="absolute bottom-0 h-1 bg-highlight transition-transform duration-300 ease-in-out"
               style={{
                 width: '50%',
-                transform: feedType === 'following' ? 'translateX(100%)' : 'translateX(0%)',
+                transform: feedType === 'discover' ? 'translateX(0%)' : 'translateX(100%)',
               }}
             />
             
-            <button
-              onClick={() => switchFeed('following')}
-              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[var(--cream-color)] relative"
-            >
-              Following
-            </button>
             <button
               onClick={() => switchFeed('discover')}
               className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[var(--cream-color)] relative"
             >
               Discover
+            </button>
+            <button
+              onClick={() => switchFeed('following')}
+              className="w-1/2 font-pixelify text-lg py-3 px-4 transition-all duration-200 text-[var(--cream-color)] relative"
+            >
+              Following
             </button>
           </div>
         </div>

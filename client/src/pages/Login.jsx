@@ -37,7 +37,7 @@ export default function Login({ onLogin }) {
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular text-lg">
-                Username or Email
+                Email
               </label>
               <input
                 name="email"

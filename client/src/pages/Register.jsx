@@ -46,6 +46,7 @@ export default function Register() {
     
     setIsSubmitting(true)
     setMessage('')
+    setMessageType('')
     
     try {
       const data = new FormData();
@@ -71,19 +72,37 @@ export default function Register() {
       
     } catch (err) {
       setMessageType('error')
-      // Extract error message safely
+      // Extract error message safely and provide user-friendly messages
       let errorMessage = 'Registration failed. Please try again.'
       
       if (err.response?.data) {
         if (typeof err.response.data === 'string') {
           errorMessage = err.response.data
         } else if (err.response.data.error) {
-          errorMessage = err.response.data.error
+          // Handle specific backend error messages
+          const backendError = err.response.data.error
+          if (backendError.includes('username') && backendError.includes('already exists')) {
+            errorMessage = 'Username already exists. Please choose a different username.'
+          } else if (backendError.includes('email') && backendError.includes('already exists')) {
+            errorMessage = 'Email address already in use. Please use a different email or try logging in.'
+          } else if (backendError.includes('username') && backendError.includes('invalid')) {
+            errorMessage = 'Username must be 3-15 characters and contain only letters, numbers, dots, and underscores.'
+          } else if (backendError.includes('password') && backendError.includes('weak')) {
+            errorMessage = 'Password is too weak. Please choose a stronger password.'
+          } else if (backendError.includes('avatar') && backendError.includes('upload')) {
+            errorMessage = 'Failed to upload avatar. Please try again or skip avatar upload.'
+          } else {
+            errorMessage = backendError
+          }
         } else if (err.response.data.message) {
           errorMessage = err.response.data.message
         }
       } else if (err.message) {
-        errorMessage = err.message
+        if (err.message.includes('Network Error')) {
+          errorMessage = 'Network error. Please check your connection and try again.'
+        } else {
+          errorMessage = err.message
+        }
       }
       
       setMessage(errorMessage)
@@ -227,12 +246,12 @@ export default function Register() {
 
           {/* Message Display */}
           {message && (
-            <div className={`p-3 rounded-lg text-center ${
+            <div className={`p-4 rounded-lg text-center ${
               messageType === 'success' 
                 ? 'bg-green-500 bg-opacity-20 text-green-300 border border-green-500' 
                 : 'bg-red-500 bg-opacity-20 text-red-300 border border-red-500'
             }`}>
-              <p className="jersey-10-regular">{message}</p>
+              <p className="jersey-10-regular text-sm leading-relaxed">{message}</p>
             </div>
           )}
 

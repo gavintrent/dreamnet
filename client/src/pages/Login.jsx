@@ -5,14 +5,21 @@ import Logo from '../components/Logo'
 
 export default function Login({ onLogin }) {
   const [formData, setFormData] = useState({ email: '', password: '' })
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
+    // Clear error when user starts typing
+    if (error) setError('')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('')
+    setIsLoading(true)
+    
     try {
       const res = await api.post('/auth/login', formData)
       localStorage.setItem('token', res.data.token)
@@ -20,6 +27,29 @@ export default function Login({ onLogin }) {
       navigate('/')
     } catch (err) {
       console.error('Login failed:', err.response?.data || err.message)
+      
+      // Handle specific error cases
+      if (err.response?.status === 401) {
+        if (err.response.data?.error?.includes('verify your email')) {
+          setError('Please verify your email address before logging in. Check your inbox for a verification link.')
+        } else if (err.response.data?.error?.includes('Invalid credentials')) {
+          setError('Incorrect email or password. Please try again.')
+        } else {
+          setError(err.response.data?.error || 'Invalid credentials. Please try again.')
+        }
+      } else if (err.response?.status === 404) {
+        setError('Email address not found. Please check your email or register a new account.')
+      } else if (err.response?.status === 429) {
+        setError('Too many login attempts. Please wait a moment before trying again.')
+      } else if (err.response?.status >= 500) {
+        setError('Server error. Please try again later.')
+      } else if (!err.response) {
+        setError('Network error. Please check your connection and try again.')
+      } else {
+        setError('Login failed. Please try again.')
+      }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -34,6 +64,13 @@ export default function Login({ onLogin }) {
             Welcome Back
           </h2>
 
+          {/* Error Display */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-500 bg-opacity-20 border border-red-500 rounded-lg">
+              <p className="text-red-300 text-sm jersey-10-regular">{error}</p>
+            </div>
+          )}
+
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label className="block mb-1 text-[var(--cream-color)] jersey-10-regular text-lg">
@@ -45,6 +82,7 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 type="email"
                 required
+                disabled={isLoading}
                 className="w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular text-lg rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200"
                 placeholder="Email"
               />
@@ -60,6 +98,7 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 type="password"
                 required
+                disabled={isLoading}
                 className="w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular text-lg rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200"
                 placeholder="Password"
               />
@@ -67,9 +106,10 @@ export default function Login({ onLogin }) {
 
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200 font-semibold"
+              disabled={isLoading}
+              className="w-full px-6 py-3 bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Login
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </form>
 

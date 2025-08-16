@@ -45,7 +45,7 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 type="email"
                 required
-                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg"
+                className="w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular text-lg rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200"
                 placeholder="Email"
               />
             </div>
@@ -60,21 +60,21 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 type="password"
                 required
-                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg"
+                className="w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular text-lg rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200"
                 placeholder="Password"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
+              className="w-full px-6 py-3 bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200 font-semibold"
             >
               Login
             </button>
           </form>
 
           <p className="mt-4 text-center text-sm text-[var(--cream-color)] jersey-10-regular">
-            Don’t have an account?{' '}
+            Don't have an account?{' '}
             <button
               type="button"
               onClick={() => navigate('/register')}

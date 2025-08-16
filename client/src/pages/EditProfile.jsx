@@ -67,7 +67,7 @@ export default function EditProfile() {
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg"
+                className="w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular text-lg rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200"
                 placeholder="Enter your name"
               />
             </div>
@@ -79,7 +79,7 @@ export default function EditProfile() {
               <textarea
                 value={form.bio}
                 onChange={(e) => setForm({ ...form, bio: e.target.value })}
-                className="w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular text-lg resize-none"
+                className="w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular text-lg rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200 resize-none"
                 placeholder="Tell us about yourself"
                 rows="3"
               />
@@ -91,7 +91,7 @@ export default function EditProfile() {
                 type="file"
                 accept="image/*"
                 onChange={handleAvatarChange}
-                className="jersey-10-regular file:text-lg file:input file:input-bordered file:bg-highlight file:text-[var(--cream-color)] hover:file:bg-[#b80c7e]"
+                className="jersey-10-regular file:text-lg file:px-4 file:py-2 file:bg-highlight file:text-[var(--cream-color)] file:hover:bg-[#b80c7e] file:rounded-lg file:border-0 file:cursor-pointer"
               />
               {avatar && (
                 <div className="mt-4 p-4 bg-white bg-opacity-20 rounded-lg">
@@ -109,13 +109,13 @@ export default function EditProfile() {
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
-                className="flex-1 btn bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify"
+                className="flex-1 px-6 py-3 bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
+                className="flex-1 px-6 py-3 bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200"
               >
                 Save Changes
               </button>

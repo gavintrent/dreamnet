@@ -208,13 +208,13 @@ export default function NewDream() {
         <button
           type="button"
           onClick={() => navigate('/dashboard')}
-          className="flex-1 btn bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify"
+          className="flex-1 px-6 py-3 bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="flex-1 btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
+          className="flex-1 px-6 py-3 bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200"
         >
           Submit Dream
         </button>

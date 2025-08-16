@@ -114,7 +114,7 @@ export default function Register() {
               maxLength={15}
               required
               disabled={isSuccess}
-              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+              className={`w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200 ${
                 isSuccess ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               placeholder="Username"
@@ -133,7 +133,7 @@ export default function Register() {
               maxLength={254}
               required
               disabled={isSuccess}
-              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+              className={`w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200 ${
                 isSuccess ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               placeholder="Email"
@@ -152,7 +152,7 @@ export default function Register() {
               maxLength={100}
               required
               disabled={isSuccess}
-              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+              className={`w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200 ${
                 isSuccess ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               placeholder="Password"
@@ -169,7 +169,7 @@ export default function Register() {
               onChange={handleChange}
               maxLength={30}
               disabled={isSuccess}
-              className={`w-full input input-bordered bg-[var(--cream-color)] text-black jersey-10-regular ${
+              className={`w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200 ${
                 isSuccess ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               placeholder="Your display name"
@@ -186,7 +186,7 @@ export default function Register() {
               onChange={handleChange}
               maxLength={200}
               disabled={isSuccess}
-              className={`w-full textarea textarea-bordered bg-[var(--cream-color)] text-black jersey-10-regular resize-none h-24 ${
+              className={`w-full px-4 py-3 bg-[var(--cream-color)] text-black jersey-10-regular rounded-lg border-2 border-gray-300 focus:border-highlight focus:outline-none transition-colors duration-200 resize-none h-24 ${
                 isSuccess ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               placeholder="Tell us a bit about yourself"
@@ -205,7 +205,7 @@ export default function Register() {
                 disabled={isSuccess}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               />
-              <div className={`w-full btn text-center font-pixelify ${
+              <div className={`w-full px-6 py-3 text-center font-pixelify rounded-lg transition-colors duration-200 ${
                 isSuccess 
                   ? 'bg-gray-500 cursor-not-allowed opacity-50' 
                   : 'bg-highlight hover:bg-[#b80c7e]'
@@ -239,7 +239,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={isSubmitting || isSuccess}
-            className={`w-full btn font-pixelify ${
+            className={`w-full px-6 py-3 font-pixelify rounded-lg transition-colors duration-200 ${
               isSuccess 
                 ? 'bg-green-600 cursor-not-allowed' 
                 : isSubmitting 

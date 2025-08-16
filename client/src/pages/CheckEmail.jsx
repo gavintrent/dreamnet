@@ -40,14 +40,14 @@ export default function CheckEmail() {
         <div className="mt-8 space-y-3">
           <button
             onClick={() => navigate('/login')}
-            className="w-full btn bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify"
+            className="w-full px-6 py-3 bg-highlight hover:bg-[#b80c7e] text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200"
           >
             Go to Login
           </button>
           
           <button
             onClick={() => navigate('/register')}
-            className="w-full btn bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify"
+            className="w-full px-6 py-3 bg-gray-600 hover:bg-gray-700 text-[var(--cream-color)] font-pixelify rounded-lg transition-colors duration-200"
           >
             Register Different Account
           </button>

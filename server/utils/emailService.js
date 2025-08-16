@@ -30,7 +30,7 @@ const sendVerificationEmail = async (email, username, verificationToken) => {
   try {
     const transporter = createTransporter();
     
-    const verificationUrl = `${process.env.FRONTEND_URL}/confirm-email?token=${verificationToken}`;
+    const verificationUrl = `${process.env.FRONT_FACE_URL}/confirm-email?token=${verificationToken}`;
     
     const mailOptions = {
       from: process.env.EMAIL_USER || 'noreply@dreamnet.com',

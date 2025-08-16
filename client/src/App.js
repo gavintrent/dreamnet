@@ -91,7 +91,7 @@ function AppInner({ loggedIn, setLoggedIn }) {
               ? <Navigate to="/" replace />
               : <Register />
             } />
-            <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/confirm-email" element={<VerifyEmail />} />
             <Route path="/check-email" element={<CheckEmail />} />
             <Route path="/dashboard" 
               element={ loggedIn

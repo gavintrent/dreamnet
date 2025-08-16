@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function FeedTabs({ feedType, switchFeed }) {
   return (
-    <div className="bg-transparent pt-4">
+    <div className="bg-transparent pt-5">
       <div className="flex justify-center mb-4 gap-4">
         <div className="relative flex justify-center mb-6">
           <div className="flex w-full max-w-md relative z-20">

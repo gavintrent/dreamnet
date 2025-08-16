@@ -29,7 +29,7 @@ export default function SearchButton() {
   return (
     <div className="relative" ref={searchRef}>
       <button
-        className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none"
+        className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none w-10 h-10 min-h-0"
         onClick={() => setShow((s) => !s)}
       >
         <PixelSearchIcon className="w-6 h-6 text-highlight"/>

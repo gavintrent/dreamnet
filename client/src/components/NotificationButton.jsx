@@ -48,7 +48,7 @@ export default function NotificationButton() {
   return (
     <div ref={wrapperRef}>
       <button
-        className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none"
+        className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none w-10 h-10 min-h-0"
         onClick={() => setShowNotif((n) => !n)}
       >
         <div className="indicator">

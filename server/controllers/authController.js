@@ -4,18 +4,25 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { sendVerificationEmail } = require('../utils/emailService');
+const { uploadAvatar } = require('../utils/supabaseStorage');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.registerUser = async (req, res) => {
   const { username, email, password, name, bio } = req.body;
-  let avatarPath = null;
+  let avatarUrl = null;
 
   try {
     // Handle avatar upload if present
     if (req.file) {
-      // Multer already saves the file, we just need the path
-      avatarPath = `/uploads/${req.file.filename}`;
+      // Upload to Supabase storage
+      const uploadResult = await uploadAvatar(req.file, Date.now()); // Using timestamp as temporary userId
+      
+      if (!uploadResult.success) {
+        return res.status(500).json({ error: 'Failed to upload avatar: ' + uploadResult.error });
+      }
+      
+      avatarUrl = uploadResult.url;
     }
 
     const hash = await bcrypt.hash(password, 10);
@@ -26,7 +33,7 @@ exports.registerUser = async (req, res) => {
 
     const result = await db.query(
       'INSERT INTO users (username, email, password_hash, name, bio, avatar, verification_token, verification_expires) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email',
-      [username, email, hash, name || null, bio || null, avatarPath, verificationToken, verificationExpires]
+      [username, email, hash, name || null, bio || null, avatarUrl, verificationToken, verificationExpires]
     );
 
     const user = result.rows[0];

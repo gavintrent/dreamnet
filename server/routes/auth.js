@@ -5,14 +5,13 @@ const { registerUser, loginUser, verifyEmail } = require('../controllers/authCon
 const requireAuth = require('../middleware/requireAuth');
 const { registerRules, validate } = require('../validators/auth');
 const multer = require('multer');
-const path = require('path');
 
 const upload = multer({
-  dest: 'uploads/',
+  storage: multer.memoryStorage(),
   limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
   fileFilter: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    if (!['.jpg', '.jpeg', '.png'].includes(ext)) {
+    const ext = file.originalname.split('.').pop().toLowerCase();
+    if (!['jpg', 'jpeg', 'png'].includes(ext)) {
       return cb(new Error('Only images allowed'));
     }
     cb(null, true);

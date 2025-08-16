@@ -18,12 +18,12 @@ export const getAvatarUrl = (avatarPath) => {
   // If it's a relative path, construct the full URL using API base
   if (avatarPath.startsWith('/')) {
     // Use the API base URL (localhost:4000 in dev, your domain in production)
-    const apiBase = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+    const apiBase = process.env.REACT_APP_BACKEND_URL;
     return `${apiBase}${avatarPath}`;
   }
   
   // If it's just a filename, assume it's in uploads
-  const apiBase = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+  const apiBase = process.env.REACT_APP_BACKEND_URL;
   return `${apiBase}/uploads/${avatarPath}`;
 };
 

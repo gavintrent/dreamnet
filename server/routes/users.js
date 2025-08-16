@@ -5,7 +5,7 @@ const requireAuth = require('../middleware/requireAuth');
 const multer = require('multer')
 const path = require('path')
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:4000';
+const BASE_URL = process.env.BASE_URL;
 
 const upload = multer({
   dest: 'uploads/',

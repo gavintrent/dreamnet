@@ -8,7 +8,7 @@ export default function ProfileButton({ currentUser }) {
 
   const handleProfileClick = () => {
     if (currentUser?.username) {
-      navigate(`/users/${currentUser.username}`);
+      navigate('/dashboard');
     }
   };
 

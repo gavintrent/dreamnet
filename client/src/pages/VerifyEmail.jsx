@@ -89,7 +89,7 @@ export default function VerifyEmail() {
     };
 
     verifyEmail();
-  }, [searchParams, navigate]);
+  }, [searchParams, navigate, status]);
 
   const getStatusIcon = () => {
     switch (status) {

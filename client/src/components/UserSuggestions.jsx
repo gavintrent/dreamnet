@@ -5,7 +5,8 @@ import StarrySky from './StarrySky';
 import { getAvatarUrl } from '../utils/avatarUtils';
 
 const MIN_DISTANCE = 12;
-const yRange = [10, 90];
+const yRange = [5, 90];
+const xRange = [0, 100];
 
 export default function UserSuggestions() {
   const [users, setUsers] = useState([]);
@@ -15,8 +16,9 @@ export default function UserSuggestions() {
   // Memoize StarrySky to prevent re-renders
   const memoizedStarrySky = useMemo(() => (
     <StarrySky
-      starCount={60}
+      starCount={40}
       yRange={yRange}
+      xRange={xRange}
       includeMoon={false}
     />
   ), []);

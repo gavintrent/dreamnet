@@ -34,7 +34,13 @@ export default function StarrySky({
         y = Math.random() * (yRange[1] - yRange[0]) + yRange[0];
         
         // Check if star is too close to other stars
-        tooClose = placed.some(p => Math.hypot(p.x - x, p.y - y) < minDistance);
+        const currentX = x;
+        const currentY = y;
+        tooClose = placed.some(p => {
+          const dx = p.x - currentX;
+          const dy = p.y - currentY;
+          return Math.hypot(dx, dy) < minDistance;
+        });
         
         // Check if star overlaps with moon (only if moon is enabled)
         onMoon = includeMoon && 

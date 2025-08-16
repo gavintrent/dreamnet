@@ -53,7 +53,7 @@ export default function UserSuggestions() {
   }, []);
 
   return (
-    <div className="relative w-3/4 min-h-[100vh] mx-auto overflow-hidden">
+    <div className="relative w-3/4 min-h-[80vh] mx-auto overflow-hidden">
       {/* Title */}
       <div className="col-span-full w-full bg-[var(--accent-yellow)] text-yellow-900 rounded-md p-3 text-center font-pixelify">
         Find other dreamers...

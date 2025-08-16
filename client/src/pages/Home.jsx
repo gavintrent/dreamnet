@@ -43,16 +43,17 @@ export default function Home({ loggedIn }) {
         </div>
       </div>
 
+      {feedType === "following" && (
+        <div className="mt-8">
+          <UserSuggestions></UserSuggestions>
+        </div>
+      )}
+
       {dreams.length === 0 ? (
         <></>
       ) : (
         <div key={feedType} className="retro-fade-in">
           <DreamGrid dreams={dreams} users={users} />
-        </div>
-      )}
-      {feedType === "following" && (
-        <div className="mt-4">
-          <UserSuggestions></UserSuggestions>
         </div>
       )}
     </div>

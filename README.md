@@ -1,5 +1,7 @@
 # DreamNet
 
+https://dreamnet-journal.vercel.app/
+
 DreamNet is a full-stack social journaling platform for recording, sharing, and discovering dreams. Users can create public or private dream entries, follow others, tag users with `@mentions`, and engage through likes and comments. The platform features email verification, avatar uploads, and a modern, responsive design.
 
 ## ✨ Features

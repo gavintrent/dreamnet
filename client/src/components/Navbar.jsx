@@ -5,6 +5,7 @@ import Logo from './Logo';
 import SearchButton from './SearchButton';
 import NotificationButton from './NotificationButton';
 import { getAvatarUrl } from '../utils/avatarUtils';
+import ProfileButton from './ProfileButton';
 
 export default function Navbar({ loggedIn, onLogout, currentUser }) {
   const avatarUrl = getAvatarUrl(currentUser?.profile?.avatar);
@@ -17,6 +18,7 @@ export default function Navbar({ loggedIn, onLogout, currentUser }) {
         </div>
 
         <div className="flex items-center gap-2">
+          <ProfileButton currentUser={currentUser} />
           <SearchButton />
           <NotificationButton />
           <AvatarDropdown loggedIn={loggedIn} onLogout={onLogout} avatarUrl={avatarUrl} />

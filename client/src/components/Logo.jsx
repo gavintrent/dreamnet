@@ -12,9 +12,9 @@ export default function Logo() {
         DreamNet
       </Link>
       <div className="absolute -top-6 left-[110%] ml-[-1.7rem] flex flex-col items-center space-y-[-0.5rem] pointer-events-none select-none z-10">
-        <span className="animate-z1 text-[1rem] text-[var(--cream-color)] translate-x-1 jersey-10-regular">Z</span>
-        <span className="animate-z2 text-[0.8rem] text-[var(--cream-color)] translate-x-0 jersey-10-regular">Z</span>
-        <span className="animate-z3 text-[0.6rem] text-[var(--cream-color)] translate-x-[-0.5rem] jersey-10-regular">Z</span>
+        <span className="animate-z1 text-[1rem] text-white translate-x-1 jersey-10-regular">Z</span>
+        <span className="animate-z2 text-[0.8rem] text-white translate-x-0 jersey-10-regular">Z</span>
+        <span className="animate-z3 text-[0.6rem] text-white translate-x-[-0.5rem] jersey-10-regular">Z</span>
       </div>
     </div>
   );

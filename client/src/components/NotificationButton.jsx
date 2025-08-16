@@ -48,7 +48,7 @@ export default function NotificationButton() {
   return (
     <div ref={wrapperRef}>
       <button
-        className="btn btn-ghost hover:bg-[#52489f] btn-circle shadow-none border-none w-10 h-10 min-h-0"
+        className="w-10 h-10 min-h-0 rounded-full bg-transparent hover:bg-[#52489f] transition-colors duration-200 flex items-center justify-center border-none shadow-none focus:outline-none focus:ring-2 focus:ring-highlight focus:ring-offset-2 focus:ring-offset-[#28243d]"
         onClick={() => setShowNotif((n) => !n)}
       >
         <div className="indicator">

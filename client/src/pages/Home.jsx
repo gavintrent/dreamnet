@@ -18,7 +18,7 @@ export default function Home({ loggedIn }) {
 
   // Memoize StarrySky to prevent re-renders
   const memoizedStarrySky = useMemo(() => (
-    <StarrySky starCount={100} yRange={[12, 24]} xRange={[12, 88]} includeMoon={true} />
+    <StarrySky starCount={100} yRange={[14, 26]} xRange={[12, 88]} includeMoon={true} />
   ), []);
 
   const switchFeed = async (newFeed) => {
